@@ -9,6 +9,7 @@ out_tree_f="tmp/${COG}_${gene_tree_method}_${COG_calling_method}_gene_tree_filen
 only_this_COG_seq=tmp/$COG.faa
 gene_alignment=gene_alignments/$COG.afa
 trimmed_alignment=gene_alignments/trimmed_$COG.afa
+birthdate_f=${gene_tree_method}-${COG_calling_method}-allGeneBirthDate.txt
 
 generate_gene_tree()
 {
@@ -38,7 +39,6 @@ inhouse_scripts_processing()
 	chronogram=$2
 	gene_tree_method=$3
 	COG_calling_method=$4
-	birthdate_f=${gene_tree_method}-${COG_calling_method}-allGeneBirthDate.txt
 
 	recPhyloXML_file=ecceTERA_output/${COG}_symmetric_reconciliation.recPhyloXML
 	chronogram_internal_nodes_f=ecceTERA_analysis/${chronogram%%_sample.chronogram}_${COG}_internal_nodes.txt # %% remove suffix
@@ -113,7 +113,7 @@ fi
 
 ecceTERA_sym="ecceTERA_output/${COG}_symmetric_reconciliation.recPhyloXML"
 if test -f $ecceTERA_sym; then
-	echo "$out_tree exists, use the old alignment"
+	echo "$ecceTERA_sym exists, use the old symmetric reconciliation"
 else
 	ecceTERA species.file=$chronogram gene.file=$out_tree verbose=true print.reconciliations=1 recPhyloXML.reconciliation=true amalgamate=true
 	for type in asymmetric random symmetric; do
@@ -125,6 +125,7 @@ fi
 # This has to be executed in Jimmy's conda base environment
 # XML has some version changes, only the version in my base environment worked...
 inhouse_scripts_processing $COG $chronogram $gene_tree_method $COG_calling_method
+
 
 # but currently, R is broken in my base environment
 source activate anvio-dev
