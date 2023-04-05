@@ -59,6 +59,27 @@ inhouse_scripts_processing()
 	echo ------ >> $birthdate_f
 }
 
+align_genes_and_trim()
+{
+	COG=$1
+	only_this_COG_seq=$2
+	gene_alignment=$3
+	trimmed_alignment=$4
+	echo aligning the COG category: $COG
+	# muscle is localed in this folder, executable downloaded from https://github.com/rcedgar/muscle/releases/tag/5.1.0
+	./muscle5.1 -align $only_this_COG_seq -output $gene_alignment
+
+	tmp_alignment=tmp/$COG.alginment
+	# trim out positions with mostly gaps
+	~/miniconda3/bin/trimal -in $gene_alignment -out $tmp_alignment -automated1 # -gt 0.15
+
+	# we excluded genes with more than 20% of their sequence in these excised regions from each gene family
+	# from "Rapid evolutionary innovation during an Archaean genetic expansion", Eric Alm, 2010
+	./keep_seq_geq_Xpercent.py $tmp_alignment $trimmed_alignment 80
+
+	rm $tmp_alignment
+}
+
 # sanity check
 echo $COG | grep COG
 if [[ $? != 0 ]]; then
@@ -78,12 +99,7 @@ fi
 if test -f "$trimmed_alignment"; then
 	echo "$trimmed_alignment exists, use the old alignment"
 else
-	echo aligning the COG category: $COG
-	# muscle is localed in this folder, executable downloaded from https://github.com/rcedgar/muscle/releases/tag/5.1.0
-	./muscle5.1 -align $only_this_COG_seq -output $gene_alignment
-
-	# trim out positions with mostly gaps
-	~/miniconda3/bin/trimal -in $gene_alignment -out $trimmed_alignment -gt 0.15 # -automated1
+	align_genes_and_trim $COG $only_this_COG_seq $gene_alignment $trimmed_alignment
 fi
 
 
@@ -113,4 +129,6 @@ inhouse_scripts_processing $COG $chronogram $gene_tree_method $COG_calling_metho
 # but currently, R is broken in my base environment
 source activate anvio-dev
 Rscript --vanilla plot-gene-events-histogram.R $COG "iqtree" "diamond"
+Rscript --vanilla plot-gene-timeline.R $COG "iqtree" "diamond"
 source deactivate
+

@@ -1,4 +1,3 @@
-
 library(ggplot2)
 args <- commandArgs(TRUE)
 
@@ -8,8 +7,8 @@ COG_calling_method=args[3]
 
 sym_event_f = paste("ecceTERA_analysis/", COG, "_symmetric.events_event_dates.txt", sep = "")
 plot_title = paste(COG, "Gene Events")
-out_file = paste(COG_calling_method, gene_tree_method, COG, "eventsHistogram.jpg", sep = "-")
-out_file = paste("R-plots", out_file, sep = "/")
+out_file = paste(COG_calling_method, gene_tree_method, COG, "eventsHistogram.png", sep = "-")
+out_file = paste("R-plots", "histogram", out_file, sep = "/")
 
 data <- read.delim(sym_event_f, na.strings="?")
 

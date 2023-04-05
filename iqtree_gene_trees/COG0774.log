@@ -2201,91 +2201,170 @@ Optimizing NNI: done in 243.159 secs using 995.1% CPU
 Optimizing NNI: done in 280.036 secs using 996.2% CPU
 Optimizing NNI: done in 247.335 secs using 987.6% CPU
 Optimizing NNI: done in 211.974 secs using 996.4% CPU
-mor, Heiko Schmidt, Dominik Schrempf, Michael Woodhams, Ly Trong Nhan.
-
-Host:    deming (AVX512, FMA3, 1511 GB RAM)
-Command: iqtree -s gene_alignments/trimmed_COG0774.afa -m MFP -bb 1000 -wbtl -ntmax 10 -nt AUTO -T 10 --prefix /researchdrive/zhongj2/tree-reconciliation/iqtree_gene_trees/COG0774 -madd C10,C20,C30,C40,C50,C60,EX2,EX3,EHO,UL2,UL3,EX_EHO,LG4M,LG4X,CF4 -mrate E,I,G,I+G,R
-Seed:    117788 (Using SPRNG - Scalable Parallel Random Number Generator)
-Time:    Tue Apr  4 10:53:46 2023
-Kernel:  AVX+FMA - 10 threads (128 CPU cores detected)
-
-Reading alignment file gene_alignments/trimmed_COG0774.afa ... Fasta format detected
-Reading fasta file: done in 0.00560166 secs using 95.42% CPU
-Alignment most likely contains protein sequences
-Constructing alignment: done in 0.00503031 secs using 672.8% CPU
-Alignment has 469 sequences with 443 columns, 443 distinct patterns
-430 parsimony-informative, 11 singleton sites, 1 constant sites
-                                                                                  Gap/Ambiguity  Composition  p-value
-Analyzing sequences: done in 0.000226207 secs using 1514% CPU
-   1  GCA.002401295.1.Bacteria.SAR324_NVSR01000114.1_19                                  36.34%    passed      6.42%
-   2  GCA.003167475.1.Bacteria.Goldbacteria_PMTB01000111.1_7                             67.27%    failed      0.00%
-   3  GCF.001613805.1.Bacteria.Proteobacteria_NZ_LPVY01000001.1_31                       32.28%    passed     94.08%
-   4  GCA.002449765.1.Bacteria.Fibrobacterota_DJXN01000004.1_78                          41.76%    failed      2.35%
-   5  GCA.003508595.1.Bacteria.Planctomycetota_DNUF01000251.1_21                         48.08%    passed     42.44%
-   6  GCA.001303705.1.Bacteria.TA06_LJUI01000026.1_39                                     4.06%    passed     41.18%
-   7  GCA.002716725.1.Bacteria.Margulisbacteria_PBBX01000030.1_25                        38.60%    failed      0.00%
-   8  GCA.001797335.1.Bacteria.Bdellovibrionota.E_MGPE01000013.1_68                      31.38%    passed     42.31%
-   9  GCA.003477045.1.Bacteria.Delongbacteria_DMTS01000123.1_6                            1.58%    failed      3.51%
-  10  GCA.002411145.1.Bacteria.Firmicutes.C_DHRA01000025.1_82                            37.47%    passed     98.74%
-  11  GCA.002340345.1.Bacteria.Proteobacteria_DDLW01000248.1_3                           30.93%    passed     96.16%
-  12  GCA.002298155.1.Bacteria.Acidobacteriota_DBME01000357.1_5                          65.69%    passed     48.14%
-  13  GCA.002010665.1.Bacteria.Acidobacteriota_MTON01000005.1_30                         33.41%    failed      0.06%
-  14  GCF.002020875.1.Bacteria.Proteobacteria_WP_078482465.1                             32.05%    passed     91.88%
-  15  GCA.000739515.1.Bacteria.Moduliflexota_DF820460.1_386                              67.72%    passed     71.85%
-  16  GCA.003280605.1.Bacteria.Proteobacteria_QCEM01000022.1_26                          32.73%    passed     28.45%
-  17  GCA.002730875.1.Bacteria.Spirochaetota_PCBI01000005.1_30                           32.05%    passed     98.04%
-  18  GCA.003154195.1.Bacteria.Omnitrophota_PMCS01000011.1_1                              2.71%    passed     79.71%
-  19  GCA.002683115.1.Bacteria.Proteobacteria_NYSP01000018.1_7                           32.28%    passed     26.01%
-  20  GCF.900104455.1.Bacteria.Firmicutes.C_NZ_FNHB01000008.1_2                          37.02%    passed     10.48%
-  21  GCA.002050035.1.Bacteria.4484.113_MVCR01000067.1_6                                 37.70%    passed      7.63%
-  22  GCA.002791075.1.Bacteria.Ratteibacteria_PFWI01000146.1_3                            2.03%    passed      8.57%
-  23  GCA.001804885.1.Bacteria.Verrucomicrobiota_MHBM01000176.1_2                        36.34%    passed     28.22%
-  24  GCA.001828445.1.Bacteria.Planctomycetota_MHYJ01000083.1_5                          20.54%    passed     21.03%
-  25  GCA.002898895.1.Bacteria.Armatimonadota_BEHS01000152.1_8                           38.37%    passed     12.33%
-  26  GCA.003137095.1.Bacteria.Proteobacteria_PLET01000103.1_36                          32.05%    passed     76.45%
-  27  GCA.003170085.1.Bacteria.Planctomycetota_PMZT01000090.1_15                         37.25%    passed     53.79%
-  28  GCA.001801745.1.Bacteria.Proteobacteria_MGYM01000011.1_46                          32.28%    passed     11.52%
-  29  GCA.002412545.1.Bacteria.Elusimicrobiota_DHVG01000001.1_224                         2.71%    passed     17.57%
-  30  GCA.002329525.1.Bacteria.Firmicutes.C_DCTI01000110.1_3                             73.59%    failed      1.30%
-  31  GCF.000328625.1.Bacteria.Firmicutes.F_NC_019978.1_2344                             37.92%    passed      6.90%
-  32  GCF.002798435.1.Bacteria.Proteobacteria_WP_109793052.1                             32.73%    passed      9.26%
-  33  GCA.001464165.1.Bacteria.Cyanobacteria_LNEX01000152.1_7                            41.53%    passed      8.74%
-  34  GCA.002898315.1.Bacteria.Calescibacterota_BEHV01000001.1_152                       38.83%    failed      1.42%
-  35  GCF.000024725.1.Bacteria.Proteobacteria_NC_013960.1_492                            32.05%    passed     85.90%
-  36  GCA.001784175.1.Bacteria.Lindowbacteria_MFPR01000027.1_46                           3.16%    passed     38.88%
-  37  GCF.000300295.4.Bacteria.Proteobacteria_WP_016209336.1                             35.89%    passed     97.04%
-  38  GCA.002414805.1.Bacteria.Fibrobacterota_DIAU01000098.1_15                          44.24%    failed      0.00%
-  39  GCA.002369235.1.Bacteria.Verrucomicrobiota_DFFF01000013.1_32                       36.34%    passed      8.93%
-  40  GCA.003230535.1.Bacteria.SZUA.182_QIEW01000262.1_3                                 67.72%    passed      7.54%
-  41  GCA.002787095.1.Bacteria.Omnitrophota_PCVW01000032.1_12                             1.13%    passed     49.96%
-  42  GCA.001873285.1.Bacteria.CG2.30.53.67_MNYV01000125.1_13                            30.70%    passed     62.98%
-  43  GCA.002841695.1.Bacteria.Elusimicrobiota_PHAN01000003.1_104                         2.48%    passed     11.31%
-  44  GCA.002347965.1.Bacteria.UBA2233_DDYN01000013.1_68                                 32.51%    passed     30.06%
-  45  GCA.002789615.1.Bacteria.Acidobacteriota_PFTO01000101.1_6                          37.25%    passed     52.33%
-  46  GCA.002327255.1.Bacteria.KSB1_DCUM01000238.1_5                                      1.35%    passed     72.43%
-  47  GCF.900142435.1.Bacteria.Aquificota_NZ_LT670846.1_421                              39.50%    failed      0.00%
-  48  GCF.001641825.1.Bacteria.Proteobacteria_NZ_LRFH01000004.1_185                      32.05%    passed     90.57%
-  49  GCA.002469885.1.Bacteria.Proteobacteria_DKOI01000046.1_17                          31.83%    passed     76.28%
-  50  GCA.003223635.1.Bacteria.Acidobacteriota_QHVS01000147.1_17                         67.72%    passed     45.49%
-  51  GCA.002409975.1.Bacteria.Firmicutes.G_DHOO01000114.1_5                             37.25%    passed     71.45%
-  52  GCF.900116225.1.Bacteria.Bacteroidota_NZ_FOZZ01000003.1_165                         2.03%    passed     52.82%
-  53  GCA.001767075.1.Bacteria.Acidobacteriota_MEKX01000072.1_6                          61.17%    passed     46.85%
-  54  GCA.002500565.1.Bacteria.Proteobacteria_DLRV01000034.1_9                           34.54%    passed     27.30%
-  55  GCA.001803235.1.Bacteria.Verrucomicrobiota_MHBL01000313.1_2                        36.12%    failed      2.18%
-  56  GCA.001750645.1.Bacteria.Proteobacteria_MEIF01000002.1_7                           32.51%    passed     63.51%
-  57  GCA.002878375.1.Bacteria.Dictyoglomota_NIRF01000003.1_101                          37.92%    failed      0.82%
-  58  GCA.002746535.1.Bacteria.Planctomycetota_NVWA01000037.1_11                          4.97%    failed      1.42%
-  59  GCA.001412365.1.Bacteria.WOR.3_LKUE01000211.1_14                                   66.82%    passed      5.94%
-  60  GCA.003242895.1.Bacteria.Margulisbacteria_QKMY01000024.1_24                        36.79%    passed     12.46%
-  61  GCA.002712165.1.Bacteria.Proteobacteria_PASS01000045.1_12                          30.93%    passed      9.85%
-  62  GCF.000425045.1.Bacteria.Firmicutes.C_NZ_AULA01000001.1_133                        36.57%    passed     70.09%
-  63  GCA.002085355.1.Bacteria.KSB1_NATN01000023.1_6                                      1.35%    passed     27.35%
-  64  GCA.003133645.1.Bacteria.Acidobacteriota_PKYI01000202.1_5                          33.18%    failed      0.17%
-  65  GCA.002868855.1.Bacteria.Proteobacteria_PKUM01000208.1_12                          32.28%    passed     80.52%
-  66  GCA.001771285.1.Bacteria.Methylomirabilota_METI01000196.1_24                       31.38%    passed     47.90%
-  67  GCA.001797415.1.Bacteria.Desulfobacterota_MGPL01000143.1_8                         30.70%    passed     12.55%
-  68  GCA.002431715.1.Bacteria.Armatimonadota_DJHI01000164.1_10                          57.56%    passed     90.45%
-  69  GCA.015473125.1.Eukaryota.Viridiplantae_GHP11047.1                                 52.14%    passed     55.53%
+Optimizing NNI: done in 248.788 secs using 996.8% CPU
+Optimizing NNI: done in 229.336 secs using 997.2% CPU
+Iteration 520 / LogL: -218822.426 / Time: 43h:54m:12s (6h:46m:2s left)
+Optimizing NNI: done in 206.666 secs using 996.7% CPU
+Optimizing NNI: done in 276.5 secs using 996.5% CPU
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 522: -218811.648
+Optimizing NNI: done in 212.229 secs using 996.4% CPU
+Optimizing NNI: done in 195.032 secs using 996.8% CPU
+Optimizing NNI: done in 236.719 secs using 995.7% CPU
+Optimizing NNI: done in 313.709 secs using 996.5% CPU
+Optimizing NNI: done in 271.335 secs using 995.8% CPU
+Optimizing NNI: done in 236.203 secs using 996.5% CPU
+Optimizing NNI: done in 228.262 secs using 996.3% CPU
+Optimizing NNI: done in 225.655 secs using 995.9% CPU
+Iteration 530 / LogL: -218840.736 / Time: 44h:34m:46s (7h:45m:10s left)
+Optimizing NNI: done in 267.23 secs using 996.7% CPU
+Optimizing NNI: done in 224.533 secs using 995.8% CPU
+Optimizing NNI: done in 234.289 secs using 997.1% CPU
+Optimizing NNI: done in 212.062 secs using 995.6% CPU
+Optimizing NNI: done in 301.802 secs using 996.1% CPU
+Optimizing NNI: done in 250.532 secs using 996.5% CPU
+Optimizing NNI: done in 219.423 secs using 995% CPU
+Optimizing NNI: done in 232.617 secs using 996.5% CPU
+Optimizing NNI: done in 258.903 secs using 994.8% CPU
+Optimizing NNI: done in 267.7 secs using 994.1% CPU
+Iteration 540 / LogL: -218831.970 / Time: 45h:16m:9s (6h:53m:13s left)
+Optimizing NNI: done in 227.719 secs using 996% CPU
+Optimizing NNI: done in 262.186 secs using 994.7% CPU
+Optimizing NNI: done in 233.682 secs using 994.6% CPU
+Optimizing NNI: done in 247.726 secs using 994.4% CPU
+Optimizing NNI: done in 222.156 secs using 996.6% CPU
+Optimizing NNI: done in 235.545 secs using 995.5% CPU
+Optimizing NNI: done in 319.845 secs using 995% CPU
+Optimizing NNI: done in 258.534 secs using 995.6% CPU
+Optimizing NNI: done in 226.038 secs using 996.1% CPU
+Optimizing NNI: done in 273.224 secs using 995% CPU
+Iteration 550 / LogL: -218825.057 / Time: 45h:58m:10s (6h:1m:43s left)
+Log-likelihood cutoff on original alignment: -219037.442
+UFBoot trees printed to /researchdrive/zhongj2/tree-reconciliation/iqtree_gene_trees/COG0774.ufboot
+Optimizing NNI: done in 234.102 secs using 996.8% CPU
+Optimizing NNI: done in 197.535 secs using 996.1% CPU
+Optimizing NNI: done in 229.681 secs using 996.7% CPU
+Optimizing NNI: done in 215.259 secs using 996.6% CPU
+Optimizing NNI: done in 238.106 secs using 996.5% CPU
+Optimizing NNI: done in 227.336 secs using 996.5% CPU
+Optimizing NNI: done in 225.617 secs using 996.4% CPU
+Optimizing NNI: done in 229.119 secs using 996.7% CPU
+Optimizing NNI: done in 255.224 secs using 996.6% CPU
+Optimizing NNI: done in 219.327 secs using 995.9% CPU
+Iteration 560 / LogL: -218831.596 / Time: 46h:36m:20s (5h:10m:8s left)
+Optimizing NNI: done in 218.559 secs using 996.6% CPU
+Optimizing NNI: done in 193.046 secs using 996.7% CPU
+Optimizing NNI: done in 356.304 secs using 989.6% CPU
+Optimizing NNI: done in 382.913 secs using 994.7% CPU
+Optimizing NNI: done in 305.981 secs using 989.1% CPU
+Optimizing NNI: done in 274.058 secs using 992.4% CPU
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 566: -218809.597
+Optimizing NNI: done in 271.636 secs using 987.5% CPU
+Optimizing NNI: done in 295.642 secs using 983.1% CPU
+Optimizing NNI: done in 282.887 secs using 991.1% CPU
+Optimizing NNI: done in 291.329 secs using 989.2% CPU
+Iteration 570 / LogL: -218838.144 / Time: 47h:25m:27s (8h:0m:4s left)
+Optimizing NNI: done in 318.472 secs using 995.3% CPU
+Optimizing NNI: done in 246.04 secs using 996.5% CPU
+Optimizing NNI: done in 220.414 secs using 991.7% CPU
+Optimizing NNI: done in 267.562 secs using 991.8% CPU
+Optimizing NNI: done in 206.644 secs using 994.6% CPU
+Optimizing NNI: done in 310.552 secs using 996.7% CPU
+Optimizing NNI: done in 202.692 secs using 997% CPU
+Optimizing NNI: done in 412.899 secs using 997.2% CPU
+Optimizing NNI: done in 236.845 secs using 996.6% CPU
+Optimizing NNI: done in 266.75 secs using 997.1% CPU
+Iteration 580 / LogL: -218823.187 / Time: 48h:10m:31s (7h:9m:20s left)
+Optimizing NNI: done in 248.312 secs using 997% CPU
+Optimizing NNI: done in 235.914 secs using 996.4% CPU
+Optimizing NNI: done in 222.604 secs using 996.5% CPU
+Optimizing NNI: done in 218.935 secs using 996.3% CPU
+Optimizing NNI: done in 247.534 secs using 996.4% CPU
+Optimizing NNI: done in 207.252 secs using 996.4% CPU
+Optimizing NNI: done in 236.158 secs using 996.5% CPU
+Optimizing NNI: done in 249.249 secs using 996.7% CPU
+Optimizing NNI: done in 252.276 secs using 996.2% CPU
+Optimizing NNI: done in 220.567 secs using 996.8% CPU
+Iteration 590 / LogL: -218816.473 / Time: 48h:49m:43s (6h:18m:1s left)
+Optimizing NNI: done in 230.424 secs using 996.2% CPU
+Optimizing NNI: done in 245.384 secs using 997.2% CPU
+Optimizing NNI: done in 235.529 secs using 996.7% CPU
+Optimizing NNI: done in 231.77 secs using 996.2% CPU
+Optimizing NNI: done in 244.593 secs using 997.2% CPU
+Optimizing NNI: done in 285.932 secs using 997.4% CPU
+Optimizing NNI: done in 217.982 secs using 996.4% CPU
+Optimizing NNI: done in 257.229 secs using 996.8% CPU
+Optimizing NNI: done in 213.779 secs using 996.6% CPU
+Optimizing NNI: done in 218.001 secs using 996.8% CPU
+Iteration 600 / LogL: -218833.420 / Time: 49h:29m:38s (5h:27m:12s left)
+Log-likelihood cutoff on original alignment: -219037.442
+NOTE: Bootstrap correlation coefficient of split occurrence frequencies: 0.823
+NOTE: UFBoot does not converge, continue at least 100 more iterations
+UFBoot trees printed to /researchdrive/zhongj2/tree-reconciliation/iqtree_gene_trees/COG0774.ufboot
+Optimizing NNI: done in 270.02 secs using 997.3% CPU
+Optimizing NNI: done in 256.763 secs using 996.6% CPU
+Optimizing NNI: done in 266.998 secs using 996.9% CPU
+Optimizing NNI: done in 233.604 secs using 996.2% CPU
+Optimizing NNI: done in 237.211 secs using 996.6% CPU
+Optimizing NNI: done in 280.083 secs using 996.9% CPU
+Optimizing NNI: done in 283.737 secs using 996.2% CPU
+Optimizing NNI: done in 238.203 secs using 996.9% CPU
+Optimizing NNI: done in 244.488 secs using 996.4% CPU
+Optimizing NNI: done in 269.81 secs using 996.9% CPU
+Iteration 610 / LogL: -218813.667 / Time: 50h:12m:56s (7h:25m:15s left)
+Optimizing NNI: done in 256.361 secs using 994.2% CPU
+Optimizing NNI: done in 222.529 secs using 996.9% CPU
+Optimizing NNI: done in 246.532 secs using 995.5% CPU
+Optimizing NNI: done in 234.837 secs using 996.8% CPU
+Optimizing NNI: done in 241.358 secs using 997.3% CPU
+Optimizing NNI: done in 249.065 secs using 996.9% CPU
+Optimizing NNI: done in 238.263 secs using 996.5% CPU
+Optimizing NNI: done in 247.149 secs using 995.7% CPU
+Optimizing NNI: done in 224.535 secs using 994.4% CPU
+Optimizing NNI: done in 344.705 secs using 996.7% CPU
+Iteration 620 / LogL: -218824.988 / Time: 50h:54m:57s (6h:34m:49s left)
+Optimizing NNI: done in 207.753 secs using 996.7% CPU
+Optimizing NNI: done in 245.555 secs using 993.2% CPU
+Optimizing NNI: done in 297.411 secs using 993.8% CPU
+Optimizing NNI: done in 250.115 secs using 995.9% CPU
+Optimizing NNI: done in 255.567 secs using 995.2% CPU
+Optimizing NNI: done in 235.997 secs using 993.9% CPU
+Optimizing NNI: done in 261.403 secs using 994.1% CPU
+Optimizing NNI: done in 217.336 secs using 993.3% CPU
+Optimizing NNI: done in 243.939 secs using 992.7% CPU
+Optimizing NNI: done in 303.421 secs using 993.3% CPU
+Iteration 630 / LogL: -218833.136 / Time: 51h:37m:10s (5h:44m:40s left)
+Optimizing NNI: done in 223.364 secs using 994.1% CPU
+Optimizing NNI: done in 294.081 secs using 995.6% CPU
+Optimizing NNI: done in 268.491 secs using 994.2% CPU
+Optimizing NNI: done in 237.293 secs using 993.1% CPU
+Optimizing NNI: done in 255.268 secs using 993% CPU
+Optimizing NNI: done in 204.859 secs using 994.3% CPU
+Optimizing NNI: done in 199.577 secs using 994.4% CPU
+Optimizing NNI: done in 234.628 secs using 994.4% CPU
+Optimizing NNI: done in 224.926 secs using 992.9% CPU
+Optimizing NNI: done in 244.945 secs using 993.9% CPU
+Iteration 640 / LogL: -218843.364 / Time: 52h:17m:13s (4h:54m:34s left)
+Optimizing NNI: done in 206.782 secs using 994.8% CPU
+Optimizing NNI: done in 225.358 secs using 993.6% CPU
+Optimizing NNI: done in 244.489 secs using 993.4% CPU
+Optimizing NNI: done in 254.499 secs using 993.1% CPU
+Optimizing NNI: done in 253.413 secs using 993.6% CPU
+Optimizing NNI: done in 276.75 secs using 995.9% CPU
+Optimizing NNI: done in 242.821 secs using 995.7% CPU
+Optimizing NNI: done in 235.664 secs using 995.5% CPU
+Optimizing NNI: done in 267.603 secs using 995.2% CPU
+Optimizing NNI: done in 235.502 secs using 995.1% CPU
+Iteration 650 / LogL: -218854.986 / Time: 52h:58m:11s (4h:4m:51s left)
+Log-likelihood cutoff on original alignment: -219037.442
+UFBoot trees printed to /researchdrive/zhongj2/tree-reconciliation/iqtree_gene_trees/COG0774.ufboot
+Optimizing NNI: done in 233.535 secs using 996% CPU
+Optimizing NNI: done in 237.832 secs using 994.6% CPU
+Optimizing NNI: done in 227.302 secs using 996.3% CPU
+Optimizing NNI: done in 241.739 secs using 995% CPU
+Optimizing NNI: done in 243.595 secs using 995.7% CPU
+%    passed     55.53%
   70  GCA.002348425.1.Bacteria.Proteobacteria_DEBE01000083.1_3                           30.25%    passed     58.33%
   71  GCF.000757605.1.Bacteria.Proteobacteria_NZ_JQAK01000001.1_715                      35.44%    passed     70.23%
   72  GCF.900177345.1.Bacteria.Proteobacteria_NZ_FWZT01000001.1_302                      30.47%    passed     81.54%
