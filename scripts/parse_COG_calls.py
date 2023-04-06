@@ -145,7 +145,7 @@ filter diamond alignment:
 diamond-out.tsv -> align our representive genome with the COG2020 database
 '''
 def open_diamond_COG_calls():
-	outfile = "diamond_ORFid_COG_evalue.csv"
+	outfile = "tmp/diamond_ORFid_COG_evalue.csv"
 
 	if os.path.isfile(outfile):
 		print(f"we figured out {outfile}. Just read the file and be done")

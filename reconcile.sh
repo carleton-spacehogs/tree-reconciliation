@@ -174,6 +174,12 @@ extractSeq_align_makeTree_and_reconcile() {
 	gene_seq_file=tmp/$COG.faa
 	python3 scripts/grep_seq_given_COG.py $COG $COG_calling_method $gene_seq_file $all_seq_fasta
 
+	if [ $? -ne 0 ]; then
+		echo grabbing the sequence for $COG not successful, stop here
+		rm $gene_seq_file
+		exit 1
+	fi
+
 	align_makeTree_and_reconcile $gene_seq_file
 }
 
