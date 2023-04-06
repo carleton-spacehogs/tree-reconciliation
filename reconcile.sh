@@ -96,14 +96,15 @@ parse_gene_name() { echo $1 | awk -F '/' '{print $NF}' | awk -F '.' '{print $1}'
 
 reconcile_and_analysis() {
 	gene_tree=$1
-	echo "I am given ---
-gene tree: $gene_tree
-species tree: $chronogram
---- now reconciling them"
+	echo "
+	gene tree: $gene_tree
+	species tree: $chronogram
+	now reconciling them
+	"
 
 	gene_name=$(parse_gene_name $gene_tree)
 	# e.g. gene_tree=iqtree_gene_trees/COG0774.ufboot
-	#      gene_name=COG0774
+	# ---> gene_name=COG0774
 
 	run_ecceTERA $chronogram $gene_tree $gene_name
 	inhouse_scripts_processing $chronogram $gene_name
@@ -112,8 +113,8 @@ species tree: $chronogram
 
 	# currently, R is broken in my base environment
 	source activate anvio-dev
-	Rscript --vanilla plot-gene-events-histogram.R $gene_name "iqtree" "diamond"
-	Rscript --vanilla plot-gene-timeline.R $gene_name "iqtree" "diamond"
+	Rscript --vanilla plot-gene-events-histogram.R $gene_name $gene_tree_method $COG_calling_method
+	Rscript --vanilla plot-gene-timeline.R $gene_name $gene_tree_method $COG_calling_method
 	source deactivate
 }
 
