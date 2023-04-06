@@ -42,7 +42,7 @@ run_ecceTERA()
 			else
 				# if for some reason ecceTERA fails, stop here
 				echo I do not have ---- $old_f ----, I will stop here
-				exit 51
+				exit 52
 			fi
 		done
 	fi

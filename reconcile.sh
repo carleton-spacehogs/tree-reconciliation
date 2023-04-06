@@ -88,8 +88,11 @@ while true; do
 	esac
 done
 
+parse_gene_name() {
+	# e.g. iqtree_gene_trees/COG0774.ufboot -> COG0774
+	echo $1 | awk -F '/' '{print $NF}' | awk -F '.' '{print $1}'
+}
 
-parse_gene_name() { echo $1 | awk -F '/' '{print $NF}' | awk -F '.' '{print $1}'; }
 free_memory() { free | grep Mem | awk '{print $4/$2 * 100.0}'; }
 
 reconcile_and_analysis() {
@@ -101,18 +104,22 @@ reconcile_and_analysis() {
 	"
 
 	gene_name=$(parse_gene_name $gene_tree)
-	# e.g. gene_tree=iqtree_gene_trees/COG0774.ufboot
-	# ---> gene_name=COG0774
 
 	run_ecceTERA $chronogram $gene_tree $gene_name
+
+	if [ $? -ne 0 ]; then
+		echo ecceTERA failed... Stop here
+		exit 1
+	fi
+
 	inhouse_scripts_processing $chronogram $gene_name
 	# inhouse_scripts_processing must executed in Jimmy's conda base environment
 	# XML has some version changes, only the version in my base environment worked...
 
 	# currently, R is broken in my base environment
 	source activate anvio-dev
-	Rscript --vanilla plot-gene-events-histogram.R $gene_name $gene_tree_method $COG_calling_method
-	Rscript --vanilla plot-gene-timeline.R $gene_name $gene_tree_method $COG_calling_method
+	Rscript --vanilla scripts/plot-gene-events-histogram.R $gene_name $gene_tree_method $COG_calling_method
+	Rscript --vanilla scripts/plot-gene-timeline.R $gene_name $gene_tree_method $COG_calling_method
 	source deactivate
 }
 
