@@ -176,7 +176,7 @@ extractSeq_align_makeTree_and_reconcile() {
 
 # if given both gene and species tree, just do the reconciliation
 if [ ! -z "$gene_tree" ]; then
-	reconciliation_and_analysis $gene_tree
+	reconcile_and_analysis $gene_tree
 	exit $?
 elif [ ! -z "$alignment" ]; then
 	makeTree_and_reconcile $alignment
