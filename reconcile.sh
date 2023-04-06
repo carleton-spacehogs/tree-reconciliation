@@ -23,8 +23,6 @@ choose only one of the entry point to start this program
 --gene_trees [a collection of newick gene trees; output of iqtree or RAXML]
 	e.g.: $(pwd) --gene_trees COG0035_trees.ufboot
 
-COG:,gene_tree:,species_tree:,alignment:,gene_sequence
-
 
 Other options:
 --stop_before_reconciliation
@@ -41,12 +39,12 @@ Other options:
 
 chronogram=ugam1_ChenParamsEarth_sample.chronogram
 all_seq_fasta=SingleLine_EnrichedGenomes.faa
-num_core=10
+num_core=10 # not used with iqtree, iqtree will decide, by itself, how many CPU to use
 gene_tree_method=iqtree
 COG_calling_method=diamond
 
 
-options=$(getopt -o c:gt:s:a:gs:h --long COG:,gene_tree:,species_tree:,alignment:,gene_sequence:,stop_before_reconciliation,help -- "$@")
+options=$(getopt -o c:gt:s:a:gs:h --long COG:,gene_tree:,species_tree:,alignment:,gene_sequences:,stop_before_reconciliation,help -- "$@")
 eval set -- "$options"
 
 while true; do
@@ -71,8 +69,8 @@ while true; do
 			alignment="$2"
 			shift 2
 			;;
-		-gs|--gene_sequence)
-			gene_sequence="$2"
+		-gs|--gene_sequences)
+			gene_sequences="$2"
 			shift 2
 			;;
 		--stop_before_reconciliation)
@@ -92,7 +90,7 @@ done
 
 
 parse_gene_name() { echo $1 | awk -F '/' '{print $NF}' | awk -F '.' '{print $1}'; }
-
+free_memory() { free | grep Mem | awk '{print $4/$2 * 100.0}'; }
 
 reconcile_and_analysis() {
 	gene_tree=$1
@@ -124,18 +122,18 @@ makeTree_and_reconcile() {
 	gene_name=$(parse_gene_name $alignment)
 
 	echo trimming the original alignment $alignment
-	tmp_alignment=tmp/$gene_name.alignment
+	trimv1=gene_alignments/trimv1_$gene_name.afa
 	# trim out positions with mostly gaps
-	~/miniconda3/bin/trimal -in $alignment -out $tmp_alignment -gt 0.15 # -automated1
+	~/miniconda3/bin/trimal -in $alignment -out $trimv1 -gt 0.15 # -automated1
 	
 	# we excluded genes with more than 20% gaps in the trimmed alignment
-	trimmed_alignment=gene_alignments/trimmed_$COG.afa
-	./keep_seq_geq_Xpercent.py $tmp_alignment $trimmed_alignment 80
-	rm $tmp_alignment
+	trimv2=gene_alignments/trimv2_$gene_name.afa
+	python3 scripts/keep_seq_geq_Xpercent.py $trimv1 $trimv2 80
+	# rm $trimv1
 
 	# we store the filename of the outputted gene tree here:
 	store_gene_tree_filename="tmp/${gene_name}_${gene_tree_method}_gene_tree_filename.txt"
-	generate_gene_tree $gene_tree_method $trimmed_alignment $gene_name $num_core $store_gene_tree_filename
+	generate_gene_tree $gene_tree_method $trimv2 $gene_name $num_core $store_gene_tree_filename
 
 	if [ "$stop_before_reconciliation" = true ]; then
 		echo I see --stop_before_reconciliation, so I stop
@@ -148,7 +146,7 @@ makeTree_and_reconcile() {
 
 
 align_makeTree_and_reconcile() {
-	seq_file=$1 # gene_sequence
+	seq_file=$1 # gene_sequences
 	gene_name=$(parse_gene_name ${seq_file})
 	alignment=gene_alignments/${gene_name}.afa
 	echo aligning this gene: $gene_name, and alignment output: $alignment
@@ -169,7 +167,7 @@ extractSeq_align_makeTree_and_reconcile() {
 	fi
 
 	gene_seq_file=tmp/$COG.faa
-	python3 grep_seq_given_COG.py $COG $COG_calling_method $gene_seq_file $all_seq_fasta
+	python3 scripts/grep_seq_given_COG.py $COG $COG_calling_method $gene_seq_file $all_seq_fasta
 
 	align_makeTree_and_reconcile $gene_seq_file
 }
@@ -182,8 +180,8 @@ if [ ! -z "$gene_tree" ]; then
 elif [ ! -z "$alignment" ]; then
 	makeTree_and_reconcile $alignment
 	exit $?
-elif [ ! -z "$gene_sequence" ]; then
-	align_makeTree_and_reconcile $gene_sequence
+elif [ ! -z "$gene_sequences" ]; then
+	align_makeTree_and_reconcile $gene_sequences
 	exit $?
 elif [ ! -z "$COG" ]; then
 	extractSeq_align_makeTree_and_reconcile $COG
