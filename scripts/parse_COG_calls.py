@@ -7,7 +7,8 @@ deepnog_COG_call_file = "SingleLine_deepnog.csv"
 confidence_level = 0.7
 
 diamond_blast_output = "diamond-out.tsv"
-COG_ref = "/researchdrive/zhongj2/cog-20.cog.csv"
+# COG databases are all here: /workspace/data/Space_Hogs_shared_workspace/databases/anvio_cogs_database/COG20/
+COG_ref = "/workspace/data/Space_Hogs_shared_workspace/databases/anvio_cogs_database/COG20/RAW_DATA_FROM_NCBI/cog-20.cog.csv"
 requirements = "minimum 30% identity, maximum e-value of 10-5, minimum 70% subject and query alignment"
 
 '''
