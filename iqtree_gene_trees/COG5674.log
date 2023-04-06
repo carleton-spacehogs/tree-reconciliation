@@ -3,19 +3,19 @@ Developed by Bui Quang Minh, James Barbetti, Nguyen Lam Tung,
 Olga Chernomor, Heiko Schmidt, Dominik Schrempf, Michael Woodhams, Ly Trong Nhan.
 
 Host:    deming (AVX512, FMA3, 1511 GB RAM)
-Command: iqtree -s gene_alignments/trimv2_COG5674.afa -m MFP -bb 1000 -wbtl -ntmax 10 -nt AUTO -T AUTO --prefix iqtree_gene_trees/COG5674 -madd C10,C20,C30,C40,C50,C60,EX2,EX3,EHO,UL2,UL3,EX_EHO,LG4M,LG4X,CF4,LG+C10,LG+C20,LG+C30,LG+C40,LG+C50,LG+C60 -mrate E,I,G,I+G,R
-Seed:    12181 (Using SPRNG - Scalable Parallel Random Number Generator)
-Time:    Thu Apr  6 14:25:31 2023
-Kernel:  AVX+FMA - auto-detect threads (128 CPU cores detected)
+Command: iqtree -s gene_alignments/trimv2_COG5674.afa -m MFP -bb 1000 -wbtl -ntmax 10 -nt AUTO -T 10 --prefix iqtree_gene_trees/COG5674 -madd C10,C20,C30,C40,C50,C60,EX2,EX3,EHO,UL2,UL3,EX_EHO,LG4M,LG4X,CF4,LG+C10,LG+C20,LG+C30,LG+C40,LG+C50,LG+C60 -mrate E,I,G,I+G,R
+Seed:    175962 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Thu Apr  6 16:00:39 2023
+Kernel:  AVX+FMA - 10 threads (128 CPU cores detected)
 
 Reading alignment file gene_alignments/trimv2_COG5674.afa ... Fasta format detected
-Reading fasta file: done in 0.000230342 secs using 24.31% CPU
+Reading fasta file: done in 0.000116043 secs
 Alignment most likely contains protein sequences
-Constructing alignment: done in 0.000587597 secs using 2492% CPU
+Constructing alignment: done in 0.00029926 secs using 98.91% CPU
 Alignment has 20 sequences with 75 columns, 72 distinct patterns
 49 parsimony-informative, 11 singleton sites, 15 constant sites
                                                                Gap/Ambiguity  Composition  p-value
-Analyzing sequences: done in 0.0162001 secs using 7714% CPU
+Analyzing sequences: done in 1.77473e-05 secs using 84.52% CPU
    1  GCF.000473895.1.Bacteria.Cyanobacteria_NZ_ASSJ01000035.1_128     4.00%    passed     79.93%
    2  GCF.000353285.1.Bacteria.Cyanobacteria_NZ_KB731324.1_4809        5.33%    passed     99.95%
    3  GCF.000017845.1.Bacteria.Cyanobacteria_NC_010546.1_1775          4.00%    passed     99.84%
@@ -37,1704 +37,1178 @@ Analyzing sequences: done in 0.0162001 secs using 7714% CPU
   19  UCYNA2_KFF42045.1                                                1.33%    passed     93.41%
   20  GCA.001698445.1.Bacteria.Cyanobacteria_MBRF01000013.1_86         4.00%    passed     84.13%
 ****  TOTAL                                                            4.80%  0 sequences failed composition chi2 test (p-value<5%; df=19)
-Checking for duplicate sequences: done in 0.0148684 secs using 8130% CPU
+Checking for duplicate sequences: done in 0.000147499 secs using 19.66% CPU
 
+NOTE: Restoring information from model checkpoint file iqtree_gene_trees/COG5674.model.gz
+WARNING: 10 threads for alignment length 72 will slow down analysis
 
-Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.002 seconds
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-268 trees examined
-Threads: 1 / Time: 10.006 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1693
-Threads: 2 / Time: 8.668 sec / Speedup: 1.154 / Efficiency: 58% / LogL: -1693
-Threads: 3 / Time: 7.522 sec / Speedup: 1.330 / Efficiency: 44% / LogL: -1693
-Determining AUTO threadcount: done in 26.1967 secs using 191.3% CPU
-BEST NUMBER OF THREADS: 2
-
+CHECKPOINT: Initial tree restored
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
 Perform fast likelihood tree search using LG+I+G model...
-Estimate model parameters (epsilon = 5.000)
-Perform nearest neighbor interchange...
-Optimizing NNI: done in 0.0665416 secs using 196.1% CPU
-Estimate model parameters (epsilon = 1.000)
-1. Initial log-likelihood: -1546.180
-Optimal log-likelihood: -1545.915
-Proportion of invariable sites: 0.131
-Gamma shape alpha: 1.596
-Parameters optimization took 1 rounds (0.020 sec)
-Time for fast ML tree search: 0.131 seconds
-
+CHECKPOINT: Tree restored, LogL: -1546.164
 NOTE: ModelFinder requires 3 MB RAM!
 ModelFinder will test up to 749 protein models (sample size: 75) ...
  No. Model         -LnL         df  AIC          AICc         BIC
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-528 trees examined
-Threads: 1 / Time: 27.876 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1761
-Threads: 2 / Time: 3.395 sec / Speedup: 8.212 / Efficiency: 411% / LogL: -1761
-Threads: 3 / Time: 2.965 sec / Speedup: 9.401 / Efficiency: 313% / LogL: -1761
-Threads: 4 / Time: 3.601 sec / Speedup: 7.741 / Efficiency: 194% / LogL: -1761
-Determining AUTO threadcount: done in 37.8374 secs using 87.8% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
   1  LG            1606.570     37  3287.140     3363.140     3372.887
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1386 trees examined
-Threads: 1 / Time: 10.004 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1727
-Threads: 2 / Time: 9.111 sec / Speedup: 1.098 / Efficiency: 55% / LogL: -1727
-Threads: 3 / Time: 9.163 sec / Speedup: 1.092 / Efficiency: 36% / LogL: -1727
-Determining AUTO threadcount: done in 28.2784 secs using 194% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
   2  LG+I          1567.329     38  3210.658     3292.991     3298.722
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-329 trees examined
-Threads: 1 / Time: 10.034 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1687
-Threads: 2 / Time: 6.867 sec / Speedup: 1.461 / Efficiency: 73% / LogL: -1687
-Threads: 3 / Time: 5.560 sec / Speedup: 1.805 / Efficiency: 60% / LogL: -1687
-Threads: 4 / Time: 5.147 sec / Speedup: 1.949 / Efficiency: 49% / LogL: -1687
-Determining AUTO threadcount: done in 27.6085 secs using 219.6% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
   3  LG+G4         1548.277     38  3172.553     3254.887     3260.618
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-303 trees examined
-Threads: 1 / Time: 10.002 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1686
-Threads: 2 / Time: 6.808 sec / Speedup: 1.469 / Efficiency: 73% / LogL: -1686
-Threads: 3 / Time: 5.695 sec / Speedup: 1.756 / Efficiency: 59% / LogL: -1686
-Threads: 4 / Time: 6.497 sec / Speedup: 1.539 / Efficiency: 38% / LogL: -1686
-Determining AUTO threadcount: done in 29.0016 secs using 228.3% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
   4  LG+I+G4       1545.853     39  3169.706     3258.848     3260.088
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-713 trees examined
-Threads: 1 / Time: 10.013 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1695
-Threads: 2 / Time: 7.808 sec / Speedup: 1.282 / Efficiency: 64% / LogL: -1695
-Threads: 3 / Time: 8.676 sec / Speedup: 1.154 / Efficiency: 38% / LogL: -1695
-Determining AUTO threadcount: done in 26.4967 secs using 192.7% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
   5  LG+R2         1549.466     39  3176.932     3266.075     3267.314
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-445 trees examined
-Threads: 1 / Time: 10.013 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1685
-Threads: 2 / Time: 7.188 sec / Speedup: 1.393 / Efficiency: 70% / LogL: -1685
-Threads: 3 / Time: 8.154 sec / Speedup: 1.228 / Efficiency: 41% / LogL: -1685
-Determining AUTO threadcount: done in 25.355 secs using 190.9% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
   6  LG+R3         1547.319     41  3176.638     3281.002     3271.655
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1470 trees examined
-Threads: 1 / Time: 10.004 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1795
-Threads: 2 / Time: 8.743 sec / Speedup: 1.144 / Efficiency: 57% / LogL: -1795
-Threads: 3 / Time: 8.148 sec / Speedup: 1.228 / Efficiency: 41% / LogL: -1795
-Determining AUTO threadcount: done in 26.8953 secs using 189.9% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  14  LG+F          1601.989     56  3315.978     3670.645     3445.757
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1409 trees examined
-Threads: 1 / Time: 10.003 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1718
-Threads: 2 / Time: 9.115 sec / Speedup: 1.097 / Efficiency: 55% / LogL: -1718
-Threads: 3 / Time: 8.237 sec / Speedup: 1.214 / Efficiency: 40% / LogL: -1718
-Determining AUTO threadcount: done in 27.3553 secs using 190.6% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  15  LG+F+I        1562.873     57  3239.747     3628.688     3371.843
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-333 trees examined
-Threads: 1 / Time: 10.013 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1675
-Threads: 2 / Time: 6.832 sec / Speedup: 1.466 / Efficiency: 73% / LogL: -1675
-Threads: 3 / Time: 5.593 sec / Speedup: 1.790 / Efficiency: 60% / LogL: -1675
-Threads: 4 / Time: 5.373 sec / Speedup: 1.864 / Efficiency: 47% / LogL: -1675
-Determining AUTO threadcount: done in 27.8114 secs using 221.8% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  16  LG+F+G4       1544.487     57  3202.974     3591.915     3335.071
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-313 trees examined
-Threads: 1 / Time: 10.003 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1689
-Threads: 2 / Time: 6.802 sec / Speedup: 1.471 / Efficiency: 74% / LogL: -1689
-Threads: 3 / Time: 5.523 sec / Speedup: 1.811 / Efficiency: 60% / LogL: -1689
-Threads: 4 / Time: 5.411 sec / Speedup: 1.849 / Efficiency: 46% / LogL: -1689
-Determining AUTO threadcount: done in 27.7408 secs using 221.5% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  17  LG+F+I+G4     1541.916     58  3199.831     3627.581     3334.246
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-737 trees examined
-Threads: 1 / Time: 10.009 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1702
-Threads: 2 / Time: 7.945 sec / Speedup: 1.260 / Efficiency: 63% / LogL: -1702
-Threads: 3 / Time: 6.720 sec / Speedup: 1.490 / Efficiency: 50% / LogL: -1702
-Determining AUTO threadcount: done in 24.6742 secs using 184.8% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  18  LG+F+R2       1546.193     58  3208.387     3636.137     3342.801
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-458 trees examined
-Threads: 1 / Time: 10.018 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1675
-Threads: 2 / Time: 7.133 sec / Speedup: 1.405 / Efficiency: 70% / LogL: -1675
-Threads: 3 / Time: 6.022 sec / Speedup: 1.664 / Efficiency: 55% / LogL: -1675
-Threads: 4 / Time: 5.773 sec / Speedup: 1.735 / Efficiency: 43% / LogL: -1675
-Determining AUTO threadcount: done in 28.9457 secs using 224.7% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  19  LG+F+R3       1543.982     60  3207.963     3730.821     3347.013
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1500 trees examined
-Threads: 1 / Time: 10.006 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1798
-Threads: 2 / Time: 8.873 sec / Speedup: 1.128 / Efficiency: 56% / LogL: -1798
-Threads: 3 / Time: 8.134 sec / Speedup: 1.230 / Efficiency: 41% / LogL: -1798
-Determining AUTO threadcount: done in 27.0137 secs using 190.3% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  27  WAG           1622.880     37  3319.760     3395.760     3405.507
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1420 trees examined
-Threads: 1 / Time: 10.002 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1761
-Threads: 2 / Time: 8.873 sec / Speedup: 1.127 / Efficiency: 56% / LogL: -1761
-Threads: 3 / Time: 8.220 sec / Speedup: 1.217 / Efficiency: 41% / LogL: -1761
-Determining AUTO threadcount: done in 27.096 secs using 190.6% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  28  WAG+I         1581.569     38  3239.139     3321.472     3327.203
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-351 trees examined
-Threads: 1 / Time: 10.007 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1699
-Threads: 2 / Time: 7.009 sec / Speedup: 1.428 / Efficiency: 71% / LogL: -1699
-Threads: 3 / Time: 5.621 sec / Speedup: 1.780 / Efficiency: 59% / LogL: -1699
-Threads: 4 / Time: 6.590 sec / Speedup: 1.518 / Efficiency: 38% / LogL: -1699
-Determining AUTO threadcount: done in 29.2277 secs using 228.4% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  29  WAG+G4        1567.064     38  3210.129     3292.462     3298.193
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-314 trees examined
-Threads: 1 / Time: 10.016 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1723
-Threads: 2 / Time: 6.738 sec / Speedup: 1.487 / Efficiency: 74% / LogL: -1723
-Threads: 3 / Time: 5.565 sec / Speedup: 1.800 / Efficiency: 60% / LogL: -1723
-Threads: 4 / Time: 6.442 sec / Speedup: 1.555 / Efficiency: 39% / LogL: -1723
-Determining AUTO threadcount: done in 28.762 secs using 227.8% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  30  WAG+I+G4      1563.847     39  3205.694     3294.837     3296.076
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-742 trees examined
-Threads: 1 / Time: 10.004 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1683
-Threads: 2 / Time: 7.798 sec / Speedup: 1.283 / Efficiency: 64% / LogL: -1683
-Threads: 3 / Time: 6.638 sec / Speedup: 1.507 / Efficiency: 50% / LogL: -1683
-Threads: 4 / Time: 6.497 sec / Speedup: 1.540 / Efficiency: 38% / LogL: -1683
-Determining AUTO threadcount: done in 30.9379 secs using 229.3% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  31  WAG+R2        1568.779     39  3215.559     3304.702     3305.941
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-490 trees examined
-Threads: 1 / Time: 10.017 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1706
-Threads: 2 / Time: 6.889 sec / Speedup: 1.454 / Efficiency: 73% / LogL: -1706
-Threads: 3 / Time: 5.821 sec / Speedup: 1.721 / Efficiency: 57% / LogL: -1706
-Threads: 4 / Time: 6.502 sec / Speedup: 1.541 / Efficiency: 39% / LogL: -1706
-Determining AUTO threadcount: done in 29.23 secs using 228.7% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  32  WAG+R3        1564.252     41  3210.503     3314.867     3305.520
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-345 trees examined
-Threads: 1 / Time: 10.034 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1715
-Threads: 2 / Time: 6.754 sec / Speedup: 1.486 / Efficiency: 74% / LogL: -1715
-Threads: 3 / Time: 6.537 sec / Speedup: 1.535 / Efficiency: 51% / LogL: -1715
-Threads: 4 / Time: 6.683 sec / Speedup: 1.501 / Efficiency: 38% / LogL: -1715
-Determining AUTO threadcount: done in 30.01 secs using 231.3% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  33  WAG+R4        1563.728     43  3213.456     3335.520     3313.108
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1501 trees examined
-Threads: 1 / Time: 10.005 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1799
-Threads: 2 / Time: 12.437 sec / Speedup: 0.804 / Efficiency: 40% / LogL: -1799
-Determining AUTO threadcount: done in 22.4429 secs using 151.8% CPU
-BEST NUMBER OF THREADS: 1
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  40  WAG+F         1618.051     56  3348.102     3702.768     3477.881
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1432 trees examined
-Threads: 1 / Time: 10.006 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1727
-Threads: 2 / Time: 9.173 sec / Speedup: 1.091 / Efficiency: 55% / LogL: -1727
-Threads: 3 / Time: 12.273 sec / Speedup: 0.815 / Efficiency: 27% / LogL: -1727
-Determining AUTO threadcount: done in 31.4524 secs using 203.4% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  41  WAG+F+I       1576.582     57  3267.163     3656.104     3399.260
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-347 trees examined
-Threads: 1 / Time: 10.026 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1695
-Threads: 2 / Time: 6.655 sec / Speedup: 1.506 / Efficiency: 75% / LogL: -1695
-Threads: 3 / Time: 7.153 sec / Speedup: 1.402 / Efficiency: 47% / LogL: -1695
-Determining AUTO threadcount: done in 23.8346 secs using 186.5% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  42  WAG+F+G4      1561.954     57  3237.907     3626.848     3370.004
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-315 trees examined
-Threads: 1 / Time: 10.010 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1701
-Threads: 2 / Time: 6.652 sec / Speedup: 1.505 / Efficiency: 75% / LogL: -1701
-Threads: 3 / Time: 6.951 sec / Speedup: 1.440 / Efficiency: 48% / LogL: -1701
-Determining AUTO threadcount: done in 23.6128 secs using 185.8% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  43  WAG+F+I+G4    1558.595     58  3233.189     3660.939     3367.604
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-718 trees examined
-Threads: 1 / Time: 10.004 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1702
-Threads: 2 / Time: 7.581 sec / Speedup: 1.320 / Efficiency: 66% / LogL: -1702
-Threads: 3 / Time: 8.189 sec / Speedup: 1.222 / Efficiency: 41% / LogL: -1702
-Determining AUTO threadcount: done in 25.7743 secs using 191% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  44  WAG+F+R2      1564.177     58  3244.354     3672.104     3378.768
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-479 trees examined
-Threads: 1 / Time: 10.005 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1715
-Threads: 2 / Time: 7.048 sec / Speedup: 1.420 / Efficiency: 71% / LogL: -1715
-Threads: 3 / Time: 6.490 sec / Speedup: 1.542 / Efficiency: 51% / LogL: -1715
-Threads: 4 / Time: 7.665 sec / Speedup: 1.305 / Efficiency: 33% / LogL: -1715
-Determining AUTO threadcount: done in 31.2083 secs using 236% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  45  WAG+F+R3      1558.952     60  3237.904     3760.762     3376.954
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-347 trees examined
-Threads: 1 / Time: 10.008 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1715
-Threads: 2 / Time: 6.641 sec / Speedup: 1.507 / Efficiency: 75% / LogL: -1715
-Threads: 3 / Time: 6.864 sec / Speedup: 1.458 / Efficiency: 49% / LogL: -1715
-Determining AUTO threadcount: done in 23.5139 secs using 185.2% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  46  WAG+F+R4      1558.446     62  3240.891     3891.891     3384.576
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1512 trees examined
-Threads: 1 / Time: 10.010 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1803
-Threads: 2 / Time: 8.562 sec / Speedup: 1.169 / Efficiency: 58% / LogL: -1803
-Threads: 3 / Time: 11.869 sec / Speedup: 0.843 / Efficiency: 28% / LogL: -1803
-Determining AUTO threadcount: done in 30.4421 secs using 203% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  53  JTT           1623.745     37  3321.490     3397.490     3407.238
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1418 trees examined
-Threads: 1 / Time: 10.000 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1703
-Threads: 2 / Time: 10.971 sec / Speedup: 0.912 / Efficiency: 46% / LogL: -1703
-Determining AUTO threadcount: done in 20.9719 secs using 149.6% CPU
-BEST NUMBER OF THREADS: 1
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  54  JTT+I         1587.175     38  3250.350     3332.683     3338.415
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-316 trees examined
-Threads: 1 / Time: 10.001 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1694
-Threads: 2 / Time: 6.557 sec / Speedup: 1.525 / Efficiency: 76% / LogL: -1694
-Threads: 3 / Time: 5.679 sec / Speedup: 1.761 / Efficiency: 59% / LogL: -1694
-Threads: 4 / Time: 6.834 sec / Speedup: 1.463 / Efficiency: 37% / LogL: -1694
-Determining AUTO threadcount: done in 29.0719 secs using 230.7% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  55  JTT+G4        1563.867     38  3203.735     3286.068     3291.799
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-313 trees examined
-Threads: 1 / Time: 10.003 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1691
-Threads: 2 / Time: 6.643 sec / Speedup: 1.506 / Efficiency: 75% / LogL: -1691
-Threads: 3 / Time: 5.455 sec / Speedup: 1.834 / Efficiency: 61% / LogL: -1691
-Threads: 4 / Time: 6.831 sec / Speedup: 1.464 / Efficiency: 37% / LogL: -1691
-Determining AUTO threadcount: done in 28.9324 secs using 230% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  56  JTT+I+G4      1562.137     39  3202.275     3291.418     3292.657
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-725 trees examined
-Threads: 1 / Time: 10.004 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1729
-Threads: 2 / Time: 7.431 sec / Speedup: 1.346 / Efficiency: 67% / LogL: -1729
-Threads: 3 / Time: 8.670 sec / Speedup: 1.154 / Efficiency: 38% / LogL: -1729
-Determining AUTO threadcount: done in 26.1058 secs using 192.7% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  57  JTT+R2        1566.096     39  3210.192     3299.335     3300.574
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-453 trees examined
-Threads: 1 / Time: 10.003 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1718
-Threads: 2 / Time: 7.051 sec / Speedup: 1.419 / Efficiency: 71% / LogL: -1718
-Threads: 3 / Time: 8.029 sec / Speedup: 1.246 / Efficiency: 42% / LogL: -1718
-Determining AUTO threadcount: done in 25.0839 secs using 190.5% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  58  JTT+R3        1562.724     41  3207.449     3311.813     3302.466
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1502 trees examined
-Threads: 1 / Time: 10.002 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1805
-Threads: 2 / Time: 8.601 sec / Speedup: 1.163 / Efficiency: 58% / LogL: -1805
-Threads: 3 / Time: 10.952 sec / Speedup: 0.913 / Efficiency: 30% / LogL: -1805
-Determining AUTO threadcount: done in 29.5556 secs using 199.6% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  66  JTT+F         1616.816     56  3345.631     3700.298     3475.411
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1423 trees examined
-Threads: 1 / Time: 10.006 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1724
-Threads: 2 / Time: 8.628 sec / Speedup: 1.160 / Efficiency: 58% / LogL: -1724
-Threads: 3 / Time: 9.350 sec / Speedup: 1.070 / Efficiency: 36% / LogL: -1724
-Determining AUTO threadcount: done in 27.984 secs using 194% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  67  JTT+F+I       1580.436     57  3274.872     3663.813     3406.969
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-328 trees examined
-Threads: 1 / Time: 10.008 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1706
-Threads: 2 / Time: 6.675 sec / Speedup: 1.499 / Efficiency: 75% / LogL: -1706
-Threads: 3 / Time: 5.969 sec / Speedup: 1.677 / Efficiency: 56% / LogL: -1706
-Threads: 4 / Time: 6.855 sec / Speedup: 1.460 / Efficiency: 36% / LogL: -1706
-Determining AUTO threadcount: done in 29.5078 secs using 230.8% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  68  JTT+F+G4      1557.639     57  3229.278     3618.219     3361.375
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-308 trees examined
-Threads: 1 / Time: 10.003 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1708
-Threads: 2 / Time: 6.654 sec / Speedup: 1.503 / Efficiency: 75% / LogL: -1708
-Threads: 3 / Time: 5.608 sec / Speedup: 1.784 / Efficiency: 59% / LogL: -1708
-Threads: 4 / Time: 5.192 sec / Speedup: 1.927 / Efficiency: 48% / LogL: -1708
-Determining AUTO threadcount: done in 27.4573 secs using 220.4% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  69  JTT+F+I+G4    1555.771     58  3227.542     3655.292     3361.956
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-711 trees examined
-Threads: 1 / Time: 10.006 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1723
-Threads: 2 / Time: 7.681 sec / Speedup: 1.303 / Efficiency: 65% / LogL: -1723
-Threads: 3 / Time: 6.576 sec / Speedup: 1.521 / Efficiency: 51% / LogL: -1723
-Threads: 4 / Time: 8.611 sec / Speedup: 1.162 / Efficiency: 29% / LogL: -1723
-Determining AUTO threadcount: done in 32.8748 secs using 239.3% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  70  JTT+F+R2      1560.137     58  3236.275     3664.025     3370.689
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-463 trees examined
-Threads: 1 / Time: 10.022 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1696
-Threads: 2 / Time: 7.115 sec / Speedup: 1.409 / Efficiency: 70% / LogL: -1696
-Threads: 3 / Time: 5.905 sec / Speedup: 1.697 / Efficiency: 57% / LogL: -1696
-Threads: 4 / Time: 5.701 sec / Speedup: 1.758 / Efficiency: 44% / LogL: -1696
-Determining AUTO threadcount: done in 28.744 secs using 223.8% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
  71  JTT+F+R3      1557.082     60  3234.163     3757.020     3373.213
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1492 trees examined
-Threads: 1 / Time: 10.000 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1785
-Threads: 2 / Time: 8.735 sec / Speedup: 1.145 / Efficiency: 57% / LogL: -1785
-Threads: 3 / Time: 8.136 sec / Speedup: 1.229 / Efficiency: 41% / LogL: -1785
-Determining AUTO threadcount: done in 26.8711 secs using 190.2% CPU
-BEST NUMBER OF THREADS: 2
-
  79  Q.pfam        1604.970     37  3283.940     3359.940     3369.687
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1386 trees examined
-Threads: 1 / Time: 10.003 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1711
-Threads: 2 / Time: 8.876 sec / Speedup: 1.127 / Efficiency: 56% / LogL: -1711
-Threads: 3 / Time: 8.117 sec / Speedup: 1.232 / Efficiency: 41% / LogL: -1711
-Determining AUTO threadcount: done in 26.9965 secs using 190.3% CPU
-BEST NUMBER OF THREADS: 2
-
  80  Q.pfam+I      1566.188     38  3208.375     3290.709     3296.440
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-313 trees examined
-Threads: 1 / Time: 10.011 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1695
-Threads: 2 / Time: 6.517 sec / Speedup: 1.536 / Efficiency: 77% / LogL: -1695
-Threads: 3 / Time: 7.096 sec / Speedup: 1.411 / Efficiency: 47% / LogL: -1695
-Determining AUTO threadcount: done in 23.6241 secs using 186.6% CPU
-BEST NUMBER OF THREADS: 2
-
  81  Q.pfam+G4     1548.010     38  3172.020     3254.353     3260.084
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-306 trees examined
-Threads: 1 / Time: 10.029 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1696
-Threads: 2 / Time: 7.432 sec / Speedup: 1.349 / Efficiency: 67% / LogL: -1696
-Threads: 3 / Time: 5.751 sec / Speedup: 1.744 / Efficiency: 58% / LogL: -1696
-Threads: 4 / Time: 5.253 sec / Speedup: 1.909 / Efficiency: 48% / LogL: -1696
-Determining AUTO threadcount: done in 28.4674 secs using 220.1% CPU
-BEST NUMBER OF THREADS: 3
-
  82  Q.pfam+I+G4   1545.463     39  3168.926     3258.068     3259.308
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-701 trees examined
-Threads: 1 / Time: 10.002 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1712
-Threads: 2 / Time: 7.982 sec / Speedup: 1.253 / Efficiency: 63% / LogL: -1712
-Threads: 3 / Time: 6.558 sec / Speedup: 1.525 / Efficiency: 51% / LogL: -1712
-Threads: 4 / Time: 6.416 sec / Speedup: 1.559 / Efficiency: 39% / LogL: -1712
-Determining AUTO threadcount: done in 30.9598 secs using 227.9% CPU
-BEST NUMBER OF THREADS: 3
-
  83  Q.pfam+R2     1548.295     39  3174.589     3263.732     3264.971
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-439 trees examined
-Threads: 1 / Time: 10.015 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1710
-Threads: 2 / Time: 7.163 sec / Speedup: 1.398 / Efficiency: 70% / LogL: -1710
-Threads: 3 / Time: 5.977 sec / Speedup: 1.676 / Efficiency: 56% / LogL: -1710
-Threads: 4 / Time: 5.743 sec / Speedup: 1.744 / Efficiency: 44% / LogL: -1710
-Determining AUTO threadcount: done in 28.8992 secs using 224.2% CPU
-BEST NUMBER OF THREADS: 3
-
  84  Q.pfam+R3     1546.503     41  3175.005     3279.369     3270.022
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1409 trees examined
-Threads: 1 / Time: 10.009 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1772
-Threads: 2 / Time: 9.095 sec / Speedup: 1.100 / Efficiency: 55% / LogL: -1772
-Threads: 3 / Time: 7.849 sec / Speedup: 1.275 / Efficiency: 43% / LogL: -1772
-Determining AUTO threadcount: done in 26.9528 secs using 189.5% CPU
-BEST NUMBER OF THREADS: 2
-
  92  Q.pfam+F      1597.744     56  3307.488     3662.154     3437.267
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1353 trees examined
-Threads: 1 / Time: 10.003 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1700
-Threads: 2 / Time: 8.658 sec / Speedup: 1.155 / Efficiency: 58% / LogL: -1700
-Threads: 3 / Time: 8.094 sec / Speedup: 1.236 / Efficiency: 41% / LogL: -1700
-Determining AUTO threadcount: done in 26.7544 secs using 189.9% CPU
-BEST NUMBER OF THREADS: 2
-
  93  Q.pfam+F+I    1559.932     57  3233.864     3622.805     3365.961
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-322 trees examined
-Threads: 1 / Time: 10.035 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1656
-Threads: 2 / Time: 6.523 sec / Speedup: 1.538 / Efficiency: 77% / LogL: -1656
-Threads: 3 / Time: 6.002 sec / Speedup: 1.672 / Efficiency: 56% / LogL: -1656
-Threads: 4 / Time: 5.261 sec / Speedup: 1.907 / Efficiency: 48% / LogL: -1656
-Determining AUTO threadcount: done in 27.8219 secs using 222.1% CPU
-BEST NUMBER OF THREADS: 3
-
  94  Q.pfam+F+G4   1541.912     57  3197.825     3586.766     3329.921
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-311 trees examined
-Threads: 1 / Time: 10.006 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1680
-Threads: 2 / Time: 6.403 sec / Speedup: 1.563 / Efficiency: 78% / LogL: -1680
-Threads: 3 / Time: 5.708 sec / Speedup: 1.753 / Efficiency: 58% / LogL: -1680
-Threads: 4 / Time: 5.203 sec / Speedup: 1.923 / Efficiency: 48% / LogL: -1680
-Determining AUTO threadcount: done in 27.3192 secs using 221.3% CPU
-BEST NUMBER OF THREADS: 3
-
  95  Q.pfam+F+I+G4 1539.398     58  3194.796     3622.546     3329.210
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-700 trees examined
-Threads: 1 / Time: 10.003 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1679
-Threads: 2 / Time: 7.671 sec / Speedup: 1.304 / Efficiency: 65% / LogL: -1679
-Threads: 3 / Time: 6.954 sec / Speedup: 1.439 / Efficiency: 48% / LogL: -1679
-Determining AUTO threadcount: done in 24.6286 secs using 185.9% CPU
-BEST NUMBER OF THREADS: 2
-
  96  Q.pfam+F+R2   1543.235     58  3202.471     3630.221     3336.885
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-430 trees examined
-Threads: 1 / Time: 10.000 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1689
-Threads: 2 / Time: 7.631 sec / Speedup: 1.310 / Efficiency: 66% / LogL: -1689
-Threads: 3 / Time: 5.613 sec / Speedup: 1.782 / Efficiency: 59% / LogL: -1689
-Threads: 4 / Time: 5.881 sec / Speedup: 1.700 / Efficiency: 43% / LogL: -1689
-Determining AUTO threadcount: done in 29.1263 secs using 223.8% CPU
-BEST NUMBER OF THREADS: 3
-
  97  Q.pfam+F+R3   1540.265     60  3200.529     3723.386     3339.578
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1385 trees examined
-Threads: 1 / Time: 10.003 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1830
-Threads: 2 / Time: 9.522 sec / Speedup: 1.050 / Efficiency: 53% / LogL: -1830
-Threads: 3 / Time: 8.144 sec / Speedup: 1.228 / Efficiency: 41% / LogL: -1830
-Determining AUTO threadcount: done in 27.6695 secs using 190.5% CPU
-BEST NUMBER OF THREADS: 1
-
 105  Q.bird        1650.523     37  3375.047     3451.047     3460.794
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1274 trees examined
-Threads: 1 / Time: 10.007 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1776
-Threads: 2 / Time: 8.438 sec / Speedup: 1.186 / Efficiency: 59% / LogL: -1776
-Threads: 3 / Time: 7.811 sec / Speedup: 1.281 / Efficiency: 43% / LogL: -1776
-Determining AUTO threadcount: done in 26.2561 secs using 188.9% CPU
-BEST NUMBER OF THREADS: 2
-
 106  Q.bird+I      1614.305     38  3304.609     3386.942     3392.674
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-257 trees examined
-Threads: 1 / Time: 10.015 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1705
-Threads: 2 / Time: 7.895 sec / Speedup: 1.269 / Efficiency: 63% / LogL: -1705
-Threads: 3 / Time: 7.705 sec / Speedup: 1.300 / Efficiency: 43% / LogL: -1705
-Determining AUTO threadcount: done in 25.615 secs using 189.8% CPU
-BEST NUMBER OF THREADS: 2
-
 107  Q.bird+G4     1573.404     38  3222.808     3305.142     3310.873
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-226 trees examined
-Threads: 1 / Time: 10.018 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1706
-Threads: 2 / Time: 8.904 sec / Speedup: 1.125 / Efficiency: 56% / LogL: -1706
-Threads: 3 / Time: 5.907 sec / Speedup: 1.696 / Efficiency: 57% / LogL: -1706
-Threads: 4 / Time: 4.286 sec / Speedup: 2.337 / Efficiency: 58% / LogL: -1706
-Threads: 5 / Time: 4.278 sec / Speedup: 2.342 / Efficiency: 47% / LogL: -1706
-Determining AUTO threadcount: done in 33.3933 secs using 250.4% CPU
-BEST NUMBER OF THREADS: 4
-
 108  Q.bird+I+G4   1572.514     39  3223.027     3312.170     3313.409
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-616 trees examined
-Threads: 1 / Time: 10.020 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1730
-Threads: 2 / Time: 10.204 sec / Speedup: 0.982 / Efficiency: 49% / LogL: -1730
-Determining AUTO threadcount: done in 20.2238 secs using 149% CPU
-BEST NUMBER OF THREADS: 1
-
 109  Q.bird+R2     1580.655     39  3239.309     3328.452     3329.691
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-321 trees examined
-Threads: 1 / Time: 10.005 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1716
-Threads: 2 / Time: 8.057 sec / Speedup: 1.242 / Efficiency: 62% / LogL: -1716
-Threads: 3 / Time: 6.716 sec / Speedup: 1.490 / Efficiency: 50% / LogL: -1716
-Determining AUTO threadcount: done in 24.7787 secs using 185.7% CPU
-BEST NUMBER OF THREADS: 2
-
 110  Q.bird+R3     1573.022     41  3228.044     3332.408     3323.061
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-247 trees examined
-Threads: 1 / Time: 10.016 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1702
-Threads: 2 / Time: 8.815 sec / Speedup: 1.136 / Efficiency: 57% / LogL: -1702
-Threads: 3 / Time: 7.963 sec / Speedup: 1.258 / Efficiency: 42% / LogL: -1702
-Determining AUTO threadcount: done in 26.7952 secs using 191.4% CPU
-BEST NUMBER OF THREADS: 2
-
 111  Q.bird+R4     1571.858     43  3229.717     3351.781     3329.369
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1266 trees examined
-Threads: 1 / Time: 10.002 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1794
-Threads: 2 / Time: 10.743 sec / Speedup: 0.931 / Efficiency: 47% / LogL: -1794
-Determining AUTO threadcount: done in 20.7456 secs using 149.6% CPU
-BEST NUMBER OF THREADS: 1
-
 118  Q.bird+F      1641.275     56  3394.551     3749.217     3524.330
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1100 trees examined
-Threads: 1 / Time: 10.007 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1766
-Threads: 2 / Time: 9.986 sec / Speedup: 1.002 / Efficiency: 50% / LogL: -1766
-Threads: 3 / Time: 8.719 sec / Speedup: 1.148 / Efficiency: 38% / LogL: -1766
-Determining AUTO threadcount: done in 28.7118 secs using 192.9% CPU
-BEST NUMBER OF THREADS: 1
-
 119  Q.bird+F+I    1606.606     57  3327.211     3716.152     3459.308
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-242 trees examined
-Threads: 1 / Time: 10.017 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1706
-Threads: 2 / Time: 8.049 sec / Speedup: 1.244 / Efficiency: 62% / LogL: -1706
-Threads: 3 / Time: 6.423 sec / Speedup: 1.560 / Efficiency: 52% / LogL: -1706
-Threads: 4 / Time: 6.490 sec / Speedup: 1.543 / Efficiency: 39% / LogL: -1706
-Determining AUTO threadcount: done in 30.9802 secs using 229.2% CPU
-BEST NUMBER OF THREADS: 3
-
 120  Q.bird+F+G4   1567.783     57  3249.565     3638.507     3381.662
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-247 trees examined
-Threads: 1 / Time: 10.057 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1706
-Threads: 2 / Time: 7.522 sec / Speedup: 1.337 / Efficiency: 67% / LogL: -1706
-Threads: 3 / Time: 6.175 sec / Speedup: 1.629 / Efficiency: 54% / LogL: -1706
-Threads: 4 / Time: 5.220 sec / Speedup: 1.927 / Efficiency: 48% / LogL: -1706
-Determining AUTO threadcount: done in 28.9741 secs using 221.5% CPU
-BEST NUMBER OF THREADS: 3
-
 121  Q.bird+F+I+G4 1567.096     58  3250.192     3677.942     3384.606
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-530 trees examined
-Threads: 1 / Time: 10.012 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1705
-Threads: 2 / Time: 7.564 sec / Speedup: 1.324 / Efficiency: 66% / LogL: -1705
-Threads: 3 / Time: 6.325 sec / Speedup: 1.583 / Efficiency: 53% / LogL: -1705
-Threads: 4 / Time: 6.963 sec / Speedup: 1.438 / Efficiency: 36% / LogL: -1705
-Determining AUTO threadcount: done in 30.8652 secs using 231.3% CPU
-BEST NUMBER OF THREADS: 3
-
 122  Q.bird+F+R2   1575.849     58  3267.698     3695.448     3402.112
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-340 trees examined
-Threads: 1 / Time: 10.009 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1668
-Threads: 2 / Time: 7.898 sec / Speedup: 1.267 / Efficiency: 63% / LogL: -1668
-Threads: 3 / Time: 8.568 sec / Speedup: 1.168 / Efficiency: 39% / LogL: -1668
-Determining AUTO threadcount: done in 26.476 secs using 192.9% CPU
-BEST NUMBER OF THREADS: 2
-
 123  Q.bird+F+R3   1567.357     60  3254.714     3777.571     3393.763
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-254 trees examined
-Threads: 1 / Time: 10.018 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1723
-Threads: 2 / Time: 7.964 sec / Speedup: 1.258 / Efficiency: 63% / LogL: -1723
-Threads: 3 / Time: 5.690 sec / Speedup: 1.760 / Efficiency: 59% / LogL: -1723
-Threads: 4 / Time: 6.040 sec / Speedup: 1.658 / Efficiency: 41% / LogL: -1723
-Determining AUTO threadcount: done in 29.7134 secs using 225.2% CPU
-BEST NUMBER OF THREADS: 3
-
 124  Q.bird+F+R4   1566.633     62  3257.265     3908.265     3400.950
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1226 trees examined
-Threads: 1 / Time: 10.007 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1822
-Threads: 2 / Time: 10.210 sec / Speedup: 0.980 / Efficiency: 49% / LogL: -1822
-Determining AUTO threadcount: done in 20.2176 secs using 148.4% CPU
-BEST NUMBER OF THREADS: 1
-
 131  Q.mammal      1637.711     37  3349.422     3425.422     3435.169
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1122 trees examined
-Threads: 1 / Time: 10.005 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1753
-Threads: 2 / Time: 10.024 sec / Speedup: 0.998 / Efficiency: 50% / LogL: -1753
-Determining AUTO threadcount: done in 20.0302 secs using 147.2% CPU
-BEST NUMBER OF THREADS: 1
-
 132  Q.mammal+I    1601.272     38  3278.544     3360.878     3366.609
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-236 trees examined
-Threads: 1 / Time: 10.013 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1711
-Threads: 2 / Time: 8.299 sec / Speedup: 1.207 / Efficiency: 60% / LogL: -1711
-Threads: 3 / Time: 6.773 sec / Speedup: 1.478 / Efficiency: 49% / LogL: -1711
-Determining AUTO threadcount: done in 25.0851 secs using 186% CPU
-BEST NUMBER OF THREADS: 2
-
 133  Q.mammal+G4   1567.593     38  3211.186     3293.519     3299.250
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-236 trees examined
-Threads: 1 / Time: 10.009 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1700
-Threads: 2 / Time: 7.806 sec / Speedup: 1.282 / Efficiency: 64% / LogL: -1700
-Threads: 3 / Time: 6.562 sec / Speedup: 1.525 / Efficiency: 51% / LogL: -1700
-Threads: 4 / Time: 5.438 sec / Speedup: 1.841 / Efficiency: 46% / LogL: -1700
-Determining AUTO threadcount: done in 29.8152 secs using 223.7% CPU
-BEST NUMBER OF THREADS: 3
-
 134  Q.mammal+I+G4 1566.347     39  3210.695     3299.838     3301.077
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-533 trees examined
-Threads: 1 / Time: 10.000 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1712
-Threads: 2 / Time: 8.240 sec / Speedup: 1.214 / Efficiency: 61% / LogL: -1712
-Threads: 3 / Time: 8.134 sec / Speedup: 1.229 / Efficiency: 41% / LogL: -1712
-Determining AUTO threadcount: done in 26.3749 secs using 191.3% CPU
-BEST NUMBER OF THREADS: 2
-
 135  Q.mammal+R2   1572.686     39  3223.372     3312.514     3313.754
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-302 trees examined
-Threads: 1 / Time: 10.012 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1722
-Threads: 2 / Time: 6.276 sec / Speedup: 1.595 / Efficiency: 80% / LogL: -1722
-Threads: 3 / Time: 5.982 sec / Speedup: 1.674 / Efficiency: 56% / LogL: -1722
-Threads: 4 / Time: 5.948 sec / Speedup: 1.683 / Efficiency: 42% / LogL: -1722
-Determining AUTO threadcount: done in 28.2192 secs using 226.6% CPU
-BEST NUMBER OF THREADS: 2
-
 136  Q.mammal+R3   1566.764     41  3215.527     3319.891     3310.544
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-249 trees examined
-Threads: 1 / Time: 10.026 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1661
-Threads: 2 / Time: 7.190 sec / Speedup: 1.394 / Efficiency: 70% / LogL: -1661
-Threads: 3 / Time: 7.162 sec / Speedup: 1.400 / Efficiency: 47% / LogL: -1661
-Determining AUTO threadcount: done in 24.3787 secs using 187% CPU
-BEST NUMBER OF THREADS: 2
-
 137  Q.mammal+R4   1565.834     43  3217.668     3339.732     3317.320
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1247 trees examined
-Threads: 1 / Time: 10.003 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1725
-Threads: 2 / Time: 9.578 sec / Speedup: 1.044 / Efficiency: 52% / LogL: -1725
-Threads: 3 / Time: 9.770 sec / Speedup: 1.024 / Efficiency: 34% / LogL: -1725
-Determining AUTO threadcount: done in 29.3515 secs using 196.4% CPU
-BEST NUMBER OF THREADS: 1
-
 144  Q.mammal+F    1628.011     56  3368.022     3722.688     3497.801
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1090 trees examined
-Threads: 1 / Time: 10.006 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1757
-Threads: 2 / Time: 8.700 sec / Speedup: 1.150 / Efficiency: 58% / LogL: -1757
-Threads: 3 / Time: 8.686 sec / Speedup: 1.152 / Efficiency: 38% / LogL: -1757
-Determining AUTO threadcount: done in 27.3923 secs using 192% CPU
-BEST NUMBER OF THREADS: 2
-
 145  Q.mammal+F+I  1593.516     57  3301.032     3689.973     3433.129
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-266 trees examined
-Threads: 1 / Time: 10.031 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1701
-Threads: 2 / Time: 8.463 sec / Speedup: 1.185 / Efficiency: 59% / LogL: -1701
-Threads: 3 / Time: 6.116 sec / Speedup: 1.640 / Efficiency: 55% / LogL: -1701
-Threads: 4 / Time: 6.662 sec / Speedup: 1.506 / Efficiency: 38% / LogL: -1701
-Determining AUTO threadcount: done in 31.2724 secs using 228.8% CPU
-BEST NUMBER OF THREADS: 3
-
 146  Q.mammal+F+G4 1561.087     57  3236.174     3625.116     3368.271
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-260 trees examined
-Threads: 1 / Time: 10.041 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1707
-Threads: 2 / Time: 9.402 sec / Speedup: 1.068 / Efficiency: 53% / LogL: -1707
-Threads: 3 / Time: 7.173 sec / Speedup: 1.400 / Efficiency: 47% / LogL: -1707
-Determining AUTO threadcount: done in 26.6169 secs using 188.4% CPU
-BEST NUMBER OF THREADS: 2
-
 147  Q.mammal+F+I+G4 1560.071     58  3236.143     3663.893     3370.557
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-520 trees examined
-Threads: 1 / Time: 10.012 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1734
-Threads: 2 / Time: 8.457 sec / Speedup: 1.184 / Efficiency: 59% / LogL: -1734
-Threads: 3 / Time: 9.775 sec / Speedup: 1.024 / Efficiency: 34% / LogL: -1734
-Determining AUTO threadcount: done in 28.2441 secs using 197.2% CPU
-BEST NUMBER OF THREADS: 2
-
 148  Q.mammal+F+R2 1566.655     58  3249.309     3677.059     3383.723
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-234 trees examined
-Threads: 1 / Time: 10.031 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1682
-Threads: 2 / Time: 7.130 sec / Speedup: 1.407 / Efficiency: 70% / LogL: -1682
-Threads: 3 / Time: 5.825 sec / Speedup: 1.722 / Efficiency: 57% / LogL: -1682
-Threads: 4 / Time: 5.061 sec / Speedup: 1.982 / Efficiency: 50% / LogL: -1682
-Determining AUTO threadcount: done in 28.0469 secs using 219.6% CPU
-BEST NUMBER OF THREADS: 3
-
 149  Q.mammal+F+R3 1560.562     60  3241.124     3763.981     3380.173
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-255 trees examined
-Threads: 1 / Time: 10.056 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1719
-Threads: 2 / Time: 7.931 sec / Speedup: 1.268 / Efficiency: 63% / LogL: -1719
-Threads: 3 / Time: 7.548 sec / Speedup: 1.332 / Efficiency: 44% / LogL: -1719
-Determining AUTO threadcount: done in 25.5362 secs using 189.2% CPU
-BEST NUMBER OF THREADS: 2
-
 150  Q.mammal+F+R4 1559.520     62  3243.041     3894.041     3386.725
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1215 trees examined
-Threads: 1 / Time: 10.001 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1799
-Threads: 2 / Time: 10.310 sec / Speedup: 0.970 / Efficiency: 49% / LogL: -1799
-Determining AUTO threadcount: done in 20.3112 secs using 148.5% CPU
-BEST NUMBER OF THREADS: 1
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 157  Q.insect      1608.301     37  3290.602     3366.602     3376.349
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1080 trees examined
-Threads: 1 / Time: 10.007 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1733
-Threads: 2 / Time: 8.904 sec / Speedup: 1.124 / Efficiency: 56% / LogL: -1733
-Threads: 3 / Time: 10.958 sec / Speedup: 0.913 / Efficiency: 30% / LogL: -1733
-Determining AUTO threadcount: done in 29.8686 secs using 200.6% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 158  Q.insect+I    1569.862     38  3215.724     3298.058     3303.789
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-217 trees examined
-Threads: 1 / Time: 10.003 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1693
-Threads: 2 / Time: 7.528 sec / Speedup: 1.329 / Efficiency: 66% / LogL: -1693
-Threads: 3 / Time: 7.081 sec / Speedup: 1.413 / Efficiency: 47% / LogL: -1693
-Determining AUTO threadcount: done in 24.6124 secs using 187.2% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 159  Q.insect+G4   1543.813     38  3163.626     3245.959     3251.690
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-236 trees examined
-Threads: 1 / Time: 10.025 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1693
-Threads: 2 / Time: 7.653 sec / Speedup: 1.310 / Efficiency: 66% / LogL: -1693
-Threads: 3 / Time: 6.447 sec / Speedup: 1.555 / Efficiency: 52% / LogL: -1693
-Threads: 4 / Time: 5.866 sec / Speedup: 1.709 / Efficiency: 43% / LogL: -1693
-Determining AUTO threadcount: done in 29.9927 secs using 226.1% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 160  Q.insect+I+G4 1542.051     39  3162.103     3251.246     3252.485
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-582 trees examined
-Threads: 1 / Time: 10.013 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1711
-Threads: 2 / Time: 7.451 sec / Speedup: 1.344 / Efficiency: 67% / LogL: -1711
-Threads: 3 / Time: 7.729 sec / Speedup: 1.295 / Efficiency: 43% / LogL: -1711
-Determining AUTO threadcount: done in 25.194 secs using 189.5% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 161  Q.insect+R2   1545.537     39  3169.074     3258.217     3259.456
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-332 trees examined
-Threads: 1 / Time: 10.014 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1672
-Threads: 2 / Time: 6.994 sec / Speedup: 1.432 / Efficiency: 72% / LogL: -1672
-Threads: 3 / Time: 6.559 sec / Speedup: 1.527 / Efficiency: 51% / LogL: -1672
-Threads: 4 / Time: 6.142 sec / Speedup: 1.630 / Efficiency: 41% / LogL: -1672
-Determining AUTO threadcount: done in 29.7106 secs using 228.3% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 162  Q.insect+R3   1543.143     41  3168.286     3272.650     3263.303
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-933 trees examined
-Threads: 1 / Time: 10.015 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1778
-Threads: 2 / Time: 10.151 sec / Speedup: 0.987 / Efficiency: 49% / LogL: -1778
-Determining AUTO threadcount: done in 20.1665 secs using 147.9% CPU
-BEST NUMBER OF THREADS: 1
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 170  Q.insect+F    1599.569     56  3311.137     3665.804     3440.917
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-677 trees examined
-Threads: 1 / Time: 10.008 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1728
-Threads: 2 / Time: 5.649 sec / Speedup: 1.771 / Efficiency: 89% / LogL: -1728
-Threads: 3 / Time: 5.013 sec / Speedup: 1.996 / Efficiency: 67% / LogL: -1728
-Threads: 4 / Time: 5.424 sec / Speedup: 1.845 / Efficiency: 46% / LogL: -1728
-Determining AUTO threadcount: done in 26.0942 secs using 220.1% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 171  Q.insect+F+I  1560.504     57  3235.009     3623.950     3367.106
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-144 trees examined
-Threads: 1 / Time: 10.011 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1681
-Threads: 2 / Time: 6.209 sec / Speedup: 1.612 / Efficiency: 81% / LogL: -1681
-Threads: 3 / Time: 4.861 sec / Speedup: 2.059 / Efficiency: 69% / LogL: -1681
-Threads: 4 / Time: 4.329 sec / Speedup: 2.312 / Efficiency: 58% / LogL: -1681
-Threads: 5 / Time: 4.033 sec / Speedup: 2.482 / Efficiency: 50% / LogL: -1681
-Determining AUTO threadcount: done in 29.4439 secs using 251.9% CPU
-BEST NUMBER OF THREADS: 4
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 172  Q.insect+F+G4 1537.511     57  3189.021     3577.963     3321.118
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-149 trees examined
-Threads: 1 / Time: 10.047 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1688
-Threads: 2 / Time: 6.186 sec / Speedup: 1.624 / Efficiency: 81% / LogL: -1688
-Threads: 3 / Time: 4.947 sec / Speedup: 2.031 / Efficiency: 68% / LogL: -1688
-Threads: 4 / Time: 4.518 sec / Speedup: 2.224 / Efficiency: 56% / LogL: -1688
-Threads: 5 / Time: 4.137 sec / Speedup: 2.428 / Efficiency: 49% / LogL: -1688
-Determining AUTO threadcount: done in 29.8368 secs using 253.7% CPU
-BEST NUMBER OF THREADS: 4
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 173  Q.insect+F+I+G4 1535.478     58  3186.956     3614.706     3321.370
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-327 trees examined
-Threads: 1 / Time: 10.005 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1703
-Threads: 2 / Time: 6.595 sec / Speedup: 1.517 / Efficiency: 76% / LogL: -1703
-Threads: 3 / Time: 4.947 sec / Speedup: 2.022 / Efficiency: 67% / LogL: -1703
-Threads: 4 / Time: 4.048 sec / Speedup: 2.472 / Efficiency: 62% / LogL: -1703
-Threads: 5 / Time: 4.154 sec / Speedup: 2.408 / Efficiency: 48% / LogL: -1703
-Determining AUTO threadcount: done in 29.7504 secs using 250.2% CPU
-BEST NUMBER OF THREADS: 4
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 174  Q.insect+F+R2 1538.888     58  3193.777     3621.527     3328.191
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-394 trees examined
-Threads: 1 / Time: 10.020 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1670
-Threads: 2 / Time: 9.006 sec / Speedup: 1.113 / Efficiency: 56% / LogL: -1670
-Threads: 3 / Time: 8.294 sec / Speedup: 1.208 / Efficiency: 40% / LogL: -1670
-Determining AUTO threadcount: done in 27.3202 secs using 192.7% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 175  Q.insect+F+R3 1536.538     60  3193.076     3715.933     3332.126
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1279 trees examined
-Threads: 1 / Time: 10.005 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1815
-Threads: 2 / Time: 12.084 sec / Speedup: 0.828 / Efficiency: 41% / LogL: -1815
-Determining AUTO threadcount: done in 22.0888 secs using 152.4% CPU
-BEST NUMBER OF THREADS: 1
-
 183  Q.plant       1618.516     37  3311.032     3387.032     3396.779
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1088 trees examined
-Threads: 1 / Time: 10.002 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1760
-Threads: 2 / Time: 9.559 sec / Speedup: 1.046 / Efficiency: 52% / LogL: -1760
-Threads: 3 / Time: 9.234 sec / Speedup: 1.083 / Efficiency: 36% / LogL: -1760
-Determining AUTO threadcount: done in 28.7953 secs using 194.7% CPU
-BEST NUMBER OF THREADS: 1
-
 184  Q.plant+I     1579.751     38  3235.502     3317.836     3323.567
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-206 trees examined
-Threads: 1 / Time: 10.049 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1682
-Threads: 2 / Time: 7.850 sec / Speedup: 1.280 / Efficiency: 64% / LogL: -1682
-Threads: 3 / Time: 7.438 sec / Speedup: 1.351 / Efficiency: 45% / LogL: -1682
-Determining AUTO threadcount: done in 25.3373 secs using 188.7% CPU
-BEST NUMBER OF THREADS: 2
-
 185  Q.plant+G4    1547.805     38  3171.610     3253.943     3259.675
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-238 trees examined
-Threads: 1 / Time: 10.014 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1680
-Threads: 2 / Time: 6.879 sec / Speedup: 1.456 / Efficiency: 73% / LogL: -1680
-Threads: 3 / Time: 5.199 sec / Speedup: 1.926 / Efficiency: 64% / LogL: -1680
-Threads: 4 / Time: 5.752 sec / Speedup: 1.741 / Efficiency: 44% / LogL: -1680
-Determining AUTO threadcount: done in 27.846 secs using 222.7% CPU
-BEST NUMBER OF THREADS: 3
-
 186  Q.plant+I+G4  1546.304     39  3170.608     3259.751     3260.991
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-568 trees examined
-Threads: 1 / Time: 10.009 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1720
-Threads: 2 / Time: 9.212 sec / Speedup: 1.087 / Efficiency: 54% / LogL: -1720
-Threads: 3 / Time: 7.439 sec / Speedup: 1.345 / Efficiency: 45% / LogL: -1720
-Determining AUTO threadcount: done in 26.661 secs using 188.5% CPU
-BEST NUMBER OF THREADS: 2
-
 187  Q.plant+R2    1553.956     39  3185.912     3275.054     3276.294
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-359 trees examined
-Threads: 1 / Time: 10.028 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1697
-Threads: 2 / Time: 7.593 sec / Speedup: 1.321 / Efficiency: 66% / LogL: -1697
-Threads: 3 / Time: 7.204 sec / Speedup: 1.392 / Efficiency: 46% / LogL: -1697
-Determining AUTO threadcount: done in 24.8263 secs using 187.1% CPU
-BEST NUMBER OF THREADS: 2
-
 188  Q.plant+R3    1546.470     41  3174.941     3279.305     3269.958
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-238 trees examined
-Threads: 1 / Time: 10.036 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1706
-Threads: 2 / Time: 8.511 sec / Speedup: 1.179 / Efficiency: 59% / LogL: -1706
-Threads: 3 / Time: 7.715 sec / Speedup: 1.301 / Efficiency: 43% / LogL: -1706
-Determining AUTO threadcount: done in 26.2628 secs using 190.2% CPU
-BEST NUMBER OF THREADS: 2
-
 189  Q.plant+R4    1545.645     43  3177.291     3299.355     3276.943
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1165 trees examined
-Threads: 1 / Time: 10.002 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1791
-Threads: 2 / Time: 8.715 sec / Speedup: 1.148 / Efficiency: 57% / LogL: -1791
-Threads: 3 / Time: 8.750 sec / Speedup: 1.143 / Efficiency: 38% / LogL: -1791
-Determining AUTO threadcount: done in 27.4671 secs using 192.9% CPU
-BEST NUMBER OF THREADS: 2
-
 196  Q.plant+F     1613.139     56  3338.277     3692.944     3468.057
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1173 trees examined
-Threads: 1 / Time: 10.004 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1736
-Threads: 2 / Time: 10.569 sec / Speedup: 0.947 / Efficiency: 47% / LogL: -1736
-Determining AUTO threadcount: done in 20.5739 secs using 149% CPU
-BEST NUMBER OF THREADS: 1
-
 197  Q.plant+F+I   1574.727     57  3263.454     3652.395     3395.550
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-238 trees examined
-Threads: 1 / Time: 10.005 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1693
-Threads: 2 / Time: 8.630 sec / Speedup: 1.159 / Efficiency: 58% / LogL: -1693
-Threads: 3 / Time: 7.684 sec / Speedup: 1.302 / Efficiency: 43% / LogL: -1693
-Determining AUTO threadcount: done in 26.32 secs using 190.2% CPU
-BEST NUMBER OF THREADS: 2
-
 198  Q.plant+F+G4  1544.671     57  3203.342     3592.283     3335.439
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-234 trees examined
-Threads: 1 / Time: 10.016 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1688
-Threads: 2 / Time: 8.102 sec / Speedup: 1.236 / Efficiency: 62% / LogL: -1688
-Threads: 3 / Time: 7.386 sec / Speedup: 1.356 / Efficiency: 45% / LogL: -1688
-Determining AUTO threadcount: done in 25.5041 secs using 188.9% CPU
-BEST NUMBER OF THREADS: 2
-
 199  Q.plant+F+I+G4 1543.102     58  3202.205     3629.955     3336.619
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-553 trees examined
-Threads: 1 / Time: 10.017 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1708
-Threads: 2 / Time: 9.221 sec / Speedup: 1.086 / Efficiency: 54% / LogL: -1708
-Threads: 3 / Time: 8.006 sec / Speedup: 1.251 / Efficiency: 42% / LogL: -1708
-Determining AUTO threadcount: done in 27.2441 secs using 191% CPU
-BEST NUMBER OF THREADS: 2
-
 200  Q.plant+F+R2  1550.683     58  3217.366     3645.116     3351.781
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-348 trees examined
-Threads: 1 / Time: 10.028 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1685
-Threads: 2 / Time: 6.998 sec / Speedup: 1.433 / Efficiency: 72% / LogL: -1685
-Threads: 3 / Time: 7.283 sec / Speedup: 1.377 / Efficiency: 46% / LogL: -1685
-Determining AUTO threadcount: done in 24.3089 secs using 187.2% CPU
-BEST NUMBER OF THREADS: 2
-
 201  Q.plant+F+R3  1543.786     60  3207.572     3730.429     3346.621
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-280 trees examined
-Threads: 1 / Time: 10.008 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1674
-Threads: 2 / Time: 7.810 sec / Speedup: 1.281 / Efficiency: 64% / LogL: -1674
-Threads: 3 / Time: 6.735 sec / Speedup: 1.486 / Efficiency: 50% / LogL: -1674
-Determining AUTO threadcount: done in 24.5537 secs using 185.7% CPU
-BEST NUMBER OF THREADS: 2
-
 202  Q.plant+F+R4  1542.228     62  3208.456     3859.456     3352.141
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1308 trees examined
-Threads: 1 / Time: 10.006 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1792
-Threads: 2 / Time: 9.230 sec / Speedup: 1.084 / Efficiency: 54% / LogL: -1792
-Threads: 3 / Time: 8.712 sec / Speedup: 1.148 / Efficiency: 38% / LogL: -1792
-Determining AUTO threadcount: done in 27.9489 secs using 192.7% CPU
-BEST NUMBER OF THREADS: 2
-
 209  Q.yeast       1610.931     37  3295.863     3371.863     3381.610
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1082 trees examined
-Threads: 1 / Time: 10.000 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1732
-Threads: 2 / Time: 9.572 sec / Speedup: 1.045 / Efficiency: 52% / LogL: -1732
-Threads: 3 / Time: 7.874 sec / Speedup: 1.270 / Efficiency: 42% / LogL: -1732
-Determining AUTO threadcount: done in 27.4473 secs using 189.8% CPU
-BEST NUMBER OF THREADS: 1
-
 210  Q.yeast+I     1572.807     38  3221.614     3303.947     3309.679
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-239 trees examined
-Threads: 1 / Time: 10.069 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1672
-Threads: 2 / Time: 6.806 sec / Speedup: 1.479 / Efficiency: 74% / LogL: -1672
-Threads: 3 / Time: 5.619 sec / Speedup: 1.792 / Efficiency: 60% / LogL: -1672
-Threads: 4 / Time: 5.880 sec / Speedup: 1.712 / Efficiency: 43% / LogL: -1672
-Determining AUTO threadcount: done in 28.3749 secs using 224.3% CPU
-BEST NUMBER OF THREADS: 3
-
 211  Q.yeast+G4    1546.172     38  3168.345     3250.678     3256.409
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-282 trees examined
-Threads: 1 / Time: 10.012 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1701
-Threads: 2 / Time: 7.542 sec / Speedup: 1.328 / Efficiency: 66% / LogL: -1701
-Threads: 3 / Time: 6.360 sec / Speedup: 1.574 / Efficiency: 52% / LogL: -1701
-Threads: 4 / Time: 5.721 sec / Speedup: 1.750 / Efficiency: 44% / LogL: -1701
-Determining AUTO threadcount: done in 29.6359 secs using 225.2% CPU
-BEST NUMBER OF THREADS: 3
-
 212  Q.yeast+I+G4  1544.470     39  3166.939     3256.082     3257.321
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-580 trees examined
-Threads: 1 / Time: 10.009 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1705
-Threads: 2 / Time: 7.968 sec / Speedup: 1.256 / Efficiency: 63% / LogL: -1705
-Threads: 3 / Time: 7.293 sec / Speedup: 1.372 / Efficiency: 46% / LogL: -1705
-Determining AUTO threadcount: done in 25.2704 secs using 187.3% CPU
-BEST NUMBER OF THREADS: 2
-
 213  Q.yeast+R2    1548.965     39  3175.930     3265.073     3266.312
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-373 trees examined
-Threads: 1 / Time: 10.009 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1661
-Threads: 2 / Time: 6.584 sec / Speedup: 1.520 / Efficiency: 76% / LogL: -1661
-Threads: 3 / Time: 5.952 sec / Speedup: 1.682 / Efficiency: 56% / LogL: -1661
-Threads: 4 / Time: 5.762 sec / Speedup: 1.737 / Efficiency: 43% / LogL: -1661
-Determining AUTO threadcount: done in 28.3072 secs using 224.7% CPU
-BEST NUMBER OF THREADS: 3
-
 214  Q.yeast+R3    1545.635     41  3173.269     3277.633     3268.286
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1231 trees examined
-Threads: 1 / Time: 10.003 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1768
-Threads: 2 / Time: 8.178 sec / Speedup: 1.223 / Efficiency: 61% / LogL: -1768
-Threads: 3 / Time: 8.329 sec / Speedup: 1.201 / Efficiency: 40% / LogL: -1768
-Determining AUTO threadcount: done in 26.5099 secs using 191.1% CPU
-BEST NUMBER OF THREADS: 2
-
 222  Q.yeast+F     1601.918     56  3315.837     3670.503     3445.616
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1271 trees examined
-Threads: 1 / Time: 10.010 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1710
-Threads: 2 / Time: 9.097 sec / Speedup: 1.100 / Efficiency: 55% / LogL: -1710
-Threads: 3 / Time: 8.498 sec / Speedup: 1.178 / Efficiency: 39% / LogL: -1710
-Determining AUTO threadcount: done in 27.6061 secs using 191.9% CPU
-BEST NUMBER OF THREADS: 2
-
 223  Q.yeast+F+I   1564.109     57  3242.217     3631.159     3374.314
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-282 trees examined
-Threads: 1 / Time: 10.026 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1685
-Threads: 2 / Time: 6.955 sec / Speedup: 1.441 / Efficiency: 72% / LogL: -1685
-Threads: 3 / Time: 6.182 sec / Speedup: 1.622 / Efficiency: 54% / LogL: -1685
-Threads: 4 / Time: 6.662 sec / Speedup: 1.505 / Efficiency: 38% / LogL: -1685
-Determining AUTO threadcount: done in 29.8267 secs using 230.4% CPU
-BEST NUMBER OF THREADS: 3
-
 224  Q.yeast+F+G4  1541.613     57  3197.225     3586.166     3329.322
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-266 trees examined
-Threads: 1 / Time: 10.009 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1683
-Threads: 2 / Time: 6.575 sec / Speedup: 1.522 / Efficiency: 76% / LogL: -1683
-Threads: 3 / Time: 5.368 sec / Speedup: 1.865 / Efficiency: 62% / LogL: -1683
-Threads: 4 / Time: 5.386 sec / Speedup: 1.858 / Efficiency: 46% / LogL: -1683
-Determining AUTO threadcount: done in 27.3379 secs using 221% CPU
-BEST NUMBER OF THREADS: 3
-
 225  Q.yeast+F+I+G4 1539.638     58  3195.275     3623.025     3329.690
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-601 trees examined
-Threads: 1 / Time: 10.002 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1683
-Threads: 2 / Time: 7.526 sec / Speedup: 1.329 / Efficiency: 66% / LogL: -1683
-Threads: 3 / Time: 7.881 sec / Speedup: 1.269 / Efficiency: 42% / LogL: -1683
-Determining AUTO threadcount: done in 25.4096 secs using 189.6% CPU
-BEST NUMBER OF THREADS: 2
-
 226  Q.yeast+F+R2  1543.722     58  3203.443     3631.193     3337.858
+WARNING: 10 threads for alignment length 72 will slow down analysis
 WARNING: Normalizing state frequencies so that sum of them equals to 1
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-339 trees examined
-Threads: 1 / Time: 10.004 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1698
-Threads: 2 / Time: 5.993 sec / Speedup: 1.669 / Efficiency: 83% / LogL: -1698
-Threads: 3 / Time: 4.880 sec / Speedup: 2.050 / Efficiency: 68% / LogL: -1698
-Threads: 4 / Time: 5.147 sec / Speedup: 1.944 / Efficiency: 49% / LogL: -1698
-Determining AUTO threadcount: done in 26.025 secs using 217.8% CPU
-BEST NUMBER OF THREADS: 3
-
 227  Q.yeast+F+R3  1540.494     60  3200.989     3723.846     3340.038
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1384 trees examined
-Threads: 1 / Time: 10.004 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1810
-Threads: 2 / Time: 9.846 sec / Speedup: 1.016 / Efficiency: 51% / LogL: -1810
-Threads: 3 / Time: 9.656 sec / Speedup: 1.036 / Efficiency: 35% / LogL: -1810
-Determining AUTO threadcount: done in 29.506 secs using 195.7% CPU
-BEST NUMBER OF THREADS: 1
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 235  JTTDCMut      1623.887     37  3321.774     3397.774     3407.521
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1306 trees examined
-Threads: 1 / Time: 10.002 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1748
-Threads: 2 / Time: 8.529 sec / Speedup: 1.173 / Efficiency: 59% / LogL: -1748
-Threads: 3 / Time: 11.770 sec / Speedup: 0.850 / Efficiency: 28% / LogL: -1748
-Determining AUTO threadcount: done in 30.302 secs using 202.5% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 236  JTTDCMut+I    1587.194     38  3250.388     3332.721     3338.453
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-285 trees examined
-Threads: 1 / Time: 10.012 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1715
-Threads: 2 / Time: 7.115 sec / Speedup: 1.407 / Efficiency: 70% / LogL: -1715
-Threads: 3 / Time: 5.876 sec / Speedup: 1.704 / Efficiency: 57% / LogL: -1715
-Threads: 4 / Time: 5.557 sec / Speedup: 1.802 / Efficiency: 45% / LogL: -1715
-Determining AUTO threadcount: done in 28.5608 secs using 223.2% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 237  JTTDCMut+G4   1564.193     38  3204.387     3286.720     3292.451
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-262 trees examined
-Threads: 1 / Time: 10.005 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1720
-Threads: 2 / Time: 7.229 sec / Speedup: 1.384 / Efficiency: 69% / LogL: -1720
-Threads: 3 / Time: 5.092 sec / Speedup: 1.965 / Efficiency: 65% / LogL: -1720
-Threads: 4 / Time: 4.668 sec / Speedup: 2.143 / Efficiency: 54% / LogL: -1720
-Threads: 5 / Time: 4.783 sec / Speedup: 2.092 / Efficiency: 42% / LogL: -1720
-Determining AUTO threadcount: done in 31.7785 secs using 257.8% CPU
-BEST NUMBER OF THREADS: 4
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 238  JTTDCMut+I+G4 1562.403     39  3202.806     3291.949     3293.188
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-653 trees examined
-Threads: 1 / Time: 10.003 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1725
-Threads: 2 / Time: 8.351 sec / Speedup: 1.198 / Efficiency: 60% / LogL: -1725
-Threads: 3 / Time: 6.375 sec / Speedup: 1.569 / Efficiency: 52% / LogL: -1725
-Threads: 4 / Time: 6.935 sec / Speedup: 1.442 / Efficiency: 36% / LogL: -1725
-Determining AUTO threadcount: done in 31.6632 secs using 230.3% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 239  JTTDCMut+R2   1566.258     39  3210.516     3299.659     3300.898
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-368 trees examined
-Threads: 1 / Time: 10.021 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1702
-Threads: 2 / Time: 6.531 sec / Speedup: 1.534 / Efficiency: 77% / LogL: -1702
-Threads: 3 / Time: 6.385 sec / Speedup: 1.570 / Efficiency: 52% / LogL: -1702
-Threads: 4 / Time: 5.427 sec / Speedup: 1.847 / Efficiency: 46% / LogL: -1702
-Determining AUTO threadcount: done in 28.3649 secs using 223.9% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 240  JTTDCMut+R3   1563.057     41  3208.113     3312.477     3303.130
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1269 trees examined
-Threads: 1 / Time: 10.001 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1769
-Threads: 2 / Time: 8.829 sec / Speedup: 1.133 / Efficiency: 57% / LogL: -1769
-Threads: 3 / Time: 7.996 sec / Speedup: 1.251 / Efficiency: 42% / LogL: -1769
-Determining AUTO threadcount: done in 26.8268 secs using 189.9% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 248  JTTDCMut+F    1616.855     56  3345.711     3700.378     3475.490
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1231 trees examined
-Threads: 1 / Time: 10.005 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1741
-Threads: 2 / Time: 8.397 sec / Speedup: 1.191 / Efficiency: 60% / LogL: -1741
-Threads: 3 / Time: 7.933 sec / Speedup: 1.261 / Efficiency: 42% / LogL: -1741
-Determining AUTO threadcount: done in 26.3357 secs using 189.4% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 249  JTTDCMut+F+I  1580.402     57  3274.804     3663.745     3406.901
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-295 trees examined
-Threads: 1 / Time: 10.006 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1666
-Threads: 2 / Time: 6.866 sec / Speedup: 1.457 / Efficiency: 73% / LogL: -1666
-Threads: 3 / Time: 5.821 sec / Speedup: 1.719 / Efficiency: 57% / LogL: -1666
-Threads: 4 / Time: 5.882 sec / Speedup: 1.701 / Efficiency: 43% / LogL: -1666
-Determining AUTO threadcount: done in 28.5759 secs using 224.7% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 250  JTTDCMut+F+G4 1557.760     57  3229.520     3618.461     3361.617
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-280 trees examined
-Threads: 1 / Time: 10.029 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1689
-Threads: 2 / Time: 7.034 sec / Speedup: 1.426 / Efficiency: 71% / LogL: -1689
-Threads: 3 / Time: 5.616 sec / Speedup: 1.786 / Efficiency: 60% / LogL: -1689
-Threads: 4 / Time: 6.089 sec / Speedup: 1.647 / Efficiency: 41% / LogL: -1689
-Determining AUTO threadcount: done in 28.7678 secs using 225.7% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 251  JTTDCMut+F+I+G4 1555.844     58  3227.689     3655.439     3362.103
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-604 trees examined
-Threads: 1 / Time: 10.019 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1720
-Threads: 2 / Time: 7.392 sec / Speedup: 1.355 / Efficiency: 68% / LogL: -1720
-Threads: 3 / Time: 6.608 sec / Speedup: 1.516 / Efficiency: 51% / LogL: -1720
-Threads: 4 / Time: 6.631 sec / Speedup: 1.511 / Efficiency: 38% / LogL: -1720
-Determining AUTO threadcount: done in 30.6513 secs using 230.2% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 252  JTTDCMut+F+R2 1560.129     58  3236.258     3664.008     3370.673
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-396 trees examined
-Threads: 1 / Time: 10.016 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1714
-Threads: 2 / Time: 7.723 sec / Speedup: 1.297 / Efficiency: 65% / LogL: -1714
-Threads: 3 / Time: 6.567 sec / Speedup: 1.525 / Efficiency: 51% / LogL: -1714
-Threads: 4 / Time: 6.839 sec / Speedup: 1.465 / Efficiency: 37% / LogL: -1714
-Determining AUTO threadcount: done in 31.1461 secs using 230.9% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 253  JTTDCMut+F+R3 1557.199     60  3234.398     3757.256     3373.448
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1396 trees examined
-Threads: 1 / Time: 10.005 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1858
-Threads: 2 / Time: 8.480 sec / Speedup: 1.180 / Efficiency: 59% / LogL: -1858
-Threads: 3 / Time: 9.118 sec / Speedup: 1.097 / Efficiency: 37% / LogL: -1858
-Determining AUTO threadcount: done in 27.6029 secs using 193.9% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 261  DCMut         1654.057     37  3382.114     3458.114     3467.861
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1309 trees examined
-Threads: 1 / Time: 10.007 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1788
-Threads: 2 / Time: 8.599 sec / Speedup: 1.164 / Efficiency: 58% / LogL: -1788
-Threads: 3 / Time: 8.348 sec / Speedup: 1.199 / Efficiency: 40% / LogL: -1788
-Determining AUTO threadcount: done in 26.9545 secs using 191.2% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 262  DCMut+I       1609.809     38  3295.618     3377.951     3383.682
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-282 trees examined
-Threads: 1 / Time: 10.000 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1744
-Threads: 2 / Time: 6.537 sec / Speedup: 1.530 / Efficiency: 76% / LogL: -1744
-Threads: 3 / Time: 5.636 sec / Speedup: 1.774 / Efficiency: 59% / LogL: -1744
-Threads: 4 / Time: 6.294 sec / Speedup: 1.589 / Efficiency: 40% / LogL: -1744
-Determining AUTO threadcount: done in 28.4679 secs using 227.1% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 263  DCMut+G4      1583.300     38  3242.600     3324.933     3330.664
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-291 trees examined
-Threads: 1 / Time: 10.022 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1730
-Threads: 2 / Time: 6.782 sec / Speedup: 1.478 / Efficiency: 74% / LogL: -1730
-Threads: 3 / Time: 5.702 sec / Speedup: 1.758 / Efficiency: 59% / LogL: -1730
-Threads: 4 / Time: 6.065 sec / Speedup: 1.653 / Efficiency: 41% / LogL: -1730
-Determining AUTO threadcount: done in 28.572 secs using 225.9% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 264  DCMut+I+G4    1580.813     39  3239.626     3328.768     3330.008
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-653 trees examined
-Threads: 1 / Time: 10.002 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1739
-Threads: 2 / Time: 7.645 sec / Speedup: 1.308 / Efficiency: 65% / LogL: -1739
-Threads: 3 / Time: 6.783 sec / Speedup: 1.475 / Efficiency: 49% / LogL: -1739
-Determining AUTO threadcount: done in 24.4302 secs using 185.2% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 265  DCMut+R2      1586.479     39  3250.958     3340.101     3341.340
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-417 trees examined
-Threads: 1 / Time: 10.009 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1737
-Threads: 2 / Time: 7.084 sec / Speedup: 1.413 / Efficiency: 71% / LogL: -1737
-Threads: 3 / Time: 6.405 sec / Speedup: 1.563 / Efficiency: 52% / LogL: -1737
-Threads: 4 / Time: 6.565 sec / Speedup: 1.525 / Efficiency: 38% / LogL: -1737
-Determining AUTO threadcount: done in 30.0645 secs using 230.3% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 266  DCMut+R3      1581.780     41  3245.559     3349.923     3340.576
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-296 trees examined
-Threads: 1 / Time: 10.019 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1726
-Threads: 2 / Time: 6.769 sec / Speedup: 1.480 / Efficiency: 74% / LogL: -1726
-Threads: 3 / Time: 5.422 sec / Speedup: 1.848 / Efficiency: 62% / LogL: -1726
-Threads: 4 / Time: 5.212 sec / Speedup: 1.922 / Efficiency: 48% / LogL: -1726
-Determining AUTO threadcount: done in 27.4227 secs using 220% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 267  DCMut+R4      1580.316     43  3246.633     3368.697     3346.285
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1431 trees examined
-Threads: 1 / Time: 10.001 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1841
-Threads: 2 / Time: 12.322 sec / Speedup: 0.812 / Efficiency: 41% / LogL: -1841
-Determining AUTO threadcount: done in 22.3238 secs using 152.5% CPU
-BEST NUMBER OF THREADS: 1
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 274  DCMut+F       1635.652     56  3383.304     3737.971     3513.083
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1324 trees examined
-Threads: 1 / Time: 10.009 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1735
-Threads: 2 / Time: 9.224 sec / Speedup: 1.085 / Efficiency: 54% / LogL: -1735
-Threads: 3 / Time: 8.217 sec / Speedup: 1.218 / Efficiency: 41% / LogL: -1735
-Determining AUTO threadcount: done in 27.451 secs using 190.7% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 275  DCMut+F+I     1590.753     57  3295.506     3684.448     3427.603
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-264 trees examined
-Threads: 1 / Time: 10.005 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1699
-Threads: 2 / Time: 6.503 sec / Speedup: 1.538 / Efficiency: 77% / LogL: -1699
-Threads: 3 / Time: 5.496 sec / Speedup: 1.821 / Efficiency: 61% / LogL: -1699
-Threads: 4 / Time: 4.919 sec / Speedup: 2.034 / Efficiency: 51% / LogL: -1699
-Threads: 5 / Time: 4.645 sec / Speedup: 2.154 / Efficiency: 43% / LogL: -1699
-Determining AUTO threadcount: done in 31.5698 secs using 259.6% CPU
-BEST NUMBER OF THREADS: 4
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 276  DCMut+F+G4    1565.281     57  3244.563     3633.504     3376.659
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-303 trees examined
-Threads: 1 / Time: 10.025 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1695
-Threads: 2 / Time: 6.666 sec / Speedup: 1.504 / Efficiency: 75% / LogL: -1695
-Threads: 3 / Time: 5.925 sec / Speedup: 1.692 / Efficiency: 56% / LogL: -1695
-Threads: 4 / Time: 5.576 sec / Speedup: 1.798 / Efficiency: 45% / LogL: -1695
-Determining AUTO threadcount: done in 28.1924 secs using 223.8% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 277  DCMut+F+I+G4  1562.434     58  3240.868     3668.618     3375.282
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-696 trees examined
-Threads: 1 / Time: 10.008 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1723
-Threads: 2 / Time: 7.777 sec / Speedup: 1.287 / Efficiency: 64% / LogL: -1723
-Threads: 3 / Time: 6.780 sec / Speedup: 1.476 / Efficiency: 49% / LogL: -1723
-Determining AUTO threadcount: done in 24.5653 secs using 185.2% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 278  DCMut+F+R2    1567.885     58  3251.770     3679.520     3386.184
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-420 trees examined
-Threads: 1 / Time: 10.016 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1719
-Threads: 2 / Time: 7.064 sec / Speedup: 1.418 / Efficiency: 71% / LogL: -1719
-Threads: 3 / Time: 6.825 sec / Speedup: 1.468 / Efficiency: 49% / LogL: -1719
-Determining AUTO threadcount: done in 23.906 secs using 185.2% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 279  DCMut+F+R3    1563.879     60  3247.758     3770.615     3386.808
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1419 trees examined
-Threads: 1 / Time: 10.005 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1791
-Threads: 2 / Time: 9.884 sec / Speedup: 1.012 / Efficiency: 51% / LogL: -1791
-Threads: 3 / Time: 8.159 sec / Speedup: 1.226 / Efficiency: 41% / LogL: -1791
-Determining AUTO threadcount: done in 28.0481 secs using 190.9% CPU
-BEST NUMBER OF THREADS: 1
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 287  VT            1619.335     37  3312.671     3388.671     3398.418
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1357 trees examined
-Threads: 1 / Time: 10.007 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1725
-Threads: 2 / Time: 8.995 sec / Speedup: 1.112 / Efficiency: 56% / LogL: -1725
-Threads: 3 / Time: 11.041 sec / Speedup: 0.906 / Efficiency: 30% / LogL: -1725
-Determining AUTO threadcount: done in 30.0431 secs using 200% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 288  VT+I          1582.311     38  3240.622     3322.955     3328.687
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-277 trees examined
-Threads: 1 / Time: 10.028 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1704
-Threads: 2 / Time: 6.502 sec / Speedup: 1.542 / Efficiency: 77% / LogL: -1704
-Threads: 3 / Time: 5.287 sec / Speedup: 1.897 / Efficiency: 63% / LogL: -1704
-Threads: 4 / Time: 4.770 sec / Speedup: 2.102 / Efficiency: 53% / LogL: -1704
-Threads: 5 / Time: 4.834 sec / Speedup: 2.074 / Efficiency: 41% / LogL: -1704
-Determining AUTO threadcount: done in 31.4222 secs using 260% CPU
-BEST NUMBER OF THREADS: 4
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 289  VT+G4         1567.966     38  3211.932     3294.265     3299.996
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-293 trees examined
-Threads: 1 / Time: 10.029 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1712
-Threads: 2 / Time: 7.185 sec / Speedup: 1.396 / Efficiency: 70% / LogL: -1712
-Threads: 3 / Time: 5.747 sec / Speedup: 1.745 / Efficiency: 58% / LogL: -1712
-Threads: 4 / Time: 5.372 sec / Speedup: 1.867 / Efficiency: 47% / LogL: -1712
-Determining AUTO threadcount: done in 28.3328 secs using 221.6% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 290  VT+I+G4       1565.340     39  3208.679     3297.822     3299.061
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-654 trees examined
-Threads: 1 / Time: 10.016 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1721
-Threads: 2 / Time: 8.196 sec / Speedup: 1.222 / Efficiency: 61% / LogL: -1721
-Threads: 3 / Time: 6.492 sec / Speedup: 1.543 / Efficiency: 51% / LogL: -1721
-Threads: 4 / Time: 8.782 sec / Speedup: 1.140 / Efficiency: 29% / LogL: -1721
-Determining AUTO threadcount: done in 33.4862 secs using 239.5% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 291  VT+R2         1568.043     39  3214.086     3303.229     3304.468
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-406 trees examined
-Threads: 1 / Time: 10.005 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1701
-Threads: 2 / Time: 6.722 sec / Speedup: 1.488 / Efficiency: 74% / LogL: -1701
-Threads: 3 / Time: 5.636 sec / Speedup: 1.775 / Efficiency: 59% / LogL: -1701
-Threads: 4 / Time: 5.137 sec / Speedup: 1.948 / Efficiency: 49% / LogL: -1701
-Determining AUTO threadcount: done in 27.5014 secs using 219.9% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 292  VT+R3         1565.428     41  3212.855     3317.219     3307.872
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1292 trees examined
-Threads: 1 / Time: 10.002 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1804
-Threads: 2 / Time: 8.004 sec / Speedup: 1.250 / Efficiency: 62% / LogL: -1804
-Threads: 3 / Time: 8.180 sec / Speedup: 1.223 / Efficiency: 41% / LogL: -1804
-Determining AUTO threadcount: done in 26.1861 secs using 189.9% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 300  VT+F          1617.016     56  3346.031     3700.698     3475.811
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1297 trees examined
-Threads: 1 / Time: 10.001 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1702
-Threads: 2 / Time: 9.038 sec / Speedup: 1.107 / Efficiency: 55% / LogL: -1702
-Threads: 3 / Time: 8.293 sec / Speedup: 1.206 / Efficiency: 40% / LogL: -1702
-Determining AUTO threadcount: done in 27.3327 secs using 190.5% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 301  VT+F+I        1579.884     57  3273.768     3662.709     3405.865
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-315 trees examined
-Threads: 1 / Time: 10.028 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1663
-Threads: 2 / Time: 6.799 sec / Speedup: 1.475 / Efficiency: 74% / LogL: -1663
-Threads: 3 / Time: 5.481 sec / Speedup: 1.830 / Efficiency: 61% / LogL: -1663
-Threads: 4 / Time: 5.432 sec / Speedup: 1.846 / Efficiency: 46% / LogL: -1663
-Determining AUTO threadcount: done in 27.7406 secs using 221.5% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 302  VT+F+G4       1566.066     57  3246.131     3635.073     3378.228
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-315 trees examined
-Threads: 1 / Time: 10.020 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1720
-Threads: 2 / Time: 7.237 sec / Speedup: 1.384 / Efficiency: 69% / LogL: -1720
-Threads: 3 / Time: 5.683 sec / Speedup: 1.763 / Efficiency: 59% / LogL: -1720
-Threads: 4 / Time: 5.417 sec / Speedup: 1.850 / Efficiency: 46% / LogL: -1720
-Determining AUTO threadcount: done in 28.3584 secs using 221.6% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 303  VT+F+I+G4     1563.273     58  3242.547     3670.297     3376.961
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-682 trees examined
-Threads: 1 / Time: 10.007 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1721
-Threads: 2 / Time: 7.838 sec / Speedup: 1.277 / Efficiency: 64% / LogL: -1721
-Threads: 3 / Time: 6.851 sec / Speedup: 1.461 / Efficiency: 49% / LogL: -1721
-Determining AUTO threadcount: done in 24.6954 secs using 185.2% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 304  VT+F+R2       1566.439     58  3248.878     3676.628     3383.293
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-464 trees examined
-Threads: 1 / Time: 10.014 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1702
-Threads: 2 / Time: 8.562 sec / Speedup: 1.170 / Efficiency: 58% / LogL: -1702
-Threads: 3 / Time: 6.538 sec / Speedup: 1.532 / Efficiency: 51% / LogL: -1702
-Threads: 4 / Time: 7.594 sec / Speedup: 1.319 / Efficiency: 33% / LogL: -1702
-Determining AUTO threadcount: done in 32.7092 secs using 234% CPU
-BEST NUMBER OF THREADS: 3
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 305  VT+F+R3       1563.101     60  3246.203     3769.060     3385.252
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1416 trees examined
-Threads: 1 / Time: 10.006 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1792
-Threads: 2 / Time: 9.412 sec / Speedup: 1.063 / Efficiency: 53% / LogL: -1792
-Threads: 3 / Time: 9.404 sec / Speedup: 1.064 / Efficiency: 35% / LogL: -1792
-Determining AUTO threadcount: done in 28.8222 secs using 194.4% CPU
-BEST NUMBER OF THREADS: 2
-
+WARNING: 10 threads for alignment length 72 will slow down analysis
 313  PMB           1631.484     37  3336.968     3412.968     3422.715
-Measuring multi-threading efficiency up to 10 CPU cores
-Increase to 10 rounds for branch lengths
-1351 trees examined
-Threads: 1 / Time: 10.002 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -1744
+WARNING: 10 threads for alignment length 72 will slow down analysis
+314  PMB+I         1593.933     38  3263.866     3346.199     3351.930
+WARNING: 10 threads for alignment length 72 will slow down analysis
+315  PMB+G4        1582.941     38  3241.881     3324.214     3329.946
+WARNING: 10 threads for alignment length 72 will slow down analysis
+316  PMB+I+G4      1579.758     39  3237.516     3326.659     3327.898
+WARNING: 10 threads for alignment length 72 will slow down analysis
+317  PMB+R2        1582.451     39  3242.901     3332.044     3333.283
+WARNING: 10 threads for alignment length 72 will slow down analysis
+318  PMB+R3        1579.445     41  3240.891     3345.254     3335.908
+WARNING: 10 threads for alignment length 72 will slow down analysis
+326  PMB+F         1628.054     56  3368.107     3722.774     3497.887
+WARNING: 10 threads for alignment length 72 will slow down analysis
+327  PMB+F+I       1589.530     57  3293.061     3682.002     3425.158
+WARNING: 10 threads for alignment length 72 will slow down analysis
+328  PMB+F+G4      1578.547     57  3271.094     3660.035     3403.190
+WARNING: 10 threads for alignment length 72 will slow down analysis
+329  PMB+F+I+G4    1575.165     58  3266.331     3694.081     3400.745
+WARNING: 10 threads for alignment length 72 will slow down analysis
+330  PMB+F+R2      1578.919     58  3273.839     3701.589     3408.253
+WARNING: 10 threads for alignment length 72 will slow down analysis
+331  PMB+F+R3      1574.809     60  3269.617     3792.475     3408.667
+WARNING: 10 threads for alignment length 72 will slow down analysis
+339  Blosum62      1637.110     37  3348.221     3424.221     3433.968
+WARNING: 10 threads for alignment length 72 will slow down analysis
+340  Blosum62+I    1597.252     38  3270.503     3352.837     3358.568
+WARNING: 10 threads for alignment length 72 will slow down analysis
+341  Blosum62+G4   1587.131     38  3250.262     3332.595     3338.326
+WARNING: 10 threads for alignment length 72 will slow down analysis
+342  Blosum62+I+G4 1583.588     39  3245.176     3334.319     3335.558
+WARNING: 10 threads for alignment length 72 will slow down analysis
+343  Blosum62+R2   1586.608     39  3251.215     3340.358     3341.597
+WARNING: 10 threads for alignment length 72 will slow down analysis
+344  Blosum62+R3   1583.022     41  3248.043     3352.407     3343.060
+WARNING: 10 threads for alignment length 72 will slow down analysis
+352  Blosum62+F    1636.139     56  3384.277     3738.944     3514.057
+WARNING: 10 threads for alignment length 72 will slow down analysis
+353  Blosum62+F+I  1595.245     57  3304.491     3693.432     3436.587
+WARNING: 10 threads for alignment length 72 will slow down analysis
+354  Blosum62+F+G4 1585.225     57  3284.450     3673.391     3416.547
+WARNING: 10 threads for alignment length 72 will slow down analysis
+355  Blosum62+F+I+G4 1581.459     58  3278.918     3706.668     3413.332
+WARNING: 10 threads for alignment length 72 will slow down analysis
+356  Blosum62+F+R2 1585.589     58  3287.178     3714.928     3421.592
+WARNING: 10 threads for alignment length 72 will slow down analysis
+357  Blosum62+F+R3 1581.139     60  3282.277     3805.134     3421.326
+WARNING: 10 threads for alignment length 72 will slow down analysis
+358  Blosum62+F+R4 1581.069     62  3286.138     3937.138     3429.822
+WARNING: 10 threads for alignment length 72 will slow down analysis
+365  Dayhoff       1654.080     37  3382.160     3458.160     3467.907
+WARNING: 10 threads for alignment length 72 will slow down analysis
+366  Dayhoff+I     1609.759     38  3295.518     3377.851     3383.582
+WARNING: 10 threads for alignment length 72 will slow down analysis
+367  Dayhoff+G4    1583.078     38  3242.156     3324.489     3330.220
+WARNING: 10 threads for alignment length 72 will slow down analysis
+368  Dayhoff+I+G4  1580.595     39  3239.189     3328.332     3329.571
+WARNING: 10 threads for alignment length 72 will slow down analysis
+369  Dayhoff+R2    1586.315     39  3250.630     3339.772     3341.012
+WARNING: 10 threads for alignment length 72 will slow down analysis
+370  Dayhoff+R3    1581.568     41  3245.135     3349.499     3340.152
+WARNING: 10 threads for alignment length 72 will slow down analysis
+371  Dayhoff+R4    1580.034     43  3246.068     3368.132     3345.720
+WARNING: 10 threads for alignment length 72 will slow down analysis
+378  Dayhoff+F     1635.726     56  3383.452     3738.119     3513.231
+WARNING: 10 threads for alignment length 72 will slow down analysis
+379  Dayhoff+F+I   1590.738     57  3295.476     3684.417     3427.573
+WARNING: 10 threads for alignment length 72 will slow down analysis
+380  Dayhoff+F+G4  1565.082     57  3244.165     3633.106     3376.261
+WARNING: 10 threads for alignment length 72 will slow down analysis
+381  Dayhoff+F+I+G4 1562.237     58  3240.473     3668.223     3374.888
+WARNING: 10 threads for alignment length 72 will slow down analysis
+382  Dayhoff+F+R2  1567.749     58  3251.497     3679.247     3385.912
+WARNING: 10 threads for alignment length 72 will slow down analysis
+383  Dayhoff+F+R3  1563.689     60  3247.379     3770.236     3386.428
+WARNING: 10 threads for alignment length 72 will slow down analysis
+391  mtREV         1709.829     37  3493.659     3569.659     3579.406
+WARNING: 10 threads for alignment length 72 will slow down analysis
+392  mtREV+I       1674.309     38  3424.618     3506.951     3512.682
+WARNING: 10 threads for alignment length 72 will slow down analysis
+393  mtREV+G4      1636.891     38  3349.783     3432.116     3437.848
+WARNING: 10 threads for alignment length 72 will slow down analysis
+394  mtREV+I+G4    1635.367     39  3348.734     3437.877     3439.116
+WARNING: 10 threads for alignment length 72 will slow down analysis
+395  mtREV+R2      1638.539     39  3355.077     3444.220     3445.459
+WARNING: 10 threads for alignment length 72 will slow down analysis
+396  mtREV+R3      1634.722     41  3351.443     3455.807     3446.460
+WARNING: 10 threads for alignment length 72 will slow down analysis
+404  mtREV+F       1632.507     56  3377.013     3731.680     3506.793
+WARNING: 10 threads for alignment length 72 will slow down analysis
+405  mtREV+F+I     1591.847     57  3297.693     3686.635     3429.790
+WARNING: 10 threads for alignment length 72 will slow down analysis
+406  mtREV+F+G4    1568.983     57  3251.965     3640.906     3384.062
+WARNING: 10 threads for alignment length 72 will slow down analysis
+407  mtREV+F+I+G4  1566.209     58  3248.417     3676.167     3382.832
+WARNING: 10 threads for alignment length 72 will slow down analysis
+408  mtREV+F+R2    1569.445     58  3254.890     3682.640     3389.305
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+409  mtREV+F+R3    1566.341     60  3252.681     3775.538     3391.731
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+417  mtART         1740.643     37  3555.287     3631.287     3641.034
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+418  mtART+I       1701.138     38  3478.276     3560.609     3566.340
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+419  mtART+G4      1632.539     38  3341.078     3423.412     3429.143
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+420  mtART+I+G4    1632.444     39  3342.888     3432.031     3433.270
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+421  mtART+R2      1643.284     39  3364.567     3453.710     3454.949
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+422  mtART+R3      1632.047     41  3346.093     3450.457     3441.110
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+423  mtART+R4      1631.500     43  3349.000     3471.064     3448.652
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+430  mtART+F       1656.395     56  3424.790     3779.457     3554.570
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+431  mtART+F+I     1610.042     57  3334.085     3723.026     3466.181
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+432  mtART+F+G4    1566.222     57  3246.444     3635.385     3378.541
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+433  mtART+F+I+G4  1564.892     58  3245.784     3673.534     3380.198
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+434  mtART+F+R2    1573.037     58  3262.074     3689.824     3396.488
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+435  mtART+F+R3    1565.569     60  3251.139     3773.996     3390.188
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+436  mtART+F+R4    1565.404     62  3254.809     3905.809     3398.493
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+443  mtZOA         1697.915     37  3469.830     3545.830     3555.577
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+444  mtZOA+I       1662.462     38  3400.924     3483.257     3488.989
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+445  mtZOA+G4      1607.566     38  3291.131     3373.465     3379.196
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+446  mtZOA+I+G4    1607.239     39  3292.479     3381.622     3382.861
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+447  mtZOA+R2      1612.413     39  3302.827     3391.970     3393.209
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+448  mtZOA+R3      1606.667     41  3295.333     3399.697     3390.350
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+449  mtZOA+R4      1606.201     43  3298.402     3420.467     3398.054
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+456  mtZOA+F       1635.516     56  3383.031     3737.698     3512.810
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+457  mtZOA+F+I     1593.840     57  3301.681     3690.622     3433.777
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+458  mtZOA+F+G4    1561.434     57  3236.868     3625.809     3368.965
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+459  mtZOA+F+I+G4  1559.473     58  3234.946     3662.696     3369.360
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+460  mtZOA+F+R2    1563.233     58  3242.465     3670.215     3376.879
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+461  mtZOA+F+R3    1559.270     60  3238.541     3761.398     3377.590
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+469  mtMet         1716.209     37  3506.418     3582.418     3592.165
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+470  mtMet+I       1683.127     38  3442.255     3524.588     3530.319
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+471  mtMet+G4      1634.302     38  3344.603     3426.937     3432.668
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+472  mtMet+I+G4    1633.693     39  3345.387     3434.530     3435.769
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+473  mtMet+R2      1637.679     39  3353.358     3442.501     3443.740
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+474  mtMet+R3      1633.312     41  3348.624     3452.987     3443.641
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+475  mtMet+R4      1632.451     43  3350.902     3472.966     3450.554
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+482  mtMet+F       1635.228     56  3382.457     3737.123     3512.236
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+483  mtMet+F+I     1594.630     57  3303.259     3692.200     3435.356
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+484  mtMet+F+G4    1563.134     57  3240.268     3629.209     3372.365
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+485  mtMet+F+I+G4  1561.102     58  3238.204     3665.954     3372.618
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+486  mtMet+F+R2    1564.043     58  3244.086     3671.836     3378.500
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+487  mtMet+F+R3    1560.161     60  3240.321     3763.178     3379.370
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+495  mtVer         1748.897     37  3571.794     3647.794     3657.541
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+496  mtVer+I       1712.639     38  3501.278     3583.612     3589.343
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+497  mtVer+G4      1647.627     38  3371.254     3453.587     3459.319
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+498  mtVer+I+G4    1647.256     39  3372.512     3461.654     3462.894
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+499  mtVer+R2      1652.786     39  3383.571     3472.714     3473.953
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+500  mtVer+R3      1646.498     41  3374.997     3479.361     3470.014
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+501  mtVer+R4      1645.206     43  3376.413     3498.477     3476.065
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+508  mtVer+F       1670.999     56  3453.998     3808.665     3583.778
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+509  mtVer+F+I     1626.659     57  3367.318     3756.259     3499.415
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+510  mtVer+F+G4    1584.218     57  3282.436     3671.378     3414.533
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+511  mtVer+F+I+G4  1582.559     58  3281.119     3708.869     3415.533
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+512  mtVer+F+R2    1589.329     58  3294.659     3722.409     3429.073
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+513  mtVer+F+R3    1581.164     60  3282.328     3805.186     3421.378
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+514  mtVer+F+R4    1580.812     62  3285.624     3936.624     3429.308
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+521  mtInv         1712.565     37  3499.129     3575.129     3584.876
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+522  mtInv+I       1679.187     38  3434.374     3516.708     3522.439
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+523  mtInv+G4      1640.918     38  3357.835     3440.169     3445.900
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+524  mtInv+I+G4    1639.849     39  3357.698     3446.840     3448.080
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+525  mtInv+R2      1643.119     39  3364.238     3453.381     3454.620
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+526  mtInv+R3      1638.844     41  3359.689     3464.052     3454.706
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+534  mtInv+F       1621.285     56  3354.571     3709.238     3484.350
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+535  mtInv+F+I     1579.519     57  3273.038     3661.979     3405.135
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+536  mtInv+F+G4    1554.161     57  3222.322     3611.263     3354.418
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+537  mtInv+F+I+G4  1551.527     58  3219.054     3646.804     3353.469
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+538  mtInv+F+R2    1553.781     58  3223.563     3651.313     3357.977
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+539  mtInv+F+R3    1551.102     60  3222.204     3745.061     3361.253
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+547  mtMAM         1778.532     37  3631.064     3707.064     3716.811
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+548  mtMAM+I       1738.578     38  3553.156     3635.489     3641.221
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+549  mtMAM+G4      1657.796     38  3391.592     3473.925     3479.656
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+550  mtMAM+I+G4    1657.396     39  3392.793     3481.935     3483.175
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+551  mtMAM+R2      1670.430     39  3418.859     3508.002     3509.241
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+552  mtMAM+R3      1660.118     41  3402.237     3506.600     3497.254
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+553  mtMAM+R4      1657.507     43  3401.014     3523.078     3500.666
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+560  mtMAM+F       1682.307     56  3476.614     3831.280     3606.393
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+561  mtMAM+F+I     1636.400     57  3386.800     3775.742     3518.897
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+562  mtMAM+F+G4    1587.169     57  3288.338     3677.279     3420.435
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+563  mtMAM+F+I+G4  1585.986     58  3287.972     3715.722     3422.386
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+564  mtMAM+F+R2    1595.065     58  3306.131     3733.881     3440.545
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+565  mtMAM+F+R3    1585.906     60  3291.812     3814.669     3430.861
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+566  mtMAM+F+R4    1585.571     62  3295.141     3946.141     3438.826
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+573  FLAVI         1703.735     37  3481.471     3557.471     3567.218
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+574  FLAVI+I       1668.239     38  3412.478     3494.811     3500.542
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+575  FLAVI+G4      1616.723     38  3309.446     3391.780     3397.511
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+576  FLAVI+I+G4    1616.912     39  3311.824     3400.967     3402.206
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+577  FLAVI+R2      1625.623     39  3329.245     3418.388     3419.627
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+578  FLAVI+R3      1617.411     41  3316.823     3421.186     3411.840
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+579  FLAVI+R4      1616.475     43  3318.950     3441.015     3418.602
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+586  FLAVI+F       1698.953     56  3509.905     3864.572     3639.685
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+587  FLAVI+F+I     1663.085     57  3440.170     3829.111     3572.267
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+588  FLAVI+F+G4    1610.780     57  3335.560     3724.501     3467.657
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+589  FLAVI+F+I+G4  1611.437     58  3338.873     3766.623     3473.288
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+590  FLAVI+F+R2    1621.007     58  3358.014     3785.764     3492.429
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+591  FLAVI+F+R3    1610.471     60  3340.942     3863.799     3479.991
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+592  FLAVI+F+R4    1609.704     62  3343.408     3994.408     3487.092
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+599  HIVb          1663.469     37  3400.937     3476.937     3486.685
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+600  HIVb+I        1625.983     38  3327.965     3410.299     3416.030
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+601  HIVb+G4       1590.091     38  3256.181     3338.515     3344.246
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+602  HIVb+I+G4     1588.581     39  3255.162     3344.305     3345.544
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+603  HIVb+R2       1596.173     39  3270.346     3359.488     3360.728
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+604  HIVb+R3       1590.306     41  3262.612     3366.976     3357.629
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+605  HIVb+R4       1588.688     43  3263.376     3385.441     3363.028
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+612  HIVb+F        1655.926     56  3423.851     3778.518     3553.631
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+613  HIVb+F+I      1620.561     57  3355.122     3744.063     3487.219
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+614  HIVb+F+G4     1583.525     57  3281.050     3669.991     3413.147
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+615  HIVb+F+I+G4   1582.427     58  3280.854     3708.604     3415.269
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+616  HIVb+F+R2     1591.069     58  3298.139     3725.889     3432.553
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+617  HIVb+F+R3     1583.030     60  3286.059     3808.916     3425.108
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+618  HIVb+F+R4     1580.663     62  3285.327     3936.327     3429.011
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+625  HIVw          1762.045     37  3598.090     3674.090     3683.837
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+626  HIVw+I        1719.381     38  3514.762     3597.096     3602.827
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+627  HIVw+G4       1675.375     38  3426.750     3509.084     3514.815
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+628  HIVw+I+G4     1674.436     39  3426.872     3516.015     3517.254
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+629  HIVw+R2       1686.785     39  3451.569     3540.712     3541.951
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+630  HIVw+R3       1677.044     41  3436.087     3540.451     3531.104
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+631  HIVw+R4       1676.323     43  3438.646     3560.711     3538.298
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+638  HIVw+F        1742.325     56  3596.650     3951.316     3726.429
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+639  HIVw+F+I      1700.783     57  3515.565     3904.506     3647.662
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+640  HIVw+F+G4     1658.772     57  3431.545     3820.486     3563.641
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+641  HIVw+F+I+G4   1657.824     58  3431.647     3859.397     3566.062
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+642  HIVw+F+R2     1669.943     58  3455.887     3883.637     3590.301
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+643  HIVw+F+R3     1658.741     60  3437.481     3960.339     3576.531
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+644  HIVw+F+R4     1657.050     62  3438.099     4089.099     3581.784
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+651  FLU           1658.523     37  3391.045     3467.045     3476.792
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+652  FLU+I         1621.413     38  3318.827     3401.160     3406.891
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+653  FLU+G4        1589.751     38  3255.501     3337.835     3343.566
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+654  FLU+I+G4      1588.030     39  3254.061     3343.203     3344.443
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+655  FLU+R2        1595.949     39  3269.897     3359.040     3360.279
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+656  FLU+R3        1591.331     41  3264.662     3369.025     3359.679
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+657  FLU+R4        1589.003     43  3264.006     3386.070     3363.658
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+664  FLU+F         1652.983     56  3417.966     3772.632     3547.745
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+665  FLU+F+I       1615.781     57  3345.562     3734.503     3477.658
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+666  FLU+F+G4      1584.095     57  3282.191     3671.132     3414.288
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+667  FLU+F+I+G4    1582.112     58  3280.224     3707.974     3414.638
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+668  FLU+F+R2      1589.359     58  3294.719     3722.469     3429.133
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+669  FLU+F+R3      1585.877     60  3291.754     3814.611     3430.803
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+677  rtREV         1615.441     37  3304.881     3380.881     3390.628
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+678  rtREV+I       1573.314     38  3222.629     3304.962     3310.693
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+679  rtREV+G4      1556.262     38  3188.524     3270.858     3276.589
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+680  rtREV+I+G4    1553.332     39  3184.664     3273.807     3275.046
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+681  rtREV+R2      1556.960     39  3191.920     3281.063     3282.302
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+682  rtREV+R3      1554.671     41  3191.343     3295.706     3286.360
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+690  rtREV+F       1609.374     56  3330.748     3685.415     3460.528
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+691  rtREV+F+I     1566.381     57  3246.763     3635.704     3378.860
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+692  rtREV+F+G4    1551.126     57  3216.252     3605.194     3348.349
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+693  rtREV+F+I+G4  1547.707     58  3211.415     3639.165     3345.829
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+694  rtREV+F+R2    1551.726     58  3219.452     3647.202     3353.867
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+695  rtREV+F+R3    1549.913     60  3219.826     3742.683     3358.875
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+703  cpREV         1621.186     37  3316.371     3392.371     3402.118
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+704  cpREV+I       1585.380     38  3246.761     3329.094     3334.825
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+705  cpREV+G4      1568.678     38  3213.356     3295.689     3301.420
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+706  cpREV+I+G4    1566.011     39  3210.022     3299.165     3300.404
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+707  cpREV+R2      1572.360     39  3222.721     3311.863     3313.103
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+708  cpREV+R3      1568.399     41  3218.798     3323.161     3313.815
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+716  cpREV+F       1628.072     56  3368.145     3722.811     3497.924
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+717  cpREV+F+I     1589.354     57  3292.708     3681.650     3424.805
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+718  cpREV+F+G4    1571.835     57  3257.671     3646.612     3389.767
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+719  cpREV+F+I+G4  1568.718     58  3253.437     3681.187     3387.851
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+720  cpREV+F+R2    1576.444     58  3268.888     3696.638     3403.303
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+721  cpREV+F+R3    1568.976     60  3257.953     3780.810     3397.002
+WARNING: 10 threads for alignment length 72 will slow down analysis
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+722  cpREV+F+R4    1568.644     62  3261.287     3912.287     3404.971
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model C10 is alias for POISSON+G+FMIX{C10pi1:1:0.1191344178,C10pi2:1:0.0874372456,C10pi3:1:0.1037105070,C10pi4:1:0.0922584809,C10pi5:1:0.1070492801,C10pi6:1:0.1329945166,C10pi7:1:0.0538028458,C10pi8:1:0.0691986212,C10pi9:1:0.1319937434,C10pi10:1:0.1024203429}
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+729  C10           1549.057     38  3174.114     3256.448     3262.179
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model C20 is alias for POISSON+G+FMIX{C20pi1:1:0.0559910600,C20pi2:1:0.0514824870,C20pi3:1:0.0812922124,C20pi4:1:0.0721976867,C20pi5:1:0.0556718858,C20pi6:1:0.0331003080,C20pi7:1:0.0589501763,C20pi8:1:0.0263756889,C20pi9:1:0.0307584220,C20pi10:1:0.0376701125,C20pi11:1:0.0303058290,C20pi12:1:0.0808775576,C20pi13:1:0.0263349134,C20pi14:1:0.0579101455,C20pi15:1:0.0371248064,C20pi16:1:0.0586867766,C20pi17:1:0.0561479138,C20pi18:1:0.0349810886,C20pi19:1:0.0544937394,C20pi20:1:0.0596471901}
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+730  C20           1524.707     38  3125.413     3207.746     3213.478
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model C30 is alias for POISSON+G+FMIX{C30pi1:1:0.0095783264,C30pi2:1:0.0248476365,C30pi3:1:0.0636309366,C30pi4:1:0.0537939225,C30pi5:1:0.0295885587,C30pi6:1:0.0117587936,C30pi7:1:0.0132013428,C30pi8:1:0.0236868805,C30pi9:1:0.0261687659,C30pi10:1:0.0239821974,C30pi11:1:0.0257100906,C30pi12:1:0.0465072425,C30pi13:1:0.0546794546,C30pi14:1:0.0536085131,C30pi15:1:0.0270622670,C30pi16:1:0.0403913593,C30pi17:1:0.0474212700,C30pi18:1:0.0458816478,C30pi19:1:0.0214036510,C30pi20:1:0.0290385981,C30pi21:1:0.0123391793,C30pi22:1:0.0569350229,C30pi23:1:0.0419687568,C30pi24:1:0.0339027062,C30pi25:1:0.0388777376,C30pi26:1:0.0196343766,C30pi27:1:0.0233086174,C30pi28:1:0.0622722654,C30pi29:1:0.0184803385,C30pi30:1:0.0203395454}
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+731  C30           1519.636     38  3115.272     3197.605     3203.336
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model C40 is alias for POISSON+G+FMIX{C40pi1:1:0.0223853788,C40pi2:1:0.0338891820,C40pi3:1:0.0577169375,C40pi4:1:0.0252416233,C40pi5:1:0.0108607921,C40pi6:1:0.0462373793,C40pi7:1:0.0102293175,C40pi8:1:0.0147523625,C40pi9:1:0.0143161352,C40pi10:1:0.0182302541,C40pi11:1:0.0204025079,C40pi12:1:0.0425505156,C40pi13:1:0.0248627269,C40pi14:1:0.0105892988,C40pi15:1:0.0188238725,C40pi16:1:0.0086663445,C40pi17:1:0.0148496147,C40pi18:1:0.0343037402,C40pi19:1:0.0225335203,C40pi20:1:0.0174068578,C40pi21:1:0.0112207827,C40pi22:1:0.0443532245,C40pi23:1:0.0392573370,C40pi24:1:0.0196756555,C40pi25:1:0.0287690328,C40pi26:1:0.0114441177,C40pi27:1:0.0112338740,C40pi28:1:0.0582694099,C40pi29:1:0.0444272279,C40pi30:1:0.0112010942,C40pi31:1:0.0145176111,C40pi32:1:0.0114629026,C40pi33:1:0.0239628061,C40pi34:1:0.0266266492,C40pi35:1:0.0481201159,C40pi36:1:0.0371147423,C40pi37:1:0.0160476688,C40pi38:1:0.0237249267,C40pi39:1:0.0235226203,C40pi40:1:0.0261998398}
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+732  C40           1517.088     38  3110.176     3192.509     3198.240
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model C50 is alias for POISSON+G+FMIX{C50pi1:1:0.0164297003,C50pi2:1:0.0273175755,C50pi3:1:0.0460247610,C50pi4:1:0.0084864734,C50pi5:1:0.0125389252,C50pi6:1:0.0343549036,C50pi7:1:0.0130241102,C50pi8:1:0.0094755681,C50pi9:1:0.0190040551,C50pi10:1:0.0151902354,C50pi11:1:0.0320534760,C50pi12:1:0.0210059850,C50pi13:1:0.0237408547,C50pi14:1:0.0239841203,C50pi15:1:0.0213748021,C50pi16:1:0.0210717705,C50pi17:1:0.0050241805,C50pi18:1:0.0166262276,C50pi19:1:0.0143945956,C50pi20:1:0.0104391130,C50pi21:1:0.0107628277,C50pi22:1:0.0148818171,C50pi23:1:0.0321480239,C50pi24:1:0.0145477978,C50pi25:1:0.0332355807,C50pi26:1:0.0143190281,C50pi27:1:0.0234478734,C50pi28:1:0.0183044983,C50pi29:1:0.0403269452,C50pi30:1:0.0135629530,C50pi31:1:0.0091880799,C50pi32:1:0.0158270022,C50pi33:1:0.0121019379,C50pi34:1:0.0353560982,C50pi35:1:0.0404495617,C50pi36:1:0.0104569232,C50pi37:1:0.0146187792,C50pi38:1:0.0093984095,C50pi39:1:0.0146773809,C50pi40:1:0.0201635562,C50pi41:1:0.0255640273,C50pi42:1:0.0039486842,C50pi43:1:0.0393652608,C50pi44:1:0.0056415419,C50pi45:1:0.0382833580,C50pi46:1:0.0039735086,C50pi47:1:0.0140269355,C50pi48:1:0.0476703673,C50pi49:1:0.0204062788,C50pi50:1:0.0117835304}
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+733  C50           1515.018     38  3106.037     3188.370     3194.101
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model C60 is alias for POISSON+G+FMIX{C60pi1:1:0.0169698865,C60pi2:1:0.0211683374,C60pi3:1:0.0276589079,C60pi4:1:0.0065675964,C60pi5:1:0.0141221416,C60pi6:1:0.0068774834,C60pi7:1:0.0146909701,C60pi8:1:0.0067225777,C60pi9:1:0.0018396660,C60pi10:1:0.0102547197,C60pi11:1:0.0230896163,C60pi12:1:0.0057941033,C60pi13:1:0.0125394534,C60pi14:1:0.0204526478,C60pi15:1:0.0070629602,C60pi16:1:0.0117982741,C60pi17:1:0.0068334668,C60pi18:1:0.0433775839,C60pi19:1:0.0318278731,C60pi20:1:0.0222546108,C60pi21:1:0.0102264969,C60pi22:1:0.0150545891,C60pi23:1:0.0134159878,C60pi24:1:0.0148552065,C60pi25:1:0.0239111516,C60pi26:1:0.0128776278,C60pi27:1:0.0222318842,C60pi28:1:0.0247444742,C60pi29:1:0.0214274810,C60pi30:1:0.0115001882,C60pi31:1:0.0076017389,C60pi32:1:0.0130258568,C60pi33:1:0.0093701965,C60pi34:1:0.0467194264,C60pi35:1:0.0441940314,C60pi36:1:0.0322263154,C60pi37:1:0.0402999891,C60pi38:1:0.0150234227,C60pi39:1:0.0104589903,C60pi40:1:0.0214742395,C60pi41:1:0.0154957836,C60pi42:1:0.0101789953,C60pi43:1:0.0227980379,C60pi44:1:0.0123204539,C60pi45:1:0.0066777583,C60pi46:1:0.0004150083,C60pi47:1:0.0344385130,C60pi48:1:0.0113663379,C60pi49:1:0.0127143049,C60pi50:1:0.0124323741,C60pi51:1:0.0262124415,C60pi52:1:0.0064994957,C60pi53:1:0.0103203293,C60pi54:1:0.0142463512,C60pi55:1:0.0215600067,C60pi56:1:0.0199150700,C60pi57:1:0.0038964200,C60pi58:1:0.0113448855,C60pi59:1:0.0128595846,C60pi60:1:0.0117656776}
+WARNING: Your input class weight 0.000415008 is very small and may cause numerical issues
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+734  C60           1513.117     38  3102.234     3184.568     3190.299
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model EX2 is alias for MIX{BurEX2:0.672020808818762,ExpEX2:1.6413466609931}
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+735  EX2           1574.084     38  3224.168     3306.502     3312.233
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model EX3 is alias for MIX{BurEX3:0.427672756793791,IntEX3:0.837595938019774,HExEX3:1.51863631431518}
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+736  EX3           1574.029     39  3226.058     3315.201     3316.440
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model EHO is alias for MIX{ExtEHO:0.720274356,HelEHO:0.976798797,OthEHO:0.783109376}
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+737  EHO           1594.356     39  3266.712     3355.855     3357.095
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model UL2 is alias for MIX{M1_UL2:0.581348617,M2_UL2:1.465482789}
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+738  UL2           1578.469     38  3232.939     3315.272     3321.003
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model UL3 is alias for MIX{Q1_UL3:0.484340397,Q2_UL3:0.492780514,Q3_UL3:1.15597274}
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+739  UL3           1577.641     39  3233.282     3322.425     3323.664
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model EX_EHO is alias for MIX{BUR_EXT:0.761816796788931,BUR_HEL:0.744425646802117,BUR_OTH:0.532457759429489,EXP_EXT:1.5639387472863,EXP_HEL:2.06403411829438,EXP_OTH:1.43336795177594}
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+740  EX_EHO        1563.544     42  3211.089     3323.964     3308.423
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model LG4M is alias for MIX{LG4M1,LG4M2,LG4M3,LG4M4}*G4
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+741  LG4M          1541.364     38  3158.729     3241.062     3246.793
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model LG4X is alias for MIX{LG4X1,LG4X2,LG4X3,LG4X4}*R4
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+742  LG4X          1528.923     43  3143.845     3265.910     3243.497
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model CF4 is alias for POISSON+FMIX{Fclass1,Fclass2,Fclass3,Fclass4}+F+G
+WARNING: Normalizing State frequencies so that sum of them equals to 1
+WARNING: Normalizing State frequencies so that sum of them equals to 1
+WARNING: Normalizing State frequencies so that sum of them equals to 1
+WARNING: Normalizing State frequencies so that sum of them equals to 1
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+743  CF4           1581.678     61  3285.355     3867.201     3426.722
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model LG+C10 is alias for LG+POISSON+G+FMIX{C10pi1:1:0.1191344178,C10pi2:1:0.0874372456,C10pi3:1:0.1037105070,C10pi4:1:0.0922584809,C10pi5:1:0.1070492801,C10pi6:1:0.1329945166,C10pi7:1:0.0538028458,C10pi8:1:0.0691986212,C10pi9:1:0.1319937434,C10pi10:1:0.1024203429}
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+744  LG+C10        1532.760     38  3141.520     3223.853     3229.585
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model LG+C20 is alias for LG+POISSON+G+FMIX{C20pi1:1:0.0559910600,C20pi2:1:0.0514824870,C20pi3:1:0.0812922124,C20pi4:1:0.0721976867,C20pi5:1:0.0556718858,C20pi6:1:0.0331003080,C20pi7:1:0.0589501763,C20pi8:1:0.0263756889,C20pi9:1:0.0307584220,C20pi10:1:0.0376701125,C20pi11:1:0.0303058290,C20pi12:1:0.0808775576,C20pi13:1:0.0263349134,C20pi14:1:0.0579101455,C20pi15:1:0.0371248064,C20pi16:1:0.0586867766,C20pi17:1:0.0561479138,C20pi18:1:0.0349810886,C20pi19:1:0.0544937394,C20pi20:1:0.0596471901}
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+745  LG+C20        1516.073     38  3108.147     3190.480     3196.211
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model LG+C30 is alias for LG+POISSON+G+FMIX{C30pi1:1:0.0095783264,C30pi2:1:0.0248476365,C30pi3:1:0.0636309366,C30pi4:1:0.0537939225,C30pi5:1:0.0295885587,C30pi6:1:0.0117587936,C30pi7:1:0.0132013428,C30pi8:1:0.0236868805,C30pi9:1:0.0261687659,C30pi10:1:0.0239821974,C30pi11:1:0.0257100906,C30pi12:1:0.0465072425,C30pi13:1:0.0546794546,C30pi14:1:0.0536085131,C30pi15:1:0.0270622670,C30pi16:1:0.0403913593,C30pi17:1:0.0474212700,C30pi18:1:0.0458816478,C30pi19:1:0.0214036510,C30pi20:1:0.0290385981,C30pi21:1:0.0123391793,C30pi22:1:0.0569350229,C30pi23:1:0.0419687568,C30pi24:1:0.0339027062,C30pi25:1:0.0388777376,C30pi26:1:0.0196343766,C30pi27:1:0.0233086174,C30pi28:1:0.0622722654,C30pi29:1:0.0184803385,C30pi30:1:0.0203395454}
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+746  LG+C30        1511.387     38  3098.773     3181.106     3186.838
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model LG+C40 is alias for LG+POISSON+G+FMIX{C40pi1:1:0.0223853788,C40pi2:1:0.0338891820,C40pi3:1:0.0577169375,C40pi4:1:0.0252416233,C40pi5:1:0.0108607921,C40pi6:1:0.0462373793,C40pi7:1:0.0102293175,C40pi8:1:0.0147523625,C40pi9:1:0.0143161352,C40pi10:1:0.0182302541,C40pi11:1:0.0204025079,C40pi12:1:0.0425505156,C40pi13:1:0.0248627269,C40pi14:1:0.0105892988,C40pi15:1:0.0188238725,C40pi16:1:0.0086663445,C40pi17:1:0.0148496147,C40pi18:1:0.0343037402,C40pi19:1:0.0225335203,C40pi20:1:0.0174068578,C40pi21:1:0.0112207827,C40pi22:1:0.0443532245,C40pi23:1:0.0392573370,C40pi24:1:0.0196756555,C40pi25:1:0.0287690328,C40pi26:1:0.0114441177,C40pi27:1:0.0112338740,C40pi28:1:0.0582694099,C40pi29:1:0.0444272279,C40pi30:1:0.0112010942,C40pi31:1:0.0145176111,C40pi32:1:0.0114629026,C40pi33:1:0.0239628061,C40pi34:1:0.0266266492,C40pi35:1:0.0481201159,C40pi36:1:0.0371147423,C40pi37:1:0.0160476688,C40pi38:1:0.0237249267,C40pi39:1:0.0235226203,C40pi40:1:0.0261998398}
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+747  LG+C40        1508.773     38  3093.547     3175.880     3181.611
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model LG+C50 is alias for LG+POISSON+G+FMIX{C50pi1:1:0.0164297003,C50pi2:1:0.0273175755,C50pi3:1:0.0460247610,C50pi4:1:0.0084864734,C50pi5:1:0.0125389252,C50pi6:1:0.0343549036,C50pi7:1:0.0130241102,C50pi8:1:0.0094755681,C50pi9:1:0.0190040551,C50pi10:1:0.0151902354,C50pi11:1:0.0320534760,C50pi12:1:0.0210059850,C50pi13:1:0.0237408547,C50pi14:1:0.0239841203,C50pi15:1:0.0213748021,C50pi16:1:0.0210717705,C50pi17:1:0.0050241805,C50pi18:1:0.0166262276,C50pi19:1:0.0143945956,C50pi20:1:0.0104391130,C50pi21:1:0.0107628277,C50pi22:1:0.0148818171,C50pi23:1:0.0321480239,C50pi24:1:0.0145477978,C50pi25:1:0.0332355807,C50pi26:1:0.0143190281,C50pi27:1:0.0234478734,C50pi28:1:0.0183044983,C50pi29:1:0.0403269452,C50pi30:1:0.0135629530,C50pi31:1:0.0091880799,C50pi32:1:0.0158270022,C50pi33:1:0.0121019379,C50pi34:1:0.0353560982,C50pi35:1:0.0404495617,C50pi36:1:0.0104569232,C50pi37:1:0.0146187792,C50pi38:1:0.0093984095,C50pi39:1:0.0146773809,C50pi40:1:0.0201635562,C50pi41:1:0.0255640273,C50pi42:1:0.0039486842,C50pi43:1:0.0393652608,C50pi44:1:0.0056415419,C50pi45:1:0.0382833580,C50pi46:1:0.0039735086,C50pi47:1:0.0140269355,C50pi48:1:0.0476703673,C50pi49:1:0.0204062788,C50pi50:1:0.0117835304}
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+748  LG+C50        1506.709     38  3089.418     3171.752     3177.483
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model LG+C60 is alias for LG+POISSON+G+FMIX{C60pi1:1:0.0169698865,C60pi2:1:0.0211683374,C60pi3:1:0.0276589079,C60pi4:1:0.0065675964,C60pi5:1:0.0141221416,C60pi6:1:0.0068774834,C60pi7:1:0.0146909701,C60pi8:1:0.0067225777,C60pi9:1:0.0018396660,C60pi10:1:0.0102547197,C60pi11:1:0.0230896163,C60pi12:1:0.0057941033,C60pi13:1:0.0125394534,C60pi14:1:0.0204526478,C60pi15:1:0.0070629602,C60pi16:1:0.0117982741,C60pi17:1:0.0068334668,C60pi18:1:0.0433775839,C60pi19:1:0.0318278731,C60pi20:1:0.0222546108,C60pi21:1:0.0102264969,C60pi22:1:0.0150545891,C60pi23:1:0.0134159878,C60pi24:1:0.0148552065,C60pi25:1:0.0239111516,C60pi26:1:0.0128776278,C60pi27:1:0.0222318842,C60pi28:1:0.0247444742,C60pi29:1:0.0214274810,C60pi30:1:0.0115001882,C60pi31:1:0.0076017389,C60pi32:1:0.0130258568,C60pi33:1:0.0093701965,C60pi34:1:0.0467194264,C60pi35:1:0.0441940314,C60pi36:1:0.0322263154,C60pi37:1:0.0402999891,C60pi38:1:0.0150234227,C60pi39:1:0.0104589903,C60pi40:1:0.0214742395,C60pi41:1:0.0154957836,C60pi42:1:0.0101789953,C60pi43:1:0.0227980379,C60pi44:1:0.0123204539,C60pi45:1:0.0066777583,C60pi46:1:0.0004150083,C60pi47:1:0.0344385130,C60pi48:1:0.0113663379,C60pi49:1:0.0127143049,C60pi50:1:0.0124323741,C60pi51:1:0.0262124415,C60pi52:1:0.0064994957,C60pi53:1:0.0103203293,C60pi54:1:0.0142463512,C60pi55:1:0.0215600067,C60pi56:1:0.0199150700,C60pi57:1:0.0038964200,C60pi58:1:0.0113448855,C60pi59:1:0.0128595846,C60pi60:1:0.0117656776}
+WARNING: Your input class weight 0.000415008 is very small and may cause numerical issues
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+749  LG+C60        1505.009     38  3086.018     3168.352     3174.083
+Akaike Information Criterion:           LG+C60
+Corrected Akaike Information Criterion: LG+C60
+Bayesian Information Criterion:         LG+C60
+Best-fit model: LG+C60 chosen according to BIC
+
+All model information printed to iqtree_gene_trees/COG5674.model.gz
+CPU time for ModelFinder: 102.092 seconds (0h:1m:42s)
+Wall-clock time for ModelFinder: 11.475 seconds (0h:0m:11s)
+Generating 1000 samples for ultrafast bootstrap (seed: 175962)...
+WARNING: 10 threads for alignment length 72 will slow down analysis
+Model LG+C60 is alias for LG+POISSON+G+FMIX{C60pi1:1:0.0169698865,C60pi2:1:0.0211683374,C60pi3:1:0.0276589079,C60pi4:1:0.0065675964,C60pi5:1:0.0141221416,C60pi6:1:0.0068774834,C60pi7:1:0.0146909701,C60pi8:1:0.0067225777,C60pi9:1:0.0018396660,C60pi10:1:0.0102547197,C60pi11:1:0.0230896163,C60pi12:1:0.0057941033,C60pi13:1:0.0125394534,C60pi14:1:0.0204526478,C60pi15:1:0.0070629602,C60pi16:1:0.0117982741,C60pi17:1:0.0068334668,C60pi18:1:0.0433775839,C60pi19:1:0.0318278731,C60pi20:1:0.0222546108,C60pi21:1:0.0102264969,C60pi22:1:0.0150545891,C60pi23:1:0.0134159878,C60pi24:1:0.0148552065,C60pi25:1:0.0239111516,C60pi26:1:0.0128776278,C60pi27:1:0.0222318842,C60pi28:1:0.0247444742,C60pi29:1:0.0214274810,C60pi30:1:0.0115001882,C60pi31:1:0.0076017389,C60pi32:1:0.0130258568,C60pi33:1:0.0093701965,C60pi34:1:0.0467194264,C60pi35:1:0.0441940314,C60pi36:1:0.0322263154,C60pi37:1:0.0402999891,C60pi38:1:0.0150234227,C60pi39:1:0.0104589903,C60pi40:1:0.0214742395,C60pi41:1:0.0154957836,C60pi42:1:0.0101789953,C60pi43:1:0.0227980379,C60pi44:1:0.0123204539,C60pi45:1:0.0066777583,C60pi46:1:0.0004150083,C60pi47:1:0.0344385130,C60pi48:1:0.0113663379,C60pi49:1:0.0127143049,C60pi50:1:0.0124323741,C60pi51:1:0.0262124415,C60pi52:1:0.0064994957,C60pi53:1:0.0103203293,C60pi54:1:0.0142463512,C60pi55:1:0.0215600067,C60pi56:1:0.0199150700,C60pi57:1:0.0038964200,C60pi58:1:0.0113448855,C60pi59:1:0.0128595846,C60pi60:1:0.0117656776}
+WARNING: Your input class weight 0.000415008 is very small and may cause numerical issues
+
+NOTE: 69 MB RAM (0 GB) is required!
+WARNING: Number of threads seems too high for short alignments. Use -T AUTO to determine best number of threads.
+Estimate model parameters (epsilon = 0.100)
+1. Initial log-likelihood: -1505.009
+Optimal log-likelihood: -1505.000
+Mixture weights: 0.017 0.021 0.028 0.007 0.014 0.007 0.015 0.007 0.002 0.010 0.023 0.006 0.013 0.020 0.007 0.012 0.007 0.043 0.032 0.022 0.010 0.015 0.013 0.015 0.024 0.013 0.022 0.025 0.021 0.012 0.008 0.013 0.009 0.047 0.044 0.032 0.040 0.015 0.010 0.021 0.015 0.010 0.023 0.012 0.007 0.000 0.034 0.011 0.013 0.012 0.026 0.006 0.010 0.014 0.022 0.020 0.004 0.011 0.013 0.012
+Gamma shape alpha: 0.460
+Parameters optimization took 1 rounds (0.252 sec)
+Wrote distance file to... 
+Computing ML distances based on estimated model parameters...
+Calculating distance matrix: done in 0.0113816 secs using 1044% CPU
+Computing ML distances took 0.011680 sec (of wall-clock time) 0.119130 sec (of CPU time)
+Setting up auxiliary I and S matrices: done in 0.00317498 secs using 555.7% CPU
+Constructing RapidNJ tree: done in 0.0327862 secs using 308% CPU
+Computing RapidNJ tree took 0.036134 sec (of wall-clock time) 0.120774 sec (of CPU time)
+Log-likelihood of RapidNJ tree: -1502.383
+--------------------------------------------------------------------
+|             INITIALIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Generating 98 parsimony trees... 0.172 second
+Computing log-likelihood of 98 initial trees ... 7.833 seconds
+Current best score: -1498.187
+
+Do NNI search on 20 best initial trees
+Optimizing NNI: done in 4.70172 secs using 905.1% CPU
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 1: -1493.213
+Optimizing NNI: done in 2.31397 secs using 906.7% CPU
+Estimate model parameters (epsilon = 0.100)
+UPDATE BEST LOG-LIKELIHOOD: -1493.136
+Optimizing NNI: done in 2.00927 secs using 905.1% CPU
+Optimizing NNI: done in 2.15298 secs using 905.6% CPU
+Optimizing NNI: done in 2.1043 secs using 906.2% CPU
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 5: -1489.991
+Optimizing NNI: done in 5.88216 secs using 904.7% CPU
+Optimizing NNI: done in 1.93474 secs using 906.2% CPU
+Optimizing NNI: done in 3.16448 secs using 904.4% CPU
+Optimizing NNI: done in 3.99941 secs using 903.5% CPU
+Estimate model parameters (epsilon = 0.100)
+BETTER TREE FOUND at iteration 9: -1488.936
+Optimizing NNI: done in 5.35937 secs using 905.3% CPU
+Iteration 10 / LogL: -1493.633 / Time: 0h:0m:45s
+Optimizing NNI: done in 1.34222 secs using 908% CPU
+Optimizing NNI: done in 3.15513 secs using 904.6% CPU
+Optimizing NNI: done in 4.59227 secs using 904.6% CPU
+Optimizing NNI: done in 3.66521 secs using 904.3% CPU
+Optimizing NNI: done in 4.4287 secs using 905.4% CPU
+Optimizing NNI: done in 4.18753 secs using 905.1% CPU
+Optimizing NNI: done in 2.8888 secs using 905.2% CPU
+Optimizing NNI: done in 5.06139 secs using 905.8% CPU
+Optimizing NNI: done in 1.4963 secs using 907.1% CPU
+Optimizing NNI: done in 2.29639 secs using 905.3% CPU
+Iteration 20 / LogL: -1493.535 / Time: 0h:1m:18s
+Finish initializing candidate tree set (18)
+Current best tree score: -1488.936 / CPU time: 77.195
+Number of iterations: 20
+--------------------------------------------------------------------
+|               OPTIMIZING CANDIDATE TREE SET                      |
+--------------------------------------------------------------------
+Optimizing NNI: done in 3.36944 secs using 905.3% CPU
+Optimizing NNI: done in 2.34055 secs using 903.8% CPU
+Optimizing NNI: done in 1.75776 secs using 904.7% CPU
+Optimizing NNI: done in 1.97193 secs using 903.3% CPU
+Optimizing NNI: done in 1.3402 secs using 904.1% CPU
+Optimizing NNI: done in 1.43374 secs using 906.7% CPU
+Estimate model parameters (epsilon = 0.100)
+UPDATE BEST LOG-LIKELIHOOD: -1488.890
+Optimizing NNI: done in 2.05381 secs using 903.5% CPU
+Optimizing NNI: done in 1.49374 secs using 904.2% CPU
+Optimizing NNI: done in 1.94752 secs using 903.3% CPU
+Optimizing NNI: done in 2.32652 secs using 903.6% CPU
+Iteration 30 / LogL: -1488.948 / Time: 0h:1m:38s (0h:4m:28s left)
+Optimizing NNI: done in 2.37182 secs using 903.2% CPU
+UPDATE BEST LOG-LIKELIHOOD: -1488.887
+Optimizing NNI: done in 1.25081 secs using 905% CPU
+Optimizing NNI: done in 5.31763 secs using 904.7% CPU
+Optimizing NNI: done in 1.95444 secs using 903.8% CPU
+Optimizing NNI: done in 2.45068 secs using 903.3% CPU
+Optimizing NNI: done in 1.63353 secs using 906% CPU
+Optimizing NNI: done in 1.62174 secs using 906.1% CPU

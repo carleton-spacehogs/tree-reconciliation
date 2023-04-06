@@ -17,7 +17,7 @@ generate_gene_tree()
 	elif [[ $method == "iqtree" ]]; then
 		outfile_prefix=iqtree_gene_trees/$gene_name
 		echo ${outfile_prefix}.ufboot > $gene_tree_f
-		iqtree -s $trimmed_alignment -m MFP -bb 1000 -wbtl -ntmax 10 -nt AUTO -T AUTO --prefix $outfile_prefix -madd C10,C20,C30,C40,C50,C60,EX2,EX3,EHO,UL2,UL3,EX_EHO,LG4M,LG4X,CF4,LG+C10,LG+C20,LG+C30,LG+C40,LG+C50,LG+C60 -mrate E,I,G,I+G,R
+		iqtree -s $trimmed_alignment -m MFP -bb 1000 -wbtl -ntmax 10 -nt AUTO -T $num_core --prefix $outfile_prefix -madd C10,C20,C30,C40,C50,C60,EX2,EX3,EHO,UL2,UL3,EX_EHO,LG4M,LG4X,CF4,LG+C10,LG+C20,LG+C30,LG+C40,LG+C50,LG+C60 -mrate E,I,G,I+G,R
 	else
 		echo "ERROR!! \$method can only be \"iqtree\" or \"raxml\""
 		exit 1
