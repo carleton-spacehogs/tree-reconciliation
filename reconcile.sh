@@ -153,6 +153,11 @@ align_makeTree_and_reconcile() {
 	# muscle is localed in this folder, executable downloaded from https://github.com/rcedgar/muscle/releases/tag/5.1.0
 	./muscle5.1 -align $seq_file -output $alignment
 
+	if [ $? -ne 0 ]; then
+		echo alignment of $seq_file not successful, stop here
+		exit 1
+	fi
+
 	makeTree_and_reconcile $alignment
 }
 
