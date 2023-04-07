@@ -36,9 +36,9 @@ for COG in $COG_list; do
 	echo Dispatching job $job_str
 
 	while [ $is_done = false ]; do
-		echo I am waiting, check in 10 seconds
-		sleep 10
-		ps $COG_PID
+		echo I am waiting, check in 100 seconds >> tmp/tmp.txt
+		sleep 100
+		ps $COG_PID &>/dev/null
 		if [ $? = 1 ]; then is_done=true; fi
 
 		if [ $is_done = false ]; then
