@@ -12,16 +12,16 @@ working under Professor Rika Anderson in Carleton College, MN. Started March 202
 choose only one of the entry point to start this program
 
 --COG [COG_number]
-	e.g.: $(pwd) --COG COG0035
+	e.g.: $(pwd)/reconcile.sh --COG COG0035
 
 --gene_sequence [amino acids sequences in fasta format]
-	e.g.: $(pwd) --gene rubisco_gene_sequences.faa
+	e.g.: $(pwd)/reconcile.sh --gene rubisco_gene_sequences.faa
 
 --alignment [mulitple_sequence_alignment.afa]
-	e.g.: $(pwd) --alignment alignment.afa
+	e.g.: $(pwd)/reconcile.sh --alignment alignment.afa
 
 --gene_trees [a collection of newick gene trees; output of iqtree or RAXML]
-	e.g.: $(pwd) --gene_trees COG0035_trees.ufboot
+	e.g.: $(pwd)/reconcile.sh --gene_trees COG0035_trees.ufboot
 
 
 Other options:
