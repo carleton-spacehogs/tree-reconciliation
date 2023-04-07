@@ -58,7 +58,7 @@ inhouse_scripts_processing()
 	chronogram_internal_nodes_f=ecceTERA_analysis/${chronogram%%_sample.chronogram}_${gene_name}_internal_nodes.txt # %% remove suffix
 	sym_event_f=ecceTERA_analysis/${gene_name}_symmetric.events
 	sym_event_date_f=ecceTERA_analysis/${gene_name}_symmetric.events_event_dates.txt
-	birthdate_f=$(hostname)-allGeneBirthDate.txt
+	birthdate_f=allGeneBirthDate-$(hostname).txt
 
 	python3 scripts/getInternalNodeDates.py $chronogram $recPhyloXML_file
 	# produce file: ugam1_ChenParamsEarth_sample.chronogram_internal_nodes.txt
@@ -69,8 +69,9 @@ inhouse_scripts_processing()
 
 	python3 scripts/recphyloxmlinterpreterspec.py $sym_event_f $chronogram_internal_nodes_f $recPhyloXML_file
 
-	echo $gene_name >> $birthdate_f
+	echo $gene_name finish time: $(date +%Y-%m-%d\ %H:%M:%S) >> $birthdate_f
 	python3 -u scripts/getGeneBirthDate.py $sym_event_date_f >> $birthdate_f # -u for the "unbuffered" swich for python
 	echo ------ >> $birthdate_f
+	echo  >> $birthdate_f
 }
 

@@ -93,8 +93,6 @@ parse_gene_name() {
 	echo $1 | awk -F '/' '{print $NF}' | awk -F '.' '{print $1}'
 }
 
-free_memory() { free | grep Mem | awk '{print $4/$2 * 100.0}'; }
-
 reconcile_and_analysis() {
 	gene_tree=$1
 	echo "
