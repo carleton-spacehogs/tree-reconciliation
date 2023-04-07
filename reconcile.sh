@@ -200,6 +200,11 @@ elif [ ! -z "$gene_sequences" ]; then
 	align_makeTree_and_reconcile $gene_sequences
 	exit $?
 elif [ ! -z "$COG" ]; then
+	R_plot="R-plots/histogram/${COG_calling_method}-${gene_tree_method}-${COG}-eventsHistogram.png"
+	if test -f "$R_plot"; then
+		echo "$R_plot exists. I think I am done"
+		exit 0
+	fi
 	extractSeq_align_makeTree_and_reconcile $COG
 	exit $?
 else

@@ -3,7 +3,8 @@
 free_memory_start_point=50
 free_memory_stop_point=75
 max_jobs=3
-COG_list=$(grep -E ",320$" diamond_COG_count.txt | awk -F ',' '{print $1}' | head -n 5)
+# COG_list=$(grep -E ",320$" diamond_COG_count.txt | awk -F ',' '{print $1}' | head -n 5)
+COG_list="COG2924 COG4100 COG3712 COG5036 COG1140 COG1227 COG3004 COG3043 COG3263 COG4555 COG5013 COG2180 COG1124 COG0038 COG0369 COG0387 COG0390 COG0490 COG0672 COG0748"
 
 num_done=0
 num_COGs=$(echo $COG_list | awk -F 'COG' '{print NF - 1}')
@@ -38,7 +39,7 @@ for COG in $COG_list; do
 	echo Dispatching job $job_str
 
 	while [ $is_done = false ]; do
-		echo I am waiting, check in 100 seconds >> tmp/tmp.txt
+		# echo I am waiting, check in 100 seconds >> tmp/tmp.txt
 		sleep 100
 		ps $COG_PID &>/dev/null
 		if [ $? = 1 ]; then is_done=true; fi
@@ -46,20 +47,20 @@ for COG in $COG_list; do
 		if [ $is_done = false ]; then
 			if [ $(is_memory_ok $free_memory_start_point) = true ]; then
 				if [ $(job_running $COG_PID) = false ]; then 
-					echo $job_str was paused, now continue
+					echo $job_str was paused, now continue >> tmp/tmp2.txt
 					kill -CONT $COG_PID
 				else
-					echo memory ok and job running
+					echo $job_str memory ok and job running >> tmp/tmp2.txt
 				fi
 			elif [ $(is_memory_ok $free_memory_stop_point) = false ]; then # memory not ok
 				if [ $(job_running $COG_PID) = true ]; then
-					echo $job_str is running, now paused due to memory
+					echo $job_str is running, now paused due to memory >> tmp/tmp2.txt
 					kill -STOP $COG_PID
 				else
-					echo memory not ok and job not running
+					echo $job_str memory not ok and job not running >> tmp/tmp2.txt
 				fi
 			else
-				echo memory between start and stop point, not doing anything
+				echo $job_str memory between start and stop point, not doing anything >> tmp/tmp2.txt
 			fi
 		else
 			echo $job_str is done
