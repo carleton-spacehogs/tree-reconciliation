@@ -1,8 +1,8 @@
 #!/bin/bash
 
-free_memory_lower_bound=25
+free_memory_lower_bound=40
 max_jobs=3
-COG_list=$(grep -E ",40$" diamond_COG_count.txt | awk -F ',' '{print $1}' | head -n 5)
+COG_list=$(grep -E ",60$" diamond_COG_count.txt | awk -F ',' '{print $1}' | head -n 5)
 
 num_done=0
 num_COGs=$(echo $COG_list | awk -F 'COG' '{print NF - 1}')
