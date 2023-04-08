@@ -1,7 +1,7 @@
 #!/bin/bash
 
 free_memory_start_point=50
-free_memory_stop_point=75
+free_memory_stop_point=25
 max_jobs=3
 # COG_list=$(grep -E ",320$" diamond_COG_count.txt | awk -F ',' '{print $1}' | head -n 5)
 
@@ -39,7 +39,7 @@ job_running() {
 }
 
 for COG in $COG_list; do
-	# ./reconcile.sh --COG $COG &
+	#./reconcile.sh --COG $COG --stop_before_reconciliation &
 	./reconcile.sh --gene_tree $iqtree_gene_trees/$COG.ufboot
 	COG_PID=$!
 	job_str="$COG_PID for $COG"
