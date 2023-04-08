@@ -1,0 +1,246 @@
+IQ-TREE multicore version 2.2.0.3 COVID-edition for Linux 64-bit built Aug  2 2022
+Developed by Bui Quang Minh, James Barbetti, Nguyen Lam Tung,
+Olga Chernomor, Heiko Schmidt, Dominik Schrempf, Michael Woodhams, Ly Trong Nhan.
+
+Host:    deming (AVX512, FMA3, 1511 GB RAM)
+Command: iqtree -s gene_alignments/trimv2_COG4662.afa --nmax 3000 -m MFP -bb 1000 -wbtl -ntmax 10 -nt AUTO -T 10 --prefix iqtree_gene_trees/COG4662 -madd C10,C20,C30,C40,C50,C60,EX2,EX3,EHO,UL2,UL3,EX_EHO,LG4M,LG4X,CF4,LG+C10,LG+C20,LG+C30,LG+C40,LG+C50,LG+C60 -mrate E,I,G,I+G,R
+Seed:    842878 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Sat Apr  8 13:29:26 2023
+Kernel:  AVX+FMA - 10 threads (128 CPU cores detected)
+
+Reading alignment file gene_alignments/trimv2_COG4662.afa ... Fasta format detected
+Reading fasta file: done in 0.00148983 secs using 50.01% CPU
+Alignment most likely contains protein sequences
+Constructing alignment: done in 0.00154807 secs using 99.8% CPU
+Alignment has 186 sequences with 237 columns, 236 distinct patterns
+226 parsimony-informative, 6 singleton sites, 5 constant sites
+                                                                  Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 7.07954e-05 secs using 2146% CPU
+   1  GCF.002148795.1.Bacteria.Proteobacteria_NZ_MPOB01000002.1_296       1.27%    passed     78.88%
+   2  GCA.002631715.1.Bacteria.Proteobacteria_MRSX01000003.1_165          1.69%    passed     76.11%
+   3  GCF.002257705.1.Bacteria.Firmicutes.C_NZ_LSLK01000071.1_86          1.27%    passed     24.22%
+   4  GCA.003535305.1.Bacteria.Bipolaricaulota_DOHL01000149.1_3           2.53%    passed     92.20%
+   5  GCA.002796975.1.Bacteria.Proteobacteria_PEKV01000004.1_416          0.84%    passed     89.07%
+   6  GCF.000020005.1.Bacteria.Firmicutes.D_NC_010718.1_334               1.27%    passed     78.70%
+   7  GCA.002328485.1.Bacteria.Desulfobacterota.G_DCUF01000056.1_10       2.11%    passed     85.65%
+   8  GCA.002239025.1.Bacteria.Chloroflexota_MPNM01000003.1_152           2.11%    passed     18.86%
+   9  GCA.002723345.1.Bacteria.Proteobacteria_PBNV01000057.1_87           1.27%    passed     80.14%
+  10  GCA.002399265.1.Bacteria.Firmicutes.G_DHDG01000069.1_28             2.11%    passed     99.68%
+  11  GCA.002897695.1.Bacteria.BMS3Abin14_BDTG01000013.1_14               3.80%    passed     46.17%
+  12  GCA.002238885.1.Bacteria.Proteobacteria_MPNF01000122.1_1           10.13%    passed     63.54%
+  13  GCF.006980715.1.Bacteria.Proteobacteria_NZ_SBHN01000005.1_88        0.42%    passed     63.70%
+  14  GCA.001768675.1.Bacteria.Actinobacteriota_MELN01000013.1_6          0.42%    passed     22.85%
+  15  GCA.002717805.1.Bacteria.Chloroflexota_PBBS01000013.1_33            3.80%    passed     10.95%
+  16  GCA.001775995.1.Archaea.Thermoproteota_MEZH01000012.1_26            0.42%    passed     88.63%
+  17  GCA.001803565.1.Bacteria.Nitrospinota.B_MHDQ01000288.1_3            1.69%    passed     93.11%
+  18  GCA.006969625.1.Bacteria.Proteobacteria_CP030885.1_1197             1.27%    passed      7.26%
+  19  GCA.003220615.1.Bacteria.Methylomirabilota_QHTB01000014.1_11        2.53%    passed     46.54%
+  20  GCA.001750625.1.Bacteria.Proteobacteria_MEIE01000198.1_3            2.11%    failed      0.01%
+  21  GCA.001723855.1.Archaea.Altiarchaeota_MCBC01000075.1_20             2.11%    passed     15.37%
+  22  GCA.002717225.1.Bacteria.Proteobacteria_PBDG01000006.1_6            4.64%    passed     97.49%
+  23  GCA.002291985.1.Bacteria.Firmicutes.E_DBBB01000014.1_18             0.84%    passed     61.16%
+  24  GCA.002327305.1.Bacteria.Acidobacteriota_DCUZ01000002.1_51          2.11%    passed     75.00%
+  25  GCA.002722885.1.Bacteria.Proteobacteria_PBNE01000006.1_140          0.84%    passed     36.99%
+  26  GCF.002207765.1.Bacteria.Firmicutes.B_NZ_BDGJ01000126.1_65          1.27%    passed     84.35%
+  27  GCA.001513125.1.Bacteria.DTU030_LFSN01000098.1_38                   2.11%    passed     99.21%
+  28  GCA.002791075.1.Bacteria.Ratteibacteria_PFWI01000125.1_1           14.35%    passed     88.95%
+  29  GCA.002292285.1.Bacteria.Proteobacteria_DBBP01000017.1_84           1.69%    passed     70.43%
+  30  GCA.002400365.1.Bacteria.Chloroflexota_DHFK01000087.1_6             5.49%    passed     90.11%
+  31  GCA.900066305.1.Bacteria.Firmicutes.A_SCH87433.1                    2.53%    passed      6.25%
+  32  GCA.002454015.1.Bacteria.Proteobacteria_DKIB01000110.1_25           1.69%    failed      0.00%
+  33  GCA.003503675.1.Bacteria.Cyanobacteria_DOBT01000149.1_19            2.53%    passed     67.26%
+  34  GCA.002418835.1.Bacteria.Spirochaetota_DIEX01000013.1_60            3.38%    passed     22.96%
+  35  GCA.001871015.1.Bacteria.Desantisbacteria_MNUO01000095.1_5          3.38%    passed     40.91%
+  36  GCF.001953175.1.Bacteria.Chloroflexota_NZ_CP018258.1_1298           0.42%    passed     85.87%
+  37  GCA.000987045.1.Bacteria.Firmicutes.B_LAKY01000008.1_70             2.11%    passed     17.75%
+  38  GCA.002877985.1.Bacteria.Desulfobacterota_PNIK01000032.1_12         0.42%    passed      6.08%
+  39  GCF.002224645.1.Bacteria.Firmicutes.B_NZ_CP022121.1_1355            2.95%    passed     30.96%
+  40  GCA.001768075.1.Bacteria.Myxococcota_MEMX01000031.1_20              2.11%    passed     98.72%
+  41  GCF.001614315.2.Bacteria.Proteobacteria_NZ_LVEG02000001.1_663       0.84%    passed     54.63%
+  42  GCA.002452295.1.Bacteria.Firmicutes.G_DKEX01000017.1_2              2.11%    passed     18.18%
+  43  GCA.002010665.1.Bacteria.Acidobacteriota_MTON01000022.1_34          0.42%    passed     46.48%
+  44  GCA.002746645.1.Bacteria.Proteobacteria_PDPU01000033.1_11           0.84%    passed     43.07%
+  45  GCA.002352935.1.Bacteria.Firmicutes.B_DDHO01000024.1_63             0.42%    passed     78.64%
+  46  GCA.002457765.1.Bacteria.Proteobacteria_NTKW01000014.1_2            0.84%    passed     82.73%
+  47  GCA.001593855.1.Archaea.Thermoproteota_LUCC01000023.1_7             5.91%    passed     59.12%
+  48  GCA.001771285.1.Bacteria.Methylomirabilota_METI01000041.1_4         2.11%    passed     21.76%
+  49  GCF.001049895.1.Bacteria.Firmicutes_NZ_CVPE01000006.1_29            2.11%    passed     94.91%
+  50  GCF.000266945.1.Bacteria.Desulfobacterota_NC_018025.1_67            2.95%    passed     75.19%
+  51  GCA.001803795.1.Bacteria.Nitrospirota_MHEK01000030.1_27             1.69%    passed     27.70%
+  52  GCF.000503775.1.Bacteria.Firmicutes_NZ_KI629782.1_1105              8.44%    passed     79.34%
+  53  GCA.002707655.1.Bacteria.SAR324_PANO01000083.1_13                   1.69%    passed     76.48%
+  54  GCF.001653195.1.Bacteria.Firmicutes_NZ_JXBB01000001.1_173           0.42%    failed      3.46%
+  55  GCF.002114285.1.Archaea.Halobacteriota_NZ_NEDJ01000001.1_34         2.53%    failed      3.33%
+  56  GCA.002398485.1.Bacteria.Firmicutes.B_DGYV01000027.1_16             8.02%    passed     57.58%
+  57  GCA.003454665.1.Bacteria.Nitrospirota_DMKB01000084.1_3              0.42%    passed     94.83%
+  58  GCF.001561915.1.Bacteria.Firmicutes_NZ_LSKU01000001.1_1508          2.11%    passed     53.44%
+  59  GCA.002451015.1.Bacteria.Acidobacteriota_DKBB01000081.1_2           2.11%    passed     10.31%
+  60  GCA.002411145.1.Bacteria.Firmicutes.C_DHRA01000085.1_56             1.27%    passed     36.07%
+  61  GCA.000961765.1.Bacteria.Firmicutes.B_LADT01000090.1_60             5.49%    passed     66.95%
+  62  GCA.002347645.1.Bacteria.Actinobacteriota_DDYF01000029.1_25        18.99%    passed     66.47%
+  63  GCA.001775755.1.Bacteria.Acidobacteriota_MEYF01000131.1_15          9.28%    passed     80.23%
+  64  GCA.002010915.1.Bacteria.Desulfobacterota_MTPG01000053.1_3          2.53%    failed      0.31%
+  65  GCA.003130875.1.Bacteria.Chloroflexota_QEXY01000069.1_27            2.11%    passed     31.56%
+  66  GCF.000620765.1.Bacteria.Desulfobacterota.I_NZ_KK211185.1_105       2.95%    passed     95.27%
+  67  GCF.000019165.1.Bacteria.Firmicutes.B_NC_010337.2_401               2.11%    passed     50.39%
+  68  GCA.001768645.1.Bacteria.Actinobacteriota_MELK01000047.1_56         0.42%    passed     99.39%
+  69  GCA.001777915.1.Bacteria.Edwardsbacteria_MFFN01000006.1_47          2.53%    passed     96.19%
+  70  GCA.002238415.1.Bacteria.Desulfobacterota.B_MPMI01000030.1_63       0.84%    passed     85.06%
+  71  GCA.002010365.1.Bacteria.Bipolaricaulota_MTNL01000053.1_4           2.95%    passed     37.80%
+  72  GCA.002298155.1.Bacteria.Acidobacteriota_DBME01000319.1_5           2.11%    passed     87.53%
+  73  GCA.001513145.1.Bacteria.Firmicutes.G_LFSP01000029.1_27             1.69%    passed     86.32%
+  74  GCA.002420425.1.Bacteria.Proteobacteria_DIIC01000017.1_91           1.69%    passed     40.84%
+  75  GCF.001720165.1.Bacteria.Proteobacteria_NZ_MCRI01000020.1_29        9.28%    passed     91.69%
+  76  GCF.002607855.1.Bacteria.Firmicutes.B_NZ_AWQQ01000047.1_95          2.11%    passed     80.44%
+  77  GCA.002408345.1.Bacteria.Firmicutes.G_DHRX01000140.1_14             3.80%    passed     91.28%
+  78  GCA.001940645.1.Archaea.Asgardarchaeota_MDVS01000016.1_21           0.42%    failed      2.25%
+  79  GCA.001829315.1.Bacteria.Spirochaetota_MIAY01000037.1_5             5.91%    failed      0.12%
+  80  GCA.001896555.1.Bacteria.Desulfobacterota_MPOS01000029.1_22         2.95%    passed     85.70%
+  81  GCA.002494765.1.Archaea.Thermoplasmatota_DACJ01000055.1_20          2.11%    passed      5.19%
+  82  GCA.000961655.1.Bacteria.Desulfobacterota_LADR01000074.1_41         2.11%    passed     98.48%
+  83  GCA.002348365.1.Bacteria.Proteobacteria_DEBC01000060.1_7            1.27%    passed     54.13%
+  84  GCA.002717185.1.Bacteria.Proteobacteria_PBDC01000023.1_14           0.42%    passed     99.11%
+  85  GCF.900142995.1.Bacteria.Firmicutes.A_NZ_FRCR01000012.1_51          0.42%    passed     95.75%
+  86  GCA.003527145.1.Bacteria.Firmicutes.A_DPSW01000062.1_14             2.95%    passed     25.24%
+  87  GCF.000166335.1.Bacteria.Firmicutes.A_NC_014657.1_691              11.39%    failed      0.19%
+  88  GCF.000218765.1.Bacteria.Firmicutes_WP_007502384.1                  2.11%    passed     82.27%
+  89  GCA.002436065.1.Bacteria.Chloroflexota_DIXP01000114.1_9             2.95%    passed     74.09%
+  90  GCA.002347365.1.Bacteria.Actinobacteriota_DDWT01000034.1_39         1.27%    passed     77.53%
+  91  Fischerella.muscicola.CCMEE5323_WP_016867607.1                      2.11%    passed     83.14%
+  92  GCA.003221825.1.Bacteria.Gemmatimonadota_QHUE01000224.1_3           2.53%    failed      1.34%
+  93  GCA.003477045.1.Bacteria.Delongbacteria_DMTS01000005.1_5            2.11%    passed      5.01%
+  94  GCA.003230355.1.Archaea.Hydrothermarchaeota_QIDD01000033.1_6        2.53%    passed     62.57%
+  95  GCA.002418765.1.Bacteria.Firmicutes.B_DIET01000001.1_5              2.11%    passed     87.63%
+  96  GCA.003280605.1.Bacteria.Proteobacteria_QCEM01000016.1_32           1.27%    passed      5.55%
+  97  GCA.002401295.1.Bacteria.SAR324_NVSR01000118.1_1                    2.95%    passed     14.71%
+  98  GCF.001742305.1.Bacteria.Firmicutes_NZ_MJAT01000035.1_106           3.80%    passed     25.46%
+  99  GCA.001273335.1.Archaea.Thermoproteota_LFWV01000034.1_15            0.42%    passed     76.42%
+ 100  GCA.002345475.1.Bacteria.Firmicutes.H_DDWC01000132.1_3              1.27%    passed     99.27%
+ 101  GCA.002376005.1.Bacteria.Firmicutes.E_DFNJ01000035.1_42             2.11%    failed      3.92%
+ 102  GCA.001798565.1.Bacteria.Desulfobacterota.B_MGSR01000176.1_3        0.42%    passed     32.41%
+ 103  GCA.001464215.1.Bacteria.Proteobacteria_LNEZ01000073.1_19           2.95%    passed     82.04%
+ 104  GCA.001797815.1.Bacteria.RBG.13.61.14_MGQK01000009.1_51            10.97%    passed     91.52%
+ 105  GCA.002238965.1.Bacteria.UBA8248_MPNJ01000010.1_33                  3.80%    passed     83.83%
+ 106  GCF.000378005.1.Bacteria.Coprothermobacterota_NZ_KB899040.1_1370   12.66%    failed      2.93%
+ 107  GCA.003235715.1.Bacteria.Nitrospirota_QJVM01000184.1_8              1.27%    passed     95.17%
+ 108  GCA.001940665.1.Archaea.Asgardarchaeota_MDVT01000007.1_536          0.42%    passed     16.06%
+ 109  GCF.004522215.1.Bacteria.Firmicutes_NZ_SDLR01000003.1_990           3.80%    passed     68.55%
+ 110  GCF.000526155.1.Bacteria.Desulfobacterota_NZ_JAFN01000001.1_2362    2.95%    failed      0.92%
+ 111  GCA.003242675.1.Bacteria.Firmicutes.E_QGVE01000005.1_18             2.11%    passed     94.07%
+ 112  GCA.001302825.1.Bacteria.Planctomycetota_LIZR01000120.1_12          4.22%    passed     30.21%
+ 113  GCA.002389045.1.Bacteria.Proteobacteria_DGNS01000006.1_17           2.95%    passed     56.30%
+ 114  GCA.001871795.1.Bacteria.Actinobacteriota_MNXI01000023.1_3          0.42%    passed     97.53%
+ 115  GCA.001774245.1.Archaea.Thermoproteota_MEZF01000047.1_46            0.42%    passed     88.85%
+ 116  GCF.000620305.1.Bacteria.Firmicutes.B_NZ_JHVU01000024.1_124         2.53%    passed     34.17%
+ 117  GCA.001787855.1.Bacteria.Riflebacteria_MFYY01000259.1_20            1.27%    passed     39.97%
+ 118  GCF.900099895.1.Bacteria.Firmicutes_NZ_FNDY01000006.1_124          17.72%    passed     98.55%
+ 119  GCF.000970205.1.Archaea.Halobacteriota_NZ_CP009512.1_3301           3.38%    failed      0.11%
+ 120  GCA.002375925.1.Bacteria.Firmicutes.E_DFNE01000078.1_3              2.11%    passed     93.52%
+ 121  GCF.002252565.1.Bacteria.Firmicutes.A_NZ_NPML01000011.1_166         3.38%    failed      1.62%
+ 122  GCA.002897715.1.Bacteria.Actinobacteriota_BDUA01000009.1_64         3.38%    passed     37.25%
+ 123  GCA.001873285.1.Bacteria.CG2.30.53.67_MNYV01000150.1_4              3.38%    passed     62.72%
+ 124  GCA.002011085.1.Archaea.Thermoproteota_MTMB01000001.1_116           9.28%    passed     14.85%
+ 125  GCF.900176005.1.Bacteria.Firmicutes.B_NZ_LT838272.1_147             1.27%    passed     66.04%
+ 126  GCA.002414865.1.Bacteria.Fermentibacterota_DIAQ01000075.1_3         2.95%    passed     55.64%
+ 127  GCA.002898275.1.Bacteria.Proteobacteria_BEIQ01000001.1_766          0.84%    passed      6.15%
+ 128  GCF.000025005.1.Bacteria.Chloroflexota_NC_013525.1_1728             0.42%    passed     39.09%
+ 129  GCA.002423325.1.Bacteria.Chloroflexota_DIVQ01000158.1_9             2.11%    passed     88.49%
+ 130  GCA.001940725.1.Archaea.Asgardarchaeota_MDVR01000005.1_13           4.64%    passed     11.20%
+ 131  GCA.002386945.1.Bacteria.Proteobacteria_DGKH01000056.1_8            0.84%    failed      1.14%
+ 132  GCF.002335525.1.Bacteria.Firmicutes_NZ_BDUF01000086.1_14            2.11%    passed     35.24%
+ 133  GCF.900100785.1.Bacteria.Firmicutes.B_NZ_FNCP01000012.1_102         1.69%    passed     23.22%
+ 134  GCA.002731375.1.Bacteria.Proteobacteria_PCBT01000025.1_113          0.84%    passed     59.52%
+ 135  GCA.001723855.1.Archaea.Altiarchaeota_MCBC01000101.1_1             20.25%    passed      9.70%
+ 136  GCA.002011075.1.Archaea.Thermoproteota_MTMA01000004.1_613           5.91%    passed     20.65%
+ 137  GCA.002899795.1.Bacteria.Desulfobacterota_PPDG01000178.1_5          2.53%    passed     80.83%
+ 138  GCA.002478245.1.Bacteria.UBP18_DLMW01000085.1_2                     2.95%    passed     59.47%
+ 139  GCA.000739515.1.Bacteria.Moduliflexota_DF820456.1_388               3.38%    passed     85.31%
+ 140  GCF.002252565.1.Bacteria.Firmicutes.A_NZ_NPML01000019.1_304         2.53%    failed      2.97%
+ 141  GCA.002007425.1.Bacteria.Proteobacteria_MUGK01000007.1_33           1.27%    passed     63.21%
+ 142  GCA.002779205.1.Bacteria.Actinobacteriota_PEXF01000127.1_3          0.42%    passed     29.95%
+ 143  GCF.900107485.1.Bacteria.Firmicutes.A_NZ_FNQE01000010.1_54          3.38%    failed      0.00%
+ 144  GCA.002327985.1.Bacteria.Desulfobacterota_DCVM01000018.1_11         2.53%    passed     94.31%
+ 145  GCA.002348045.1.Bacteria.Chloroflexota_DDYO01000163.1_14            2.11%    passed     97.91%
+ 146  GCF.900172325.1.Bacteria.Proteobacteria_NZ_FWFR01000002.1_439       2.95%    passed     78.15%
+ 147  GCF.000384115.1.Bacteria.Actinobacteriota_NZ_KB913029.1_5023        0.42%    failed      2.23%
+ 148  GCA.002686135.1.Bacteria.Proteobacteria_NZAO01000014.1_16           1.27%    passed     82.36%
+ 149  GCA.001940655.1.Archaea.Asgardarchaeota_MBAA01000184.1_14           0.42%    passed     68.76%
+ 150  GCA.002898795.1.Bacteria.Desulfobacterota.B_BEIG01000001.1_12       2.53%    failed      0.52%
+ 151  GCA.001771505.1.Bacteria.Margulisbacteria_MEUA01000009.1_28         9.70%    passed      7.83%
+ 152  GCA.001735895.1.Bacteria.Proteobacteria_DS021200.1_302              0.84%    passed     51.10%
+ 153  GCF.900066015.1.Bacteria.Chloroflexota_NZ_LN890655.1_2123           3.80%    passed     20.89%
+ 154  GCF.000233775.1.Bacteria.Synergistota_NC_016148.1_1758              3.38%    passed     76.34%
+ 155  GCF.900079095.1.Bacteria.Tectomicrobia_NZ_FKIP01000247.1_7          3.80%    passed     40.11%
+ 156  GCA.002435745.1.Bacteria.UBP15_DIWT01000032.1_29                    1.27%    failed      0.01%
+ 157  GCA.001515205.2.Archaea.Hadarchaeota_LQMQ01000065.1_16             10.97%    passed     23.05%
+ 158  GCF.000020005.1.Bacteria.Firmicutes.D_NC_010718.1_2300              3.80%    passed     87.35%
+ 159  GCA.001800745.1.Archaea.Thermoplasmatota_MGVZ01000029.1_50          8.86%    passed     46.61%
+ 160  GCA.003153275.1.Bacteria.Nitrospirota_PLXX01000086.1_18             0.84%    passed     79.24%
+ 161  GCA.002868855.1.Bacteria.Proteobacteria_PKUM01000336.1_7            0.84%    passed     63.84%
+ 162  GCA.007244385.1.Bacteria.Desulfobacterota_SCVX01000031.1_120        2.53%    passed     62.19%
+ 163  GCA.003498085.1.Bacteria.UBA9089_DNCM01000026.1_2                   3.80%    failed      0.73%
+ 164  GCA.002402635.1.Bacteria.Deferribacterota_DHGE01000041.1_23         2.53%    failed      0.00%
+ 165  GCA.002256595.1.Archaea.Halobacteriota_NOLC01000061.1_11            3.80%    passed     76.73%
+ 166  GCF.001950325.1.Bacteria.Firmicutes.B_NZ_BDJL01000141.1_63          2.95%    passed     36.36%
+ 167  GCF.002798435.1.Bacteria.Proteobacteria_WP_109793136.1              1.27%    passed     51.01%
+ 168  GCA.001304105.1.Bacteria.Desulfobacterota_LJUR01000221.1_5          2.11%    passed     99.96%
+ 169  GCA.002841695.1.Bacteria.Elusimicrobiota_PHAN01000008.1_21          3.80%    passed     22.00%
+ 170  GCA.001797675.1.Bacteria.Desulfobacterota_MGQB01000015.1_89         2.11%    passed     93.57%
+ 171  GCA.002428295.1.Bacteria.Caldisericota_DIVS01000053.1_12            0.42%    passed     59.05%
+ 172  GCA.003070825.1.Bacteria.Firmicutes.F_QBLP01000002.1_28             1.27%    failed      0.06%
+ 173  GCA.003449495.1.Bacteria.Firmicutes.E_DMHJ01000213.1_5              0.42%    failed      0.65%
+ 174  GCA.002376045.1.Bacteria.Firmicutes.A_DFNM01000095.1_4              1.69%    passed     76.50%
+ 175  GCA.002335385.1.Bacteria.Acidobacteriota_DCVK01000020.1_13          3.80%    passed     16.26%
+ 176  GCF.000315795.1.Bacteria.Proteobacteria_NZ_ANHY01000012.1_41        0.84%    failed      4.66%
+ 177  GCA.003157385.1.Bacteria.Actinobacteriota_PMJJ01000067.1_7          6.75%    passed     64.72%
+ 178  GCA.001790645.1.Bacteria.Schekmanbacteria_MGDB01000041.1_3          2.95%    failed      4.11%
+ 179  GCA.003451595.1.Bacteria.Chloroflexota_DMDA01000098.1_34           12.66%    passed     96.35%
+ 180  GCA.002782605.1.Bacteria.Desulfobacterota_PFIF01000230.1_10         2.11%    passed     70.56%
+ 181  GCF.000011005.1.Archaea.Euryarchaeota_NC_013665.1_2851              2.95%    passed     78.45%
+ 182  GCA.001593865.1.Archaea.Thermoproteota_LUCB01000010.1_75           10.13%    failed      3.67%
+ 183  GCA.002717245.1.Bacteria.Proteobacteria_PBCY01000002.1_28           0.84%    failed      0.07%
+ 184  GCF.000024725.1.Bacteria.Proteobacteria_NC_013960.1_506             1.27%    passed     98.37%
+ 185  GCA.001798605.1.Bacteria.Myxococcota_MGST01000192.1_8               2.95%    passed     62.65%
+ 186  GCF.000430605.1.Bacteria.Firmicutes.C_WP_027938671.1                2.11%    passed     10.04%
+****  TOTAL                                                               3.08%  28 sequences failed composition chi2 test (p-value<5%; df=19)
+Checking for duplicate sequences: done in 0.00106677 secs using 3117% CPU
+
+
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.079 seconds
+Perform fast likelihood tree search using LG+I+G model...
+Estimate model parameters (epsilon = 5.000)
+Perform nearest neighbor interchange...
+Optimizing NNI: done in 1.4778 secs using 997% CPU
+Estimate model parameters (epsilon = 1.000)
+1. Initial log-likelihood: -56384.914
+Optimal log-likelihood: -56384.269
+Proportion of invariable sites: 0.021
+Gamma shape alpha: 1.031
+Parameters optimization took 1 rounds (0.177 sec)
+Time for fast ML tree search: 2.168 seconds
+
+NOTE: ModelFinder requires 74 MB RAM!
+ModelFinder will test up to 749 protein models (sample size: 237) ...
+ No. Model         -LnL         df  AIC          AICc         BIC
+  1  LG            60357.710    369 121453.419   394513.419   122733.134
+  2  LG+I          60184.504    370 121109.009   395649.009   122392.191
+  3  LG+G4         56405.996    370 113551.993   388091.993   114835.175
+  4  LG+I+G4       56383.933    371 113509.866   389533.866   114796.516
+  5  LG+R2         57307.493    371 115356.986   391380.986   116643.636
+  6  LG+R3         56654.356    373 114054.712   393058.712   115348.299
+  7  LG+R4         56393.349    375 113536.698   395536.698   114837.220
+  8  LG+R5         56288.169    377 113330.337   398342.337   114637.796
+  9  LG+R6         56213.883    379 113185.767   401225.767   114500.162
+ 10  LG+R7         56174.304    381 113110.609   404194.609   114431.940
+ 11  LG+R8         56155.958    383 113077.915   407221.915   114406.182
+ 12  LG+R9         56152.733    385 113075.467   410295.467   114410.670
+ 14  LG+F          60472.873    388 121721.745   423585.745   123067.353
+ 15  LG+F+I        60333.993    389 121445.987   424865.987   122795.062
+ 16  LG+F+G4       55869.415    389 112516.830   415936.830   113865.906
+ 17  LG+F+I+G4     55856.015    390 112492.030   417472.030   113844.573
+ 18  LG+F+R2       56868.773    390 114517.545   419497.545   115870.089
+ 19  LG+F+R3       56174.859    392 113133.719   421245.719   114493.198
+ 20  LG+F+R4       55848.457    394 112484.914   423744.914   113851.329
+ 21  LG+F+R5       55765.401    396 112322.801   426746.801   113696.153
+ 22  LG+F+R6       55691.442    398 112178.884   429782.884   113559.172
+ 23  LG+F+R7       55650.721    400 112101.442   432901.442   113488.666
