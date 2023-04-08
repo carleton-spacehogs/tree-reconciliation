@@ -13,10 +13,12 @@ df = read.delim(sym_event_f, na.strings="?")
 df = df[order(df$midpoint.date),]
 df$index = 1:length(df[,1])
 
+dynamic_size = min(1.3, 100/nrow(df))
+
 ggplot(df, aes(y=midpoint.date, x=index, color=event)) +
 	geom_pointrange( alpha=0.5,
 		aes(ymin=left.date, ymax=right.date),
-		size=100/nrow(df)) + #dynamic size
+		size=dynamic_size) + #dynamic size
 	scale_color_manual( values = c(
 		"dup" = "#ffd166",
 		"hgt" = "#06d6a0",
