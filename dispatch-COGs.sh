@@ -40,7 +40,7 @@ job_running() {
 
 for COG in $COG_list; do
 	#./reconcile.sh --COG $COG --stop_before_reconciliation &
-	./reconcile.sh --gene_tree $iqtree_gene_trees/$COG.ufboot
+	./reconcile.sh --gene_tree iqtree_gene_trees/$COG.ufboot
 	COG_PID=$!
 	job_str="$COG_PID for $COG"
 	is_done=false
