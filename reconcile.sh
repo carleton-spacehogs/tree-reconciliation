@@ -100,15 +100,17 @@ parse_gene_name() {
 
 analysis() {
 	gene_name=$1
+	source ~/miniconda3/etc/profile.d/conda.sh
+	conda activate /Accounts/zhongj2/miniconda3
 	inhouse_scripts_processing $chronogram $gene_name
         # inhouse_scripts_processing must executed in Jimmy's conda base environment
         # XML has some version changes, only the version in my base environment worked...
 
         # currently, R is broken in my base environment
-        source activate anvio-dev
+	conda activate /Accounts/zhongj2/miniconda3/envs/anvio-dev
         Rscript --vanilla scripts/plot-gene-events-histogram.R $gene_name $gene_tree_method $COG_calling_method
         Rscript --vanilla scripts/plot-gene-timeline.R $gene_name $gene_tree_method $COG_calling_method
-        source deactivate
+        conda deactivate
 }
 
 
