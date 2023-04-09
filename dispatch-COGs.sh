@@ -39,9 +39,10 @@ max_jobs=3
 # COG_list="COG3546 COG3624 COG3625 COG3626 COG3627 COG3638 COG3667 COG3685 COG3703 COG3781 COG3793 COG4097 COG4107 COG4114 COG4117 COG4148 COG4208 COG4263 COG4264 COG4300"
 
 # still need to run ecceTERA on these
-COG_list="COG4314 COG4521 COG4531 COG4535 COG4536 COG4548 COG4558 COG4559 COG4572 COG4594 COG4604 COG4607 COG4615"
+# COG_list="COG4314 COG4521 COG4531 COG4535 COG4536 COG4548 COG4558 COG4559 COG4572 COG4594 COG4604 COG4607 COG4615"
 # COG_list="COG4619 COG4662 COG4772 COG4773 COG4774 COG4778 COG4779 COG4985 COG4986 COG5456 COG5478 COG5569"
 # COG_list="COG0477 COG1151 COG1120 COG2146 COG1122 COG1785 COG4638 COG0783 COG0221 COG0651 COG1009 COG1668 COG2181 COG0239 COG2132 COG0444 COG0601 COG1173 COG0248 COG0003"
+COG_list="COG0004 COG0025 COG0053 COG0155 COG0168 COG0226 COG0288 COG0306 COG0310 COG0370 COG0376 COG0428 COG0474 COG0475 COG0529 COG0530 COG0555 COG0569 COG0573 COG0581"
 
 num_done=0
 num_COGs=$(echo $COG_list | awk -F 'COG' '{print NF - 1}')
@@ -67,43 +68,49 @@ job_running() {
 	fi
 }
 
-for COG in $COG_list; do
-	#./reconcile.sh --COG $COG --stop_before_reconciliation &
-	./reconcile.sh --gene_tree iqtree_gene_trees/${COG}.ufboot
-	COG_PID=$!
-	job_str="$COG_PID for $COG"
-	is_done=false
+if [ $ignore_memory = true ]; then
+	for COG in $COG_list; do
+		./reconcile.sh --COG $COG --stop_before_reconciliation
+	done
+else
+	for COG in $COG_list; do
+		./reconcile.sh --COG $COG --stop_before_reconciliation &
+		# ./reconcile.sh --gene_tree iqtree_gene_trees/${COG}.ufboot &
+		COG_PID=$!
+		job_str="$COG_PID for $COG"
+		is_done=false
 
-	echo Dispatching job $job_str
-	while [[ $is_done = false && $ignore_memory = false ]]; do
-		# echo I am waiting, check in 100 seconds >> tmp/tmp.txt
-		sleep 100
-		ps $COG_PID &>/dev/null
-		if [ $? = 1 ]; then is_done=true; fi
+		echo Dispatching job $job_str
+		while [[ $is_done = false ]]; do
+			# echo I am waiting, check in 100 seconds >> tmp/tmp.txt
+			sleep 100
+			ps $COG_PID &>/dev/null
+			if [ $? = 1 ]; then is_done=true; fi
 
-		if [ $is_done = false ]; then
-			if [ $(is_memory_ok $free_memory_start_point) = true ]; then
-				if [ $(job_running $COG_PID) = false ]; then 
-					echo $job_str was paused, now continue >> tmp/tmp2.txt
-					kill -CONT $COG_PID
+			if [ $is_done = false ]; then
+				if [ $(is_memory_ok $free_memory_start_point) = true ]; then
+					if [ $(job_running $COG_PID) = false ]; then 
+						echo $job_str was paused, now continue >> tmp/tmp2.txt
+						kill -CONT $COG_PID
+					else
+						echo $job_str memory ok and job running >> tmp/tmp2.txt
+					fi
+				elif [ $(is_memory_ok $free_memory_stop_point) = false ]; then # memory not ok
+					if [ $(job_running $COG_PID) = true ]; then
+						echo $job_str is running, now paused due to memory >> tmp/tmp2.txt
+						kill -STOP $COG_PID
+					else
+						echo $job_str memory not ok and job not running >> tmp/tmp2.txt
+					fi
 				else
-					echo $job_str memory ok and job running >> tmp/tmp2.txt
-				fi
-			elif [ $(is_memory_ok $free_memory_stop_point) = false ]; then # memory not ok
-				if [ $(job_running $COG_PID) = true ]; then
-					echo $job_str is running, now paused due to memory >> tmp/tmp2.txt
-					kill -STOP $COG_PID
-				else
-					echo $job_str memory not ok and job not running >> tmp/tmp2.txt
+					echo $job_str memory between start and stop point, not doing anything >> tmp/tmp2.txt
 				fi
 			else
-				echo $job_str memory between start and stop point, not doing anything >> tmp/tmp2.txt
+				echo $job_str is done
 			fi
-		else
-			echo $job_str is done
-		fi
+		done
 	done
-done
+fi
 
 
 
