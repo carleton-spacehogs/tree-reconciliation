@@ -1,0 +1,134 @@
+#!/bin/bash
+
+free_memory_start_point=50
+free_memory_stop_point=25
+
+ignore_memory=false
+
+options=$(getopt -o ih --long ignore_memory,help -- "$@")
+eval set -- "$options"
+
+while true; do
+	case "$1" in
+		-h|--help)
+			echo Help
+			exit
+			;;
+		-i|--ignore_memory)
+			ignore_memory=true;
+			shift
+			;;
+		--)
+			shift
+			break
+			;;
+		*)
+			echo "Invalid option: $1" >&2
+			exit 1
+			;;
+	esac
+done
+
+
+max_jobs=3
+# COG_list=$(grep -E ",320$" diamond_COG_count.txt | awk -F ',' '{print $1}' | head -n 5)
+
+# COG_list="COG2924 COG4100 COG3712 COG5036 COG1140 COG1227 COG3004 COG3043 COG3263 COG4555 COG5013 COG2180 COG1124 COG0038 COG0369 COG0387 COG0390 COG0490 COG0672 COG0748"
+# COG_list="COG1118 COG1119 COG1276 COG1348 COG1416 COG1464 COG1513 COG1613 COG1824 COG1930 COG1965 COG2032 COG2060 COG2116 COG2156 COG2215 COG2216 COG2372 COG2375 COG2807"
+# COG_list="COG2822 COG2836 COG2837 COG2847 COG2920 COG2923 COG2967 COG3022 COG3025 COG3142 COG3158 COG3197 COG3230 COG3253 COG3256 COG3301 COG3303 COG3338 COG3376 COG3454"
+# COG_list="COG3546 COG3624 COG3625 COG3626 COG3627 COG3638 COG3667 COG3685 COG3703 COG3781 COG3793 COG4097 COG4107 COG4114 COG4117 COG4148 COG4208 COG4263 COG4264 COG4300"
+
+# COG_list="COG0598 COG0600 COG0605 COG0607 COG0609 COG0614 COG0659 COG0704 COG0715 COG0725 COG0735 COG0753 COG0798 COG0803 COG0855 COG0861 COG1006 COG1055 COG1108 COG1116"
+
+# still need to run ecceTERA on these
+# COG_list="COG4314 COG4521 COG4531 COG4535 COG4536 COG4548 COG4558 COG4559 COG4572 COG4594 COG4604 COG4607 COG4615"
+COG_list="COG4619 COG4662 COG4772 COG4773 COG4774 COG4778 COG4779 COG4985 COG4986 COG5456 COG5478 COG5569"
+# COG_list="COG0477 COG1151 COG1120 COG2146 COG1122 COG1785 COG4638 COG0783 COG0221 COG0651 COG1009 COG1668 COG2181 COG0239 COG2132 COG0444 COG0601 COG1173 COG0248 COG0003"
+# COG_list="COG0004 COG0025 COG0053 COG0155 COG0168 COG0226 COG0288 COG0306 COG0310 COG0370 COG0376 COG0428 COG0474 COG0475 COG0529 COG0530 COG0555 COG0569 COG0573 COG0581"
+
+num_done=0
+num_COGs=$(echo $COG_list | awk -F 'COG' '{print NF - 1}')
+
+is_memory_ok() {
+	free_memory_lower_bound=$1
+	percent_free_memory=$(free | grep Mem | awk '{print $4/$2 * 100.0}')
+	# ahh, string comparison in shell script is a pain...
+	if (( $(bc <<<"$free_memory_lower_bound > $percent_free_memory") )); then
+		echo false
+	else
+		echo true
+	fi
+}
+
+job_running() {
+	PID=$1
+	ps $PID | grep -E "^T" # T for stop jobs
+	if [ $? -eq 0 ]; then
+		echo false
+	else
+		echo true
+	fi
+}
+
+if [ $ignore_memory = true ]; then
+	for COG in $COG_list; do
+		./reconcile.sh --COG $COG --stop_before_reconciliation
+	done
+else
+	for COG in $COG_list; do
+		# ./reconcile.sh --COG $COG &
+		./reconcile.sh --gene_tree iqtree_gene_trees/${COG}.ufboot &
+		COG_PID=$!
+		job_str="$COG_PID for $COG"
+		is_done=false
+
+		echo Dispatching job $job_str
+		while [[ $is_done = false ]]; do
+			# echo I am waiting, check in 100 seconds >> tmp/tmp.txt
+			sleep 100
+			ps $COG_PID &>/dev/null
+			if [ $? = 1 ]; then is_done=true; fi
+
+			if [ $is_done = false ]; then
+				if [ $(is_memory_ok $free_memory_start_point) = true ]; then
+					if [ $(job_running $COG_PID) = false ]; then 
+						echo $job_str was paused, now continue >> tmp/tmp2.txt
+						kill -CONT $COG_PID
+					else
+						echo $job_str memory ok and job running >> tmp/tmp2.txt
+					fi
+				elif [ $(is_memory_ok $free_memory_stop_point) = false ]; then # memory not ok
+					if [ $(job_running $COG_PID) = true ]; then
+						echo $job_str is running, now paused due to memory >> tmp/tmp2.txt
+						kill -STOP $COG_PID
+					else
+						echo $job_str memory not ok and job not running >> tmp/tmp2.txt
+					fi
+				else
+					echo $job_str memory between start and stop point, not doing anything >> tmp/tmp2.txt
+				fi
+			else
+				echo $job_str is done
+			fi
+		done
+	done
+fi
+
+
+
+# grep -n ,20 diamond_COG_count.txt
+# 640:COG5734,20 -> done
+# 641:COG5674,20 -> done
+# 642:COG5768,20 -> done
+# 643:COG5778,20 -> done
+# 644:COG5790,20 -> done
+
+# COG_list=$(grep -E ",40$" diamond_COG_count.txt | awk -F ',' '{print $1}' | head -n 5)
+# COG_list="COG5677 COG5626 COG4291 COG1421 COG0269"
+
+# 40: COG5677 COG5626 COG4291 COG1421 COG0269
+# 60: COG3265 COG4691 COG4619 COG3010 COG1439
+# 80: COG5716 COG1448 COG1631 COG1889 COG3155
+# 160: COG4587 COG1125 COG1464 COG0692 COG2850
+# 320: COG2022 COG2453 COG5659 COG1966
+
