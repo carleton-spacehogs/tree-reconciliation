@@ -3,6 +3,8 @@
 free_memory_start_point=50
 free_memory_stop_point=25
 
+ignore_memory=false
+
 options=$(getopt -o ih --long ignore_memory,help -- "$@")
 eval set -- "$options"
 
@@ -13,8 +15,7 @@ while true; do
 			exit
 			;;
 		-i|--ignore_memory)
-			free_memory_start_point=0
-			free_memory_stop_point=0
+			ignore_memory=true;
 			shift
 			;;
 		--)
@@ -38,9 +39,9 @@ max_jobs=3
 # COG_list="COG3546 COG3624 COG3625 COG3626 COG3627 COG3638 COG3667 COG3685 COG3703 COG3781 COG3793 COG4097 COG4107 COG4114 COG4117 COG4148 COG4208 COG4263 COG4264 COG4300"
 
 # still need to run ecceTERA on these
-# running # COG_list="COG4314 COG4521 COG4531 COG4535 COG4536 COG4548 COG4558 COG4559 COG4572 COG4594 COG4604 COG4607 COG4615"
+COG_list="COG4314 COG4521 COG4531 COG4535 COG4536 COG4548 COG4558 COG4559 COG4572 COG4594 COG4604 COG4607 COG4615"
 # COG_list="COG4619 COG4662 COG4772 COG4773 COG4774 COG4778 COG4779 COG4985 COG4986 COG5456 COG5478 COG5569"
-COG_list="COG0477 COG1151 COG1120 COG2146 COG1122 COG1785 COG4638 COG0783 COG0221 COG0651 COG1009 COG1668 COG2181 COG0239 COG2132 COG0444 COG0601 COG1173 COG0248 COG0003"
+# COG_list="COG0477 COG1151 COG1120 COG2146 COG1122 COG1785 COG4638 COG0783 COG0221 COG0651 COG1009 COG1668 COG2181 COG0239 COG2132 COG0444 COG0601 COG1173 COG0248 COG0003"
 
 num_done=0
 num_COGs=$(echo $COG_list | awk -F 'COG' '{print NF - 1}')
@@ -67,15 +68,14 @@ job_running() {
 }
 
 for COG in $COG_list; do
-	./reconcile.sh --COG $COG --stop_before_reconciliation &
-	#./reconcile.sh --gene_tree iqtree_gene_trees/$COG.ufboot
+	#./reconcile.sh --COG $COG --stop_before_reconciliation &
+	./reconcile.sh --gene_tree iqtree_gene_trees/${COG}.ufboot
 	COG_PID=$!
 	job_str="$COG_PID for $COG"
 	is_done=false
 
 	echo Dispatching job $job_str
-
-	while [ $is_done = false ]; do
+	while [[ $is_done = false && $ignore_memory = false ]]; do
 		# echo I am waiting, check in 100 seconds >> tmp/tmp.txt
 		sleep 100
 		ps $COG_PID &>/dev/null
@@ -103,7 +103,6 @@ for COG in $COG_list; do
 			echo $job_str is done
 		fi
 	done
-
 done
 
 

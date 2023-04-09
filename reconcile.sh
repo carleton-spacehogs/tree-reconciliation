@@ -188,23 +188,33 @@ extractSeq_align_makeTree_and_reconcile() {
 	align_makeTree_and_reconcile $gene_seq_file
 }
 
+are_we_done() {
+	gene_name=$1
+	R_plot="R-plots/histogram/${COG_calling_method}-${gene_tree_method}-${gene_name}-eventsHistogram.png"
+	if [ -f "$R_plot" ]; then
+        	echo "$R_plot exists. I think I am done"
+	        exit 0
+	fi
+}
 
 # if given both gene and species tree, just do the reconciliation
 if [ ! -z "$gene_tree" ]; then
+	gene_name=$(parse_gene_name $gene_tree)
+	are_we_done $gene_name
 	reconcile_and_analysis $gene_tree
 	exit $?
 elif [ ! -z "$alignment" ]; then
+	gene_name=$(parse_gene_name $alignment)
+        are_we_done $gene_name
 	makeTree_and_reconcile $alignment
 	exit $?
 elif [ ! -z "$gene_sequences" ]; then
+	gene_name=$(parse_gene_name $gene_sequences)
+        are_we_done $gene_name
 	align_makeTree_and_reconcile $gene_sequences
 	exit $?
 elif [ ! -z "$COG" ]; then
-	R_plot="R-plots/histogram/${COG_calling_method}-${gene_tree_method}-${COG}-eventsHistogram.png"
-	if test -f "$R_plot"; then
-		echo "$R_plot exists. I think I am done"
-		exit 0
-	fi
+        are_we_done $COG
 	extractSeq_align_makeTree_and_reconcile $COG
 	exit $?
 else
