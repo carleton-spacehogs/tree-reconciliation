@@ -19,9 +19,14 @@ ggplot(data, aes(x=midpoint.date)) +
 		y="Proportion of total events",
 		title=plot_title) + 
 	scale_fill_manual(
-		values=c("#ffd166", "#06d6a0", "#118ab2", "#ff66de"),
-		name="Type of Event", 
-		labels=c("Duplication", "Horizontal Gene Transfer", "Loss", "Speciation")) + 
+		values = c(
+                "dup" = "#ffd166",
+                "hgt" = "#06d6a0",
+                "los" = "#118ab2",
+                "spe" = "#ff66de")) +
+	# 	values=c("#ffd166", "#06d6a0", "#118ab2", "#ff66de"),
+	#	name="Type of Event", 
+	#	labels=c("Duplication", "Horizontal Gene Transfer", "Loss", "Speciation")) + 
 	theme(
 		legend.position = "bottom", 
 		plot.title = element_text(size = rel(1.75), hjust = 0.5),

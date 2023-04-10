@@ -1,0 +1,360 @@
+IQ-TREE multicore version 2.2.0.3 COVID-edition for Linux 64-bit built Aug  2 2022
+Developed by Bui Quang Minh, James Barbetti, Nguyen Lam Tung,
+Olga Chernomor, Heiko Schmidt, Dominik Schrempf, Michael Woodhams, Ly Trong Nhan.
+
+Host:    baross.its.carleton.edu (AVX2, FMA3, 755 GB RAM)
+Command: iqtree -s gene_alignments/trimv2_COG0390.afa --nmax 3000 -m MFP -bb 1000 -wbtl -ntmax 10 -nt AUTO -T 10 --prefix iqtree_gene_trees/COG0390 -madd C10,C20,C30,C40,C50,C60,EX2,EX3,EHO,UL2,UL3,EX_EHO,LG4M,LG4X,CF4,LG+C10,LG+C20,LG+C30,LG+C40,LG+C50,LG+C60 -mrate E,I,G,I+G,R
+Seed:    202656 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Mon Apr 10 15:03:25 2023
+Kernel:  AVX+FMA - 10 threads (96 CPU cores detected)
+
+Reading alignment file gene_alignments/trimv2_COG0390.afa ... Fasta format detected
+Reading fasta file: done in 0.00211028 secs using 79.33% CPU
+Alignment most likely contains protein sequences
+Constructing alignment: done in 0.00291924 secs using 747.5% CPU
+Alignment has 154 sequences with 271 columns, 270 distinct patterns
+262 parsimony-informative, 3 singleton sites, 6 constant sites
+                                                                   Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 0.000108989 secs using 758.8% CPU
+   1  Richelia.intracellularis.HM01_WP_081609071.1                        19.19%    passed     15.61%
+   2  GCF.002109495.1.Bacteria.Proteobacteria_NZ_LVJN01000019.1_458        1.85%    passed     15.65%
+   3  GCF.000213255.1.Bacteria.Firmicutes.A_NC_015520.1_1537               3.69%    passed     58.75%
+   4  GCA.002748355.1.Bacteria.Planctomycetota_PDSF01000038.1_45           0.74%    passed     27.10%
+   5  GCA.002085445.1.Bacteria.Proteobacteria_NBMI01000325.1_8             3.32%    passed     88.23%
+   6  GCA.001872725.1.Bacteria.Proteobacteria_MNWR01000022.1_25            2.58%    failed      2.65%
+   7  GCF.001618145.1.Bacteria.Firmicutes_NZ_LQNF01000004.1_176            6.64%    failed      0.80%
+   8  GCF.000484535.1.Bacteria.Cyanobacteria_NC_022600.1_2522              3.32%    passed     42.74%
+   9  GCA.003021615.1.Bacteria.Actinobacteriota_PXPH01000041.1_7           9.59%    failed      0.00%
+  10  GCF.002251945.1.Bacteria.Cyanobacteria_NZ_NDHW01000104.1_23          4.43%    passed     52.39%
+  11  GCF.000091205.1.Eukaryota.Rhodophyta_XP_005539002.1                  1.48%    passed     73.16%
+  12  GCA.001508005.1.Bacteria.Firmicutes.B_LGEZ01000019.1_26              4.43%    passed     50.94%
+  13  GCF.000020005.1.Bacteria.Firmicutes.D_NC_010718.1_1144               2.21%    failed      0.01%
+  14  GCF.002252565.1.Bacteria.Firmicutes.A_NZ_NPML01000012.1_142          4.43%    passed      7.09%
+  15  GCF.000430605.1.Bacteria.Firmicutes.C_WP_018701751.1                 7.01%    passed     15.62%
+  16  GCA.003170555.1.Bacteria.FEN.1099_PMZC01000237.1_9                   4.43%    passed     89.50%
+  17  GCF.000421485.1.Bacteria.Aquificota_NZ_ATXC01000001.1_9              7.38%    failed      0.00%
+  18  GCA.001940725.1.Archaea.Asgardarchaeota_MDVR01000139.1_7             6.27%    failed      0.01%
+  19  GCF.000218765.1.Bacteria.Firmicutes_WP_007503797.1                   0.74%    passed      8.41%
+  20  GCA.001804315.1.Bacteria.Omnitrophota_MHFT01000084.1_12             11.81%    passed     66.85%
+  21  GCA.002389045.1.Bacteria.Proteobacteria_DGNS01000012.1_132          13.28%    passed     32.19%
+  22  GCF.001561915.1.Bacteria.Firmicutes_NZ_LSKU01000001.1_2032           7.75%    passed     16.03%
+  23  GCA.002050035.1.Bacteria.4484.113_MVCR01000035.1_10                 16.97%    passed     90.95%
+  24  GCF.000440555.1.Bacteria.Firmicutes_NZ_ALLG01000027.1_35             6.27%    failed      2.82%
+  25  GCF.900129635.1.Bacteria.Planctomycetota_NZ_FSRB01000001.1_4756      1.85%    passed     90.11%
+  26  GCA.002049455.2.Eukaryota.Rhodophyta_OSX76688.1                      2.95%    failed      0.65%
+  27  GCA.002712885.1.Bacteria.Acidobacteriota_PAUN01000066.1_72          13.28%    passed     35.96%
+  28  GCA.002408345.1.Bacteria.Firmicutes.G_DHRX01000030.1_4               0.74%    passed      5.55%
+  29  GCF.003838225.1.Bacteria.Cyanobacteria_WP_124143490.1                5.54%    passed     15.71%
+  30  GCA.001771735.1.Bacteria.WOR.3_MEUM01000161.1_12                     1.48%    failed      1.18%
+  31  GCA.002440805.1.Bacteria.Chloroflexota_DJVD01000242.1_11             1.48%    passed     61.39%
+  32  GCA.003477185.1.Bacteria.Verrucomicrobiota_DMTJ01000139.1_2         12.55%    passed     59.11%
+  33  GCA.002898195.1.Bacteria.AABM5.125.24_BDTN01000391.1_4               2.21%    passed     94.20%
+  34  GCF.000503775.1.Bacteria.Firmicutes_NZ_KI629787.1_339                7.01%    passed     41.80%
+  35  GCF.900104115.1.Bacteria.Firmicutes.A_NZ_FNJM01000009.1_66           8.49%    failed      0.00%
+  36  GCA.002352565.1.Bacteria.Proteobacteria_DEIQ01000036.1_9             0.74%    passed     82.42%
+  37  GCA.003235715.1.Bacteria.Nitrospirota_QJVM01000202.1_8               6.27%    passed     15.49%
+  38  GCA.002342225.1.Bacteria.Bdellovibrionota_DDPO01000099.1_10          1.85%    passed     23.91%
+  39  UCYNA_WP_012953765.1                                                 4.43%    passed      7.20%
+  40  GCF.006980715.1.Bacteria.Proteobacteria_NZ_SBHN01000012.1_148        2.58%    passed      9.75%
+  41  GCF.001049895.1.Bacteria.Firmicutes_NZ_CVPE01000003.1_65             5.17%    passed     57.12%
+  42  GCF.001611275.1.Bacteria.Desulfobacterota_NZ_CP015080.1_1580         2.21%    passed      8.31%
+  43  GCA.002840095.1.Bacteria.Proteobacteria_PGZL01000008.1_224           2.58%    passed     13.03%
+  44  Fischerella.muscicola.CCMEE5323_WP_016868320.1                       4.80%    passed     35.38%
+  45  GCF.004348535.1.Bacteria.Actinobacteriota_NZ_SMJX01000131.1_4        9.23%    failed      0.00%
+  46  GCF.000013045.1.Bacteria.Bacteroidota_NC_007677.1_2586               4.43%    passed      8.02%
+  47  GCF.000315795.1.Bacteria.Proteobacteria_NZ_ANHY01000007.1_234        1.85%    failed      0.05%
+  48  GCF.000017845.1.Bacteria.Cyanobacteria_NC_010546.1_3484              4.06%    passed     49.26%
+  49  GCA.001698445.1.Bacteria.Cyanobacteria_MBRF01000004.1_55             7.01%    failed      0.00%
+  50  GCA.002085385.1.Bacteria.UBP14_NATO01000008.1_4                      5.90%    passed      9.57%
+  51  GCA.001595885.1.Archaea.Thermoplasmatota_LSSH01000038.1_3            5.54%    passed      5.37%
+  52  GCA.002347965.1.Bacteria.UBA2233_DDYN01000001.1_46                   3.69%    passed     18.57%
+  53  GCA.001412365.1.Bacteria.WOR.3_LKUE01000319.1_28                     2.95%    failed      0.55%
+  54  GCA.001898225.1.Bacteria.Chloroflexota_MKTJ01000077.1_436            2.95%    passed      6.63%
+  55  GCF.003097315.1.Bacteria.Proteobacteria_NZ_QDDL01000002.1_264        5.90%    failed      0.53%
+  56  GCF.000018105.1.Bacteria.Cyanobacteria_NC_009925.1_599               4.06%    passed     66.65%
+  57  GCA.003009755.1.Archaea.Thermoplasmatota_PXUB01000036.1_15           5.54%    passed      7.73%
+  58  GCA.002721365.1.Bacteria.Proteobacteria_PBKC01000020.1_12            1.11%    failed      3.53%
+  59  GCA.001045525.1.Bacteria.Fibrobacterota_LDWW01000015.1_44            3.69%    failed      1.58%
+  60  GCF.000942395.1.Bacteria.Firmicutes_NZ_LN812102.1_1803               7.75%    failed      0.45%
+  61  GCA.000987045.1.Bacteria.Firmicutes.B_LAKY01000004.1_42              0.74%    passed     97.70%
+  62  GCA.000961655.1.Bacteria.Desulfobacterota_LADR01000008.1_234         2.58%    passed     65.58%
+  63  GCF.001908175.1.Bacteria.Firmicutes_NZ_MOEL01000015.1_448            5.90%    passed      6.48%
+  64  GCA.002418765.1.Bacteria.Firmicutes.B_DIET01000038.1_61              1.11%    passed      6.04%
+  65  GCA.002727195.1.Bacteria.Latescibacterota_PBWH01000007.1_41          5.17%    passed     56.44%
+  66  GCA.002432655.1.Bacteria.Proteobacteria_DJFZ01000055.1_83           12.18%    passed     26.44%
+  67  GCA.002327765.1.Bacteria.Desulfobacterota.E_DCUH01000133.1_119       2.58%    passed     16.11%
+  68  GCA.002722565.1.Bacteria.Actinobacteriota_PBMG01000007.1_92          3.32%    failed      0.22%
+  69  GCA.001798605.1.Bacteria.Myxococcota_MGST01000291.1_30               2.58%    failed      1.62%
+  70  GCA.001412425.1.Bacteria.Cloacimonadota_LKUH01000374.1_3             1.48%    failed      0.03%
+  71  GCF.000384115.1.Bacteria.Actinobacteriota_NZ_KB913029.1_1601         7.38%    failed      0.00%
+  72  GCA.000961765.1.Bacteria.Firmicutes.B_LADT01000022.1_27              3.69%    passed     23.66%
+  73  GCF.002795805.1.Bacteria.Proteobacteria_NZ_CP018799.1_194           15.87%    failed      0.85%
+  74  GCA.002687025.1.Bacteria.Poribacteria_NYZG01000336.1_6               5.17%    passed     28.72%
+  75  GCF.001742305.1.Bacteria.Firmicutes_NZ_MJAT01000005.1_9              4.43%    passed      9.54%
+  76  GCA.001873295.1.Bacteria.CG2.30.70.394_MNYW01000010.1_19             8.86%    failed      0.96%
+  77  GCA.002255365.1.Bacteria.Proteobacteria_NCBI01000035.1_20            2.21%    passed     22.76%
+  78  GCF.001641825.1.Bacteria.Proteobacteria_NZ_LRFH01000014.1_49         2.21%    passed     57.16%
+  79  GCF.002020875.1.Bacteria.Proteobacteria_WP_078484132.1               1.48%    passed     50.47%
+  80  GCF.002207765.1.Bacteria.Firmicutes.B_NZ_BDGJ01000008.1_29           2.58%    passed     37.33%
+  81  GCA.003246265.1.Bacteria.Verrucomicrobiota_QKAU01000068.1_12         3.69%    passed     76.08%
+  82  GCA.002683135.1.Bacteria.Planctomycetota_NYSS01000152.1_16           1.11%    failed      0.69%
+  83  Nostoc.sp.PCC7120_WP_010997162.1                                     4.80%    passed     96.56%
+  84  GCF.900142435.1.Bacteria.Aquificota_NZ_LT670846.1_1409               9.23%    failed      0.05%
+  85  GCA.003245715.1.Bacteria.Planctomycetota_QKCJ01000011.1_39           2.95%    passed     67.73%
+  86  GCA.002329525.1.Bacteria.Firmicutes.C_DCTI01000256.1_2               8.12%    passed     96.66%
+  87  GCA.001304015.1.Bacteria.TA06.A_LJUY01000030.1_10                    8.86%    passed     47.93%
+  88  GCF.000374645.1.Bacteria.Proteobacteria_NZ_KB894827.1_15             2.21%    failed      0.01%
+  89  GCF.000353285.1.Bacteria.Cyanobacteria_NZ_KB731324.1_2452            7.01%    passed     40.27%
+  90  GCF.000425045.1.Bacteria.Firmicutes.C_NZ_AULA01000002.1_54           3.32%    passed     63.99%
+  91  GCA.001447805.1.Bacteria.Proteobacteria_CP013099.1_3089              2.21%    passed     11.45%
+  92  GCF.000092905.1.Bacteria.Firmicutes_NC_014098.1_2744                 4.80%    passed     78.12%
+  93  GCF.001399675.1.Bacteria.Firmicutes_NZ_LJCO01000064.1_11             5.90%    passed     56.58%
+  94  GCF.000526155.1.Bacteria.Desulfobacterota_NZ_JAFN01000001.1_3256     3.69%    failed      0.33%
+  95  GCA.002450905.1.Bacteria.Spirochaetota_DKAT01000002.1_71             2.58%    failed      0.55%
+  96  GCA.001512665.1.Bacteria.Firmicutes.B_LFSF01000038.1_131             6.64%    passed     19.52%
+  97  GCF.002215035.1.Bacteria.Cyanobacteria_NZ_NKFP01000004.1_449         4.43%    passed     61.11%
+  98  GCF.000021725.1.Bacteria.Campylobacterota_NC_012115.1_846           11.81%    failed      0.00%
+  99  GCF.000353285.1.Bacteria.Cyanobacteria_NZ_KB731325.1_189             1.48%    passed     51.50%
+ 100  GCA.002382525.1.Bacteria.Verrucomicrobiota_DFYA01000157.1_3         11.81%    passed     47.65%
+ 101  GCF.001547735.1.Bacteria.Thermosulfidibacterota_NZ_AP013035.1_783    8.49%    failed      0.22%
+ 102  GCA.002746535.1.Bacteria.Planctomycetota_NVWA01000084.1_25          11.81%    failed      0.77%
+ 103  GCA.001783275.1.Bacteria.Margulisbacteria_MFRH01000040.1_8           3.69%    failed      0.00%
+ 104  GCA.000830255.1.Bacteria.Campylobacterota_JQIT01000004.1_225        15.13%    failed      2.26%
+ 105  GCA.000961765.1.Bacteria.Firmicutes.B_LADT01000005.1_21              4.43%    failed      2.84%
+ 106  GCA.002789615.1.Bacteria.Acidobacteriota_PFTO01000019.1_9            9.23%    passed     94.52%
+ 107  GCF.900129115.1.Bacteria.Firmicutes.A_NZ_FQUR01000006.1_224          7.38%    passed      5.40%
+ 108  GCF.001029505.1.Bacteria.Actinobacteriota_NZ_LEKH01000008.1_118      4.43%    passed     39.83%
+ 109  GCF.000025525.1.Archaea.Methanobacteriota.A_NC_013887.1_1212        10.70%    failed      0.02%
+ 110  GCA.002699025.1.Bacteria.Myxococcota_PABA01000232.1_83               1.11%    failed      0.12%
+ 111  GCF.900106035.1.Bacteria.Actinobacteriota_NZ_FNUC01000004.1_520      9.23%    failed      0.00%
+ 112  GCF.000024725.1.Bacteria.Proteobacteria_NC_013960.1_1710             1.85%    passed     40.05%
+ 113  GCA.003229375.1.Bacteria.Nitrospinota_QIDP01000055.1_3               3.32%    passed     50.28%
+ 114  GCA.002292285.1.Bacteria.Proteobacteria_DBBP01000002.1_61           14.02%    passed     92.26%
+ 115  GCA.001302725.1.Bacteria.Zixibacteria_LIZU01000082.1_7               7.01%    passed     91.86%
+ 116  GCF.000021565.1.Bacteria.Aquificota_NC_012440.1_1324                 9.96%    failed      0.02%
+ 117  GCF.000316115.1.Bacteria.Cyanobacteria_NZ_JH993797.1_1514            2.58%    passed     45.85%
+ 118  GCF.001950325.1.Bacteria.Firmicutes.B_NZ_BDJL01000035.1_101          8.49%    passed     30.77%
+ 119  GCA.001872685.1.Bacteria.Marinisomatota_MNWS01000186.1_12            1.85%    passed     18.40%
+ 120  GCA.001787855.1.Bacteria.Riflebacteria_MFYY01000189.1_15             1.11%    passed     55.58%
+ 121  GCA.002127415.1.Bacteria.AABM5.125.24_MWJR01000255.1_4               1.85%    passed     92.22%
+ 122  GCF.000021985.1.Bacteria.Proteobacteria_NC_011901.1_3121             1.48%    passed     16.02%
+ 123  GCF.000018105.1.Bacteria.Cyanobacteria_NC_009926.1_131               1.48%    passed     89.56%
+ 124  Richelia.intracellularis.HH01_WP_008233205.1                         5.17%    failed      1.38%
+ 125  GCA.002305165.1.Bacteria.Armatimonadota_DBQI01000026.1_4             3.32%    passed     11.74%
+ 126  GCA.003023725.1.Bacteria.Firmicutes.E_PXYT01000036.1_11              4.80%    passed     98.52%
+ 127  GCF.000170755.1.Bacteria.Verrucomicrobiota_NZ_ABCK01000028.1_53      4.80%    failed      4.90%
+ 128  GCF.001553315.1.Bacteria.Firmicutes.C_WP_060923970.1                 6.27%    passed      7.99%
+ 129  GCF.000970205.1.Archaea.Halobacteriota_NZ_CP009512.1_2776            1.48%    failed      2.75%
+ 130  GCF.001653195.1.Bacteria.Firmicutes_NZ_JXBB01000060.1_82             6.64%    passed      9.13%
+ 131  GCF.000284615.1.Bacteria.Proteobacteria_NC_017067.1_3354             2.58%    passed     25.24%
+ 132  GCA.002011835.1.Bacteria.Desulfobacterota_MTPE01000122.1_2           1.85%    failed      0.91%
+ 133  GCF.000317045.1.Bacteria.Cyanobacteria_NC_019703.1_1458              4.06%    passed     92.18%
+ 134  GCA.002352645.1.Bacteria.Actinobacteriota_DEIU01000102.1_65          5.54%    passed     17.69%
+ 135  GCA.003247575.1.Bacteria.Myxococcota.A_QJZC01000001.1_43             1.11%    failed      1.53%
+ 136  GCA.002724675.1.Bacteria.Myxococcota.A_PBPL01000003.1_6              1.48%    passed     39.13%
+ 137  GCF.000020025.1.Bacteria.Cyanobacteria_NC_010628.1_5702              4.80%    passed     61.44%
+ 138  GCA.002731275.1.Bacteria.Myxococcota_PCBK01000179.1_20               0.74%    passed     17.35%
+ 139  GCA.002399235.1.Bacteria.Firmicutes.G_DHDH01000009.1_6              10.70%    passed     31.61%
+ 140  GCF.900112605.1.Bacteria.Proteobacteria_NZ_FOMJ01000011.1_32         3.32%    failed      0.09%
+ 141  UCYNA2_KFF41979.1                                                    4.43%    failed      0.79%
+ 142  GCA.001829155.1.Bacteria.Spirochaetota_MIAO01000081.1_20             4.06%    failed      0.00%
+ 143  GCA.002347365.1.Bacteria.Actinobacteriota_DDWT01000026.1_22          0.74%    failed      4.48%
+ 144  GCA.002632265.1.Bacteria.Proteobacteria_NQOV01000001.1_44            4.06%    failed      0.00%
+ 145  GCF.000620305.1.Bacteria.Firmicutes.B_NZ_KK211103.1_44               2.95%    passed     35.67%
+ 146  GCF.002798435.1.Bacteria.Proteobacteria_WP_109794379.1               3.32%    passed      5.48%
+ 147  GCA.002409445.1.Bacteria.Armatimonadota_DHNJ01000068.1_21            2.21%    passed     61.61%
+ 148  GCA.002868855.1.Bacteria.Proteobacteria_PKUM01000011.1_4             2.95%    failed      3.90%
+ 149  GCA.002011615.1.Bacteria.WOR.3_MTOH01000001.1_39                     9.23%    failed      0.24%
+ 150  GCF.900177345.1.Bacteria.Proteobacteria_NZ_FWZT01000018.1_77        14.02%    passed     39.69%
+ 151  GCF.001399755.1.Bacteria.Proteobacteria_NZ_LJCP01000014.1_151        0.74%    passed      5.18%
+ 152  GCF.000266945.1.Bacteria.Desulfobacterota_NC_018025.1_2470           1.85%    passed     44.81%
+ 153  GCF.002902625.1.Bacteria.Firmicutes_NZ_PPRG01000012.1_8              4.43%    failed      0.86%
+ 154  GCA.002376045.1.Bacteria.Firmicutes.A_DFNM01000118.1_2               2.58%    failed      0.58%
+****  TOTAL                                                                5.06%  53 sequences failed composition chi2 test (p-value<5%; df=19)
+Checking for duplicate sequences: done in 0.00171786 secs using 925.1% CPU
+
+
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.088 seconds
+Perform fast likelihood tree search using LG+I+G model...
+Estimate model parameters (epsilon = 5.000)
+Perform nearest neighbor interchange...
+Optimizing NNI: done in 2.4677 secs using 995.4% CPU
+Estimate model parameters (epsilon = 1.000)
+1. Initial log-likelihood: -62698.181
+Optimal log-likelihood: -62698.072
+Proportion of invariable sites: 0.022
+Gamma shape alpha: 1.204
+Parameters optimization took 1 rounds (0.214 sec)
+Time for fast ML tree search: 3.632 seconds
+
+NOTE: ModelFinder requires 70 MB RAM!
+ModelFinder will test up to 749 protein models (sample size: 271) ...
+ No. Model         -LnL         df  AIC          AICc         BIC
+  1  LG            65890.699    305 132391.398   319051.398   133490.044
+  2  LG+I          65495.375    306 131602.750   319486.750   132704.998
+  3  LG+G4         62751.950    306 126115.900   313999.900   127218.148
+  4  LG+I+G4       62698.072    307 126010.144   315122.144   127115.994
+  5  LG+R2         63587.641    307 127789.283   316901.283   128895.133
+  6  LG+R3         62910.785    309 126439.569   318019.569   127552.624
+  7  LG+R4         62720.791    311 126063.583   320127.583   127183.842
+  8  LG+R5         62596.692    313 125819.384   322383.384   126946.847
+  9  LG+R6         62539.630    315 125709.260   324789.260   126843.928
+ 10  LG+R7         62523.002    317 125680.004   327292.004   126821.876
+ 11  LG+R8         62510.502    319 125659.003   329819.003   126808.079
+ 12  LG+R9         62510.505    321 125663.010   332387.010   126819.290
+ 14  LG+F          66105.599    324 132859.199   343459.199   134026.285
+ 15  LG+F+I        65721.112    325 132092.224   343992.224   133262.912
+ 16  LG+F+G4       62467.892    325 125585.784   337485.784   126756.473
+ 17  LG+F+I+G4     62413.523    326 125479.045   338683.045   126653.336
+ 18  LG+F+R2       63371.160    326 127394.321   340598.321   128568.612
+ 19  LG+F+R3       62632.634    328 125921.269   341745.269   127102.764
+ 20  LG+F+R4       62446.701    330 125553.401   344013.401   126742.101
+ 21  LG+F+R5       62332.594    332 125329.188   346441.188   126525.091
+ 22  LG+F+R6       62276.913    334 125221.825   349001.825   126424.933
+ 23  LG+F+R7       62257.427    336 125186.854   351650.854   126397.166
+ 24  LG+F+R8       62237.903    338 125151.805   354315.805   126369.321
+ 25  LG+F+R9       62233.199    340 125146.399   357026.399   126371.119
+ 27  WAG           65924.037    305 132458.075   319118.075   133556.721
+ 28  WAG+I         65536.183    306 131684.365   319568.365   132786.614
+ 29  WAG+G4        63234.414    306 127080.829   314964.829   128183.077
+ 30  WAG+I+G4      63173.205    307 126960.409   316072.409   128066.260
+ 31  WAG+R2        63965.258    307 128544.515   317656.515   129650.366
+ 32  WAG+R3        63359.624    309 127337.248   318917.248   128450.302
+ 33  WAG+R4        63192.155    311 127006.310   321070.310   128126.568
+ 34  WAG+R5        63111.121    313 126848.241   323412.241   127975.705
+ 35  WAG+R6        63047.862    315 126725.725   325805.725   127860.392
+ 36  WAG+R7        63029.814    317 126693.627   328305.627   127835.499
+ 37  WAG+R8        63024.479    319 126686.959   330846.959   127836.035
+ 40  WAG+F         65886.716    324 132421.433   343021.433   133588.519
+ 41  WAG+F+I       65516.437    325 131682.874   343582.874   132853.563
+ 42  WAG+F+G4      62870.728    325 126391.456   338291.456   127562.145
+ 43  WAG+F+I+G4    62812.912    326 126277.825   339481.825   127452.116
+ 44  WAG+F+R2      63653.282    326 127958.565   341162.565   129132.855
+ 45  WAG+F+R3      62997.975    328 126651.950   342475.950   127833.445
+ 46  WAG+F+R4      62837.593    330 126335.186   344795.186   127523.886
+ 47  WAG+F+R5      62749.030    332 126162.061   347274.061   127357.964
+ 48  WAG+F+R6      62693.265    334 126054.529   349834.529   127257.637
+ 49  WAG+F+R7      62684.960    336 126041.920   352505.920   127252.232
+ 50  WAG+F+R8      62662.538    338 126001.077   355165.077   127218.593
+ 51  WAG+F+R9      62662.543    340 126005.086   357885.086   127229.806
+ 53  JTT           66308.126    305 133226.252   319886.252   134324.899
+ 54  JTT+I         65905.205    306 132422.410   320306.410   133524.658
+ 55  JTT+G4        63387.408    306 127386.817   315270.817   128489.065
+ 56  JTT+I+G4      63385.324    307 127384.648   316496.648   128490.498
+ 57  JTT+R2        64159.341    307 128932.682   318044.682   130038.532
+ 58  JTT+R3        63531.180    309 127680.359   319260.359   128793.414
+ 59  JTT+R4        63346.554    311 127315.108   321379.108   128435.366
+ 60  JTT+R5        63249.525    313 127125.049   323689.049   128252.513
+ 61  JTT+R6        63186.471    315 127002.943   326082.943   128137.610
+ 62  JTT+R7        63164.463    317 126962.927   328574.927   128104.799
+ 63  JTT+R8        63155.286    319 126948.572   331108.572   128097.648
+ 64  JTT+R9        63153.429    321 126948.859   333672.859   128105.139
+ 66  JTT+F         66384.310    324 133416.619   344016.619   134583.706
+ 67  JTT+F+I       65993.798    325 132637.595   344537.595   133808.284
+ 68  JTT+F+G4      63041.760    325 126733.520   338633.520   127904.209
+ 69  JTT+F+I+G4    62984.737    326 126621.474   339825.474   127795.765
+ 70  JTT+F+R2      63840.171    326 128332.342   341536.342   129506.632
+ 71  JTT+F+R3      63206.341    328 127068.681   342892.681   128250.176
+ 72  JTT+F+R4      63005.912    330 126671.825   345131.825   127860.524
+ 73  JTT+F+R5      62900.872    332 126465.744   347577.744   127661.647
+ 74  JTT+F+R6      62848.420    334 126364.840   350144.840   127567.948
+ 75  JTT+F+R7      62826.203    336 126324.406   352788.406   127534.718
+ 76  JTT+F+R8      62814.117    338 126304.234   355468.234   127521.750
+WARNING: Log-likelihood -62824.6 of JTT+F+R9 worse than JTT+F+R8 -62814.1
+ 77  JTT+F+R9      62824.636    340 126329.273   358209.273   127553.993
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 79  Q.pfam        65772.280    305 132154.559   318814.559   133253.205
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 80  Q.pfam+I      65362.456    306 131336.912   319220.912   132439.160
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 81  Q.pfam+G4     62624.827    306 125861.655   313745.655   126963.903
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 82  Q.pfam+I+G4   62610.455    307 125834.911   314946.911   126940.761
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 83  Q.pfam+R2     63444.479    307 127502.959   316614.959   128608.809
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 84  Q.pfam+R3     62772.565    309 126163.130   317743.130   127276.184
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 85  Q.pfam+R4     62585.199    311 125792.399   319856.399   126912.658
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 86  Q.pfam+R5     62471.650    313 125569.300   322133.300   126696.763
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 87  Q.pfam+R6     62411.752    315 125453.504   324533.504   126588.172
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 88  Q.pfam+R7     62393.614    317 125421.228   327033.228   126563.100
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 89  Q.pfam+R8     62375.291    319 125388.583   329548.583   126537.659
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 90  Q.pfam+R9     62371.608    321 125385.215   332109.215   126541.496
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 92  Q.pfam+F      66312.686    324 133273.371   343873.371   134440.458
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 93  Q.pfam+F+I    65920.694    325 132491.388   344391.388   133662.077
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 94  Q.pfam+F+G4   62613.736    325 125877.472   337777.472   127048.161
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 95  Q.pfam+F+I+G4 62557.463    326 125766.925   338970.925   126941.216
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 96  Q.pfam+F+R2   63525.094    326 127702.188   340906.188   128876.478
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 97  Q.pfam+F+R3   62772.068    328 126200.136   342024.136   127381.631
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 98  Q.pfam+F+R4   62590.178    330 125840.356   344300.356   127029.055
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+ 99  Q.pfam+F+R5   62481.744    332 125627.487   346739.487   126823.391
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+100  Q.pfam+F+R6   62421.594    334 125511.188   349291.188   126714.296
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+101  Q.pfam+F+R7   62394.314    336 125460.627   351924.627   126670.939
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+102  Q.pfam+F+R8   62370.769    338 125417.537   354581.537   126635.054
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+WARNING: Log-likelihood -62372.1 of Q.pfam+F+R9 worse than Q.pfam+F+R8 -62370.8
+103  Q.pfam+F+R9   62372.058    340 125424.115   357304.115   126648.836
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+105  Q.bird        67997.010    305 136604.020   323264.020   137702.667
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+106  Q.bird+I      67521.081    306 135654.163   323538.163   136756.411
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+107  Q.bird+G4     64292.094    306 129196.188   317080.188   130298.437
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+108  Q.bird+I+G4   64222.844    307 129059.688   318171.688   130165.539
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+109  Q.bird+R2     65236.008    307 131086.017   320198.017   132191.867
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+110  Q.bird+R3     64468.168    309 129554.335   321134.335   130667.390
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+111  Q.bird+R4     64248.075    311 129118.150   323182.150   130238.409
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+112  Q.bird+R5     64116.354    313 128858.707   325422.707   129986.170
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+113  Q.bird+R6     64051.809    315 128733.618   327813.618   129868.285
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+114  Q.bird+R7     64025.193    317 128684.386   330296.386   129826.258
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+115  Q.bird+R8     63998.165    319 128634.329   332794.329   129783.405
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+116  Q.bird+R9     63998.397    321 128638.794   335362.794   129795.074
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+118  Q.bird+F      68628.864    324 137905.728   348505.728   139072.815
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+119  Q.bird+F+I    68163.876    325 136977.752   348877.752   138148.441
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+120  Q.bird+F+G4   64124.558    325 128899.116   340799.116   130069.804
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+121  Q.bird+F+I+G4 64066.473    326 128784.946   341988.946   129959.236
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+122  Q.bird+F+R2   65107.782    326 130867.563   344071.563   132041.854
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+123  Q.bird+F+R3   64353.765    328 129363.530   345187.530   130545.025
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+124  Q.bird+F+R4   64084.221    330 128828.441   347288.441   130017.140
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+125  Q.bird+F+R5   63957.545    332 128579.090   349691.090   129774.993
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+126  Q.bird+F+R6   63912.328    334 128492.655   352272.655   129695.763
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+127  Q.bird+F+R7   63865.507    336 128403.015   354867.015   129613.327
+WARNING: Normalizing state frequencies so that sum of them equals to 1
+128  Q.bird+F+R8   63844.666    338 128365.333   357529.333   129582.849
+WARNING: Normalizing state frequencies so that sum of them equals to 1
