@@ -1,5 +1,15 @@
 #!/bin/bash
 
+validate_required_folders() {
+	require_folders="ecceTERA_analysis ecceTERA_output gene_alignments iqtree_gene_trees tmp R-plots R-plots/histogram R-plots/timeline"
+	for folder in $require_folders; do
+		if [ ! -d $folder ]; then
+			echo $folder does not exist, I am creating it.
+			mkdir $folder
+		fi
+	done
+}
+
 generate_gene_tree()
 {
 	method=$1 # raxml or iqtree
@@ -74,4 +84,6 @@ inhouse_scripts_processing()
 	echo ------ >> $birthdate_f
 	echo  >> $birthdate_f
 }
+
+
 

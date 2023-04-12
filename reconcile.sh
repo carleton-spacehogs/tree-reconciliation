@@ -210,6 +210,9 @@ are_we_done() {
 	fi
 }
 
+
+validate_required_folders
+
 # if given both gene and species tree, just do the reconciliation
 if [ ! -z "$gen_graph_only" ]; then
         analysis $gen_graph_only
