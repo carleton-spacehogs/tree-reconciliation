@@ -77,6 +77,7 @@ inhouse_scripts_processing()
 	python3 scripts/py3-scripts/recPhyloXMLEventSummary.py -i $recPhyloXML_file -o $sym_event_f --include.transfer.departure
 	sed -r -i "s|\s+|\t|g" $sym_event_f
 
+	# python3 scripts/recphyloxmlinterpreterspecV2.py $sym_event_f $chronogram_internal_nodes_f $recPhyloXML_file
 	python3 scripts/recphyloxmlinterpreterspec.py $sym_event_f $chronogram_internal_nodes_f $recPhyloXML_file
 
 	echo $gene_name finish time: $(date +%Y-%m-%d\ %H:%M:%S) >> $birthdate_f
