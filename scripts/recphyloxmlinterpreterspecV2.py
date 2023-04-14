@@ -115,8 +115,10 @@ for line in eventLines:
 		
 	#Writing the lines for the speciation events on this branch
 	for i in range(numSpe):
-		outfile.write('spe' + '\t' + 'NA' + '\t' + str(rightNode) + '\t' + 'NA' + '\t' + str(rightDate) + '\t' + 'NA' + '\n')
-
+		# outfile.write('spe' + '\t' + 'NA' + '\t' + str(rightNode) + '\t' + 'NA' + '\t' + str(rightDate) + '\t' + 'NA' + '\n')
+		# Jimmy's version
+		to_write = "\t".join(['spe'] + [str(rightNode)]*2 + [str(rightDate)]*3)
+		outfile.write(to_write + '\n')
 	#Writing the lines for the transfer events on this branch (only using transfer receptions)
 	for i in range(numTrR):
 		outfile.write('hgt' + '\t' + str(leftNode) + '\t' + str(rightNode) + '\t' + str(leftDate) + '\t' + str(rightDate) + '\t' + str(midpointDate) + '\n')

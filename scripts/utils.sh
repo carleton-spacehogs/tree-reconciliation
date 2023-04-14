@@ -8,6 +8,37 @@ validate_required_folders() {
 			mkdir $folder
 		fi
 	done
+	
+	COG_summary="COG_reconciliation_summary.csv"
+	if [ ! -f $COG_summary ]; then
+		echo $COG_summary does not exist, creating a new file
+		echo -en "COG,num_ORFs_begin,num_ORFs_in_tree,average_ORF_length,raw_alignment_length,trimmed_alignment_length,num_events,num_iterations,time_stamp,earliest_event_type,left_date,mid_date,right_date\n" > $COG_summary
+	fi
+}
+
+validate_alignment() {
+	alignment_for_tree=$1
+	num_seq_min=$2
+	alignment_len_min=$3
+	num_seq_exist=$(grep -c ">" $alignment_for_tree)
+	if (( $num_seq_min > $num_seq_exist )); then
+		echo There are only $num_seq_exist ORFs exist in the alignment file $alignment_for_tree
+		echo Tree reconciliation requires at least $num_seq_min sequences for analysis
+		echo skipping
+		exit 0
+	fi
+	
+	first_alignment_length=$( head -n 20 $alignment_for_tree | tail -n +2 | grep --max-count 1  -b '>' | cut -f1 -d:)
+	if (( $alignment_len_min > $first_alignment_length - 1)); then
+		echo The length of the alignment --- $alignment_for_tree --- is only $first_alignment_length
+		echo We need the alignment length of at least $alignment_len_min amino acids
+		echo skipping
+		exit 0
+	fi
+
+	echo Alignment file --- $alignment_for_tree --- is validated
+	# echo Alignment file --- $alignment_for_tree --- is validated >> tmp/tmp2.txt
+	echo Jimmy building tree...
 }
 
 generate_gene_tree()
@@ -77,13 +108,9 @@ inhouse_scripts_processing()
 	python3 scripts/py3-scripts/recPhyloXMLEventSummary.py -i $recPhyloXML_file -o $sym_event_f --include.transfer.departure
 	sed -r -i "s|\s+|\t|g" $sym_event_f
 
-	# python3 scripts/recphyloxmlinterpreterspecV2.py $sym_event_f $chronogram_internal_nodes_f $recPhyloXML_file
-	python3 scripts/recphyloxmlinterpreterspec.py $sym_event_f $chronogram_internal_nodes_f $recPhyloXML_file
+	python3 scripts/recphyloxmlinterpreterspecV2.py $sym_event_f $chronogram_internal_nodes_f $recPhyloXML_file
 
-	echo $gene_name finish time: $(date +%Y-%m-%d\ %H:%M:%S) >> $birthdate_f
-	python3 -u scripts/getGeneBirthDate.py $sym_event_date_f >> $birthdate_f # -u for the "unbuffered" swich for python
-	echo ------ >> $birthdate_f
-	echo  >> $birthdate_f
+	python3 scripts/summarize_reconciliation.py $gene_name # output to COG_reconciliation_summary.csv
 }
 
 

@@ -41,6 +41,9 @@ Other options:
 chronogram=ugam1_ChenParamsEarth_sample.chronogram
 all_seq_fasta=SingleLine_EnrichedGenomes.faa
 num_core=10 # not used with iqtree, iqtree will decide, by itself, how many CPU to use
+num_seq_min=20
+alignment_len_min=100
+
 gene_tree_method=iqtree
 COG_calling_method=diamond
 
@@ -148,7 +151,9 @@ makeTree_and_reconcile() {
 	# we excluded genes with more than 20% gaps in the trimmed alignment
 	trimv2=gene_alignments/trimv2_$gene_name.afa
 	python3 scripts/keep_seq_geq_Xpercent.py $trimv1 $trimv2 80
-	# rm $trimv1
+	rm $trimv1
+
+	validate_alignment $trimv2 $num_seq_min $alignment_len_min
 
 	# we store the filename of the outputted gene tree here:
 	store_gene_tree_filename="tmp/${gene_name}_${gene_tree_method}_gene_tree_filename.txt"
