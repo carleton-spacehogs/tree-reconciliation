@@ -21,7 +21,7 @@ choose only one of the entry point to start this program
 	e.g.: $(pwd)/reconcile.sh --alignment alignment.afa
 
 --gene_trees [a collection of newick gene trees; output of iqtree or RAXML]
-	e.g.: $(pwd)/reconcile.sh --gene_trees COG0035_trees.ufboot
+	e.g.: $(pwd)/reconcile.sh --gene_tree COG0035_trees.ufboot
 
 --gen_graph_only [gene_name]
 
