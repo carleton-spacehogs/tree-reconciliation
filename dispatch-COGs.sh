@@ -39,7 +39,9 @@ max_jobs=3
 # COG_list="COG1496 COG1528 COG1553 COG1633 COG1814 COG1840 COG1863 COG1910 COG1914 COG1918" # inorganic2
 # COG_list="COG1971 COG2046 COG2059 COG2072 COG2111 COG2128 COG2193 COG2212 COG2221 COG2223" # deming work3
 # COG_list="COG2239 COG2346 COG2382 COG2710 COG2895 COG2897 COG2906 COG2998 COG3221 COG3420" # inorganic4
-COG_list="COG3540 COG3639 COG3696 COG3746 COG4149 COG4651" # deming work1; tree4
+# COG_list="COG3540 COG3639 COG3696 COG3746 COG4149 COG4651" # deming work1; tree4
+
+COG_list=$1
 
 num_done=0
 num_COGs=$(echo $COG_list | awk -F 'COG' '{print NF - 1}')
@@ -71,8 +73,8 @@ if [ $ignore_memory = true ]; then
 	done
 else
 	for COG in $COG_list; do
-		# ./reconcile.sh --COG $COG
-		./reconcile.sh --gene_tree iqtree_gene_trees/${COG}.ufboot
+		./reconcile.sh --COG $COG
+		# ./reconcile.sh --gene_tree iqtree_gene_trees/${COG}.ufboot
 		# COG_PID=$!
 		# job_str="$COG_PID for $COG"
 		# is_done=false
