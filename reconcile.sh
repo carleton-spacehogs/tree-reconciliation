@@ -29,6 +29,8 @@ Other options:
 --stop_before_reconciliation
 	does everything before the ecceTERA step (memory intense)
 
+--stop_before_tree_building
+
 --species_tree
 	provide path to your own species tree.
 	Default: ugam1_ChenParamsEarth_sample.chronogram
@@ -48,7 +50,7 @@ gene_tree_method=iqtree
 COG_calling_method=diamond
 
 
-options=$(getopt -o c:gg:gt:s:a:gs:h --long COG:,gen_graph_only:,gene_tree:,species_tree:,alignment:,gene_sequences:,stop_before_reconciliation,help -- "$@")
+options=$(getopt -o c:gg:gt:s:a:gs:h --long COG:,gen_graph_only:,gene_tree:,species_tree:,alignment:,gene_sequences:,stop_before_reconciliation,stop_before_tree_building,overwrite,help -- "$@")
 eval set -- "$options"
 
 while true; do
@@ -83,6 +85,14 @@ while true; do
 			;;
 		--stop_before_reconciliation)
 			stop_before_reconciliation=true
+			shift
+			;;
+		--stop_before_tree_building)
+			stop_before_tree_building=true
+			shift
+			;;
+		--overwrite)
+			overwrite=true
 			shift
 			;;
 		--)
@@ -154,7 +164,12 @@ makeTree_and_reconcile() {
 	rm $trimv1
 
 	validate_alignment $trimv2 $num_seq_min $alignment_len_min
-
+	
+	if [ "$stop_before_tree_building" = true ]; then
+		echo I see --stop_before_tree_building, so I stop
+		exit $?
+	fi
+	
 	# we store the filename of the outputted gene tree here:
 	store_gene_tree_filename="tmp/${gene_name}_${gene_tree_method}_gene_tree_filename.txt"
 	generate_gene_tree $gene_tree_method $trimv2 $gene_name $num_core $store_gene_tree_filename
@@ -210,7 +225,9 @@ extractSeq_align_makeTree_and_reconcile() {
 are_we_done() {
 	gene_name=$1
 	R_plot="R-plots/histogram/${COG_calling_method}-${gene_tree_method}-${gene_name}-eventsHistogram.png"
-	if [ -f "$R_plot" ]; then
+	if [ $overwrite = true ]; then
+		echo I am over writing stuff
+	elif [ -f "$R_plot" ]; then
         	echo "$R_plot exists. I think I am done"
 	        exit 0
 	fi
