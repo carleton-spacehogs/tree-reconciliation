@@ -20,7 +20,7 @@ choose only one of the entry point to start this program
 --alignment [mulitple_sequence_alignment.afa]
 	e.g.: $(pwd)/reconcile.sh --alignment alignment.afa
 
---gene_trees [a collection of newick gene trees; output of iqtree or RAXML]
+--gene_tree [a collection of newick gene trees; output of iqtree or RAXML]
 	e.g.: $(pwd)/reconcile.sh --gene_tree COG0035_trees.ufboot
 
 --gen_graph_only [gene_name]
@@ -225,7 +225,7 @@ extractSeq_align_makeTree_and_reconcile() {
 are_we_done() {
 	gene_name=$1
 	R_plot="R-plots/histogram/${COG_calling_method}-${gene_tree_method}-${gene_name}-eventsHistogram.png"
-	if [ $overwrite = true ]; then
+	if [ "$overwrite" = true ]; then
 		echo I am over writing stuff
 	elif [ -f "$R_plot" ]; then
         	echo "$R_plot exists. I think I am done"

@@ -61,11 +61,18 @@ if [ -z $(echo $COG_list | sed 's/ //g') ]; then
 	exit 1
 fi
 
-for COG in $COG_list; do
-	command="./reconcile.sh $flags $COG"
+for COG in $COG_list; do 
+	if [[ "$flags" == *"--gene_tree"* ]]; then
+		default_tree="iqtree_gene_trees/${COG}.ufboot"
+		command="./reconcile.sh $flags $default_tree"
+		echo I assume the tree file for $COG is --- $default_tree ---
+	else
+		command="./reconcile.sh $flags $COG"
+	fi
+
 	echo I am doing this command:
         echo $command
-	eval $command >> run_${COG}_job.log
+	eval $command # >> run_${COG}_job.log
 done
 
 
