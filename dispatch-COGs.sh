@@ -3,8 +3,6 @@
 free_memory_start_point=50
 free_memory_stop_point=25
 
-ignore_memory=false
-
 options=$(getopt -o if:c: --long help,flags:,COG_list: -- "$@")
 eval set -- "$options"
 
@@ -61,67 +59,23 @@ if [ -z $(echo $COG_list | sed 's/ //g') ]; then
 	exit 1
 fi
 
-for COG in $COG_list; do 
+for COG in $COG_list; do
+	source ./scripts/declare_file_location.sh $COG
 	if [[ "$flags" == *"--gene_tree"* ]]; then
-		default_tree="iqtree_gene_trees/${COG}.ufboot"
-		command="./reconcile.sh $flags $default_tree"
-		echo I assume the tree file for $COG is --- $default_tree ---
-	else
-		command="./reconcile.sh $flags $COG"
+		input=$iqtree_ufboot
+	elif [[ "$flags" == *"--alignment"* ]]; then
+		input=$alignment
+	elif [[ "$flags" == *"--gene_sequence"* ]]; then
+		input=$gene_seq_file
+	else # "--COG" and "--gen_graph_only"
+		input=$COG
 	fi
 
+	command="./reconcile.sh $flags $input"
 	echo I am doing this command:
-        echo $command
-	eval $command # >> run_${COG}_job.log
+		echo $command
+	eval $command >> run_${COG}_job.log
 done
-
-
-# if [ ! -z $flags ]; then
-# 	for COG in $COG_list; do
-#		command="echo ./reconcile.sh $flags $COG"
-#		echo I am doing this command:
-#		echo $command
-#		command
-#	done
-#else
-#	echo doing the whole pipe line for $COG_list
-#	for COG in $COG_list; do
-#		echo ./reconcile.sh --COG $COG
-		# COG_PID=$!
-		# job_str="$COG_PID for $COG"
-		# is_done=false
-
-		# echo Dispatching job $job_str
-		# while [[ $is_done = false ]]; do
-			# echo I am waiting, check in 100 seconds >> tmp/tmp.txt
-			# sleep 3
-			# ps $COG_PID &>/dev/null
-			# if [ $? = 1 ]; then is_done=true; fi
-
-			# if [ $is_done = false ]; then
-			#	if [ $(is_memory_ok $free_memory_start_point) = true ]; then
-			#		if [ $(job_running $COG_PID) = false ]; then 
-			#			echo $job_str was paused, now continue >> tmp/tmp2.txt
-			#			kill -CONT $COG_PID
-			#		else
-			#			echo $job_str memory ok and job running >> tmp/tmp2.txt
-			#		fi
-			#	elif [ $(is_memory_ok $free_memory_stop_point) = false ]; then # memory not ok
-			#		if [ $(job_running $COG_PID) = true ]; then
-			#			echo $job_str is running, now paused due to memory >> tmp/tmp2.txt
-			#			kill -STOP $COG_PID
-			#		else
-			#			echo $job_str memory not ok and job not running >> tmp/tmp2.txt
-			#		fi
-			#	else
-			#		echo $job_str memory between start and stop point, not doing anything >> tmp/tmp2.txt
-			#	fi
-			#else
-			#	echo $job_str is done
-			#fi
-		#done
-#	done
-#fi
 
 # COG_list=$(grep -E ",40$" diamond_COG_count.txt | awk -F ',' '{print $1}' | head -n 5)
 # COG_list="COG5677 COG5626 COG4291 COG1421 COG0269"

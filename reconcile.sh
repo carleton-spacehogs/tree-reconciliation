@@ -1,5 +1,4 @@
 #!/bin/bash
-
 source ./scripts/utils.sh
 
 Help()
@@ -38,17 +37,6 @@ Other options:
 -h --help : to display this message
 "
 }
-
-
-chronogram=ugam1_ChenParamsEarth_sample.chronogram
-all_seq_fasta=SingleLine_EnrichedGenomes.faa
-num_core=10 # not used with iqtree, iqtree will decide, by itself, how many CPU to use
-num_seq_min=20
-alignment_len_min=100
-
-gene_tree_method=iqtree
-COG_calling_method=diamond
-
 
 options=$(getopt -o c:gg:gt:s:a:gs:h --long COG:,gen_graph_only:,gene_tree:,species_tree:,alignment:,gene_sequences:,stop_before_reconciliation,stop_before_tree_building,overwrite,help -- "$@")
 eval set -- "$options"
@@ -106,25 +94,27 @@ while true; do
 	esac
 done
 
-parse_gene_name() {
+parseGeneName_and_declareFilenames() {
 	# e.g. iqtree_gene_trees/COG0774.ufboot -> COG0774
-	echo $1 | awk -F '/' '{print $NF}' | awk -F '.' '{print $1}'
+	gene_name=$(echo $1 | awk -F '/' '{print $NF}' | awk -F '.' '{print $1}')
+	source ./scripts/declare_file_location.sh $gene_name
+	echo $gene_name
 }
 
 
 analysis() {
 	gene_name=$1
-	source ~/miniconda3/etc/profile.d/conda.sh
-	conda activate /Accounts/zhongj2/miniconda3
+	source $conda_sh
+	conda activate $conda_env_base
 	inhouse_scripts_processing $chronogram $gene_name
-        # inhouse_scripts_processing must executed in Jimmy's conda base environment
-        # XML has some version changes, only the version in my base environment worked...
+	# inhouse_scripts_processing must executed in Jimmy's conda base environment
+	# XML has some version changes, only the version in my base environment worked...
 
-        # currently, R is broken in my base environment
-	conda activate /Accounts/zhongj2/miniconda3/envs/anvio-dev
-        Rscript --vanilla scripts/plot-gene-events-histogram.R $gene_name $gene_tree_method $COG_calling_method
-        Rscript --vanilla scripts/plot-gene-timeline.R $gene_name $gene_tree_method $COG_calling_method
-        conda deactivate
+	# currently, R is broken in my base environment
+	conda activate $conda_R_env
+	Rscript --vanilla scripts/plot-gene-events-histogram.R $gene_name $gene_tree_method $COG_calling_method
+	Rscript --vanilla scripts/plot-gene-timeline.R $gene_name $gene_tree_method $COG_calling_method
+	conda deactivate
 }
 
 
@@ -135,9 +125,6 @@ reconcile_and_analysis() {
 	species tree: $chronogram
 	now reconciling them
 	"
-
-	gene_name=$(parse_gene_name $gene_tree)
-
 	run_ecceTERA $chronogram $gene_tree $gene_name
 
 	if [ $? -ne 0 ]; then
@@ -151,15 +138,13 @@ reconcile_and_analysis() {
 
 makeTree_and_reconcile() {
 	alignment=$1
-	gene_name=$(parse_gene_name $alignment)
+	# gene_name=$(parse_gene_name $alignment)
 
 	echo trimming the original alignment $alignment
-	trimv1=gene_alignments/trimv1_$gene_name.afa
 	# trim out positions with mostly gaps
 	~/miniconda3/bin/trimal -in $alignment -out $trimv1 -gt 0.15 # -automated1
 	
 	# we excluded genes with more than 20% gaps in the trimmed alignment
-	trimv2=gene_alignments/trimv2_$gene_name.afa
 	python3 scripts/keep_seq_geq_Xpercent.py $trimv1 $trimv2 80
 	rm $trimv1
 
@@ -171,7 +156,7 @@ makeTree_and_reconcile() {
 	fi
 	
 	# we store the filename of the outputted gene tree here:
-	store_gene_tree_filename="tmp/${gene_name}_${gene_tree_method}_gene_tree_filename.txt"
+	# store_gene_tree_filename="tmp/${gene_name}_${gene_tree_method}_gene_tree_filename.txt"
 	generate_gene_tree $gene_tree_method $trimv2 $gene_name $num_core $store_gene_tree_filename
 
 	if [ "$stop_before_reconciliation" = true ]; then
@@ -186,8 +171,8 @@ makeTree_and_reconcile() {
 
 align_makeTree_and_reconcile() {
 	seq_file=$1 # gene_sequences
-	gene_name=$(parse_gene_name ${seq_file})
-	alignment=gene_alignments/${gene_name}.afa
+	# gene_name=$(parse_gene_name ${seq_file})
+	# alignment=gene_alignments/${gene_name}.afa
 	echo aligning this gene: $gene_name, and alignment output: $alignment
 	# muscle is localed in this folder, executable downloaded from https://github.com/rcedgar/muscle/releases/tag/5.1.0
 	./muscle5.1 -align $seq_file -output $alignment
@@ -210,7 +195,8 @@ extractSeq_align_makeTree_and_reconcile() {
 		exit 1
 	fi
 
-	gene_seq_file=tmp/$COG.faa
+	# gene_seq_file=tmp/$COG.faa
+	echo $all_seq_fasta
 	python3 scripts/grep_seq_given_COG.py $COG $COG_calling_method $gene_seq_file $all_seq_fasta
 
 	if [ $? -ne 0 ]; then
@@ -222,41 +208,42 @@ extractSeq_align_makeTree_and_reconcile() {
 	align_makeTree_and_reconcile $gene_seq_file
 }
 
-are_we_done() {
-	gene_name=$1
-	R_plot="R-plots/histogram/${COG_calling_method}-${gene_tree_method}-${gene_name}-eventsHistogram.png"
+am_I_done() {
 	if [ "$overwrite" = true ]; then
 		echo I am over writing stuff
 	elif [ -f "$R_plot" ]; then
-        	echo "$R_plot exists. I think I am done"
-	        exit 0
+		echo "$R_plot exists. I think I am done"
+		exit 0
 	fi
 }
 
-
+source scripts/declare_file_location.sh # declare hard-coded variables
+# gene specific variables declared in parseGeneName_and_declareFilenames
 validate_required_folders
 
 # if given both gene and species tree, just do the reconciliation
 if [ ! -z "$gen_graph_only" ]; then
-        analysis $gen_graph_only
+	source scripts/declare_file_location.sh $gen_graph_only
+	analysis $gen_graph_only
 	exit $?
 elif [ ! -z "$gene_tree" ]; then
-	gene_name=$(parse_gene_name $gene_tree)
-	are_we_done $gene_name
+	parseGeneName_and_declareFilenames $gene_tree
+	am_I_done
 	reconcile_and_analysis $gene_tree
 	exit $?
 elif [ ! -z "$alignment" ]; then
-	gene_name=$(parse_gene_name $alignment)
-        are_we_done $gene_name
+	parseGeneName_and_declareFilenames $alignment
+	am_I_done
 	makeTree_and_reconcile $alignment
 	exit $?
 elif [ ! -z "$gene_sequences" ]; then
-	gene_name=$(parse_gene_name $gene_sequences)
-        are_we_done $gene_name
+	parseGeneName_and_declareFilenames $gene_sequences
+	am_I_done
 	align_makeTree_and_reconcile $gene_sequences
 	exit $?
 elif [ ! -z "$COG" ]; then
-        are_we_done $COG
+	source ./scripts/declare_file_location.sh $COG
+	am_I_done
 	extractSeq_align_makeTree_and_reconcile $COG
 	exit $?
 else
