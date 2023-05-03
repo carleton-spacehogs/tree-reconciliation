@@ -112,8 +112,8 @@ analysis() {
 
 	# currently, R is broken in my base environment
 	conda activate $conda_R_env
-	Rscript --vanilla scripts/plot-gene-events-histogram.R $gene_name $gene_tree_method $COG_calling_method
-	Rscript --vanilla scripts/plot-gene-timeline.R $gene_name $gene_tree_method $COG_calling_method
+	Rscript --vanilla scripts/plot-gene-events-histogram.R
+	Rscript --vanilla scripts/plot-gene-timeline.R
 	conda deactivate
 }
 
@@ -125,7 +125,7 @@ reconcile_and_analysis() {
 	species tree: $chronogram
 	now reconciling them
 	"
-	run_ecceTERA $chronogram $gene_tree $gene_name
+	run_ecceTERA $chronogram $gene_tree
 
 	if [ $? -ne 0 ]; then
 		echo ecceTERA failed... Stop here
@@ -171,8 +171,6 @@ makeTree_and_reconcile() {
 
 align_makeTree_and_reconcile() {
 	seq_file=$1 # gene_sequences
-	# gene_name=$(parse_gene_name ${seq_file})
-	# alignment=gene_alignments/${gene_name}.afa
 	echo aligning this gene: $gene_name, and alignment output: $alignment
 	# muscle is localed in this folder, executable downloaded from https://github.com/rcedgar/muscle/releases/tag/5.1.0
 	./muscle5.1 -align $seq_file -output $alignment
@@ -195,7 +193,6 @@ extractSeq_align_makeTree_and_reconcile() {
 		exit 1
 	fi
 
-	# gene_seq_file=tmp/$COG.faa
 	echo $all_seq_fasta
 	python3 scripts/grep_seq_given_COG.py $COG $COG_calling_method $gene_seq_file $all_seq_fasta
 

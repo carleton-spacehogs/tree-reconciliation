@@ -60,8 +60,8 @@ generate_gene_tree()
 			echo do \"which iqtree\" and see the problem
 			exit 1
 		fi
-		echo $iqtree_ufboot > $gene_tree_f
-		iqtree -s $trimmed_alignment --nmax 3000 -m MFP -bb 1000 -wbtl -ntmax 10 -nt AUTO -T $num_core --prefix $outfile_prefix -madd C10,C20,C30,C40,C50,C60,EX2,EX3,EHO,UL2,UL3,EX_EHO,LG4M,LG4X,CF4,LG+C10,LG+C20,LG+C30,LG+C40,LG+C50,LG+C60 -mrate E,I,G,I+G,R
+		# echo $iqtree_ufboot > $gene_tree_f
+		iqtree -s $trimmed_alignment --nmax 3000 -m MFP -bb 1000 -wbtl -ntmax 10 -nt AUTO -T $num_core --prefix $outfile_prefix -madd $additional_models -mrate $rate_models
 	else
 		echo "ERROR!! \$method can only be \"iqtree\" or \"raxml\""
 		exit 1
@@ -83,7 +83,7 @@ run_ecceTERA()
 			mv $old_e_ran $ecceTERA_ran
 		else
 			# if for some reason ecceTERA fails, stop here
-			echo I do not have ---- $old_f ----, I will stop here
+			echo I do not have --- $ecceTERA_sym ---, stop here
 			exit 52
 		fi
 	fi

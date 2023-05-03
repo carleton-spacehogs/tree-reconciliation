@@ -1,16 +1,15 @@
 library(ggplot2)
-args <- commandArgs(TRUE)
 
-COG=args[1]
-gene_tree_method=args[2]
-COG_calling_method=args[3]
+COG=Sys.getenv("gene_name")
+gene_tree_method=Sys.getenv("gene_tree_method")
+COG_calling_method=Sys.getenv("COG_calling_method")
+sym_event_f=Sys.getenv("sym_event_date_f")
 
-sym_event_f = paste("ecceTERA_analysis/", COG, "_symmetric.events_event_dates.txt", sep = "")
 plot_title = paste(COG, "Gene Events")
 out_file = paste(COG_calling_method, gene_tree_method, COG, "eventsHistogram.png", sep = "-")
 out_file = paste("R-plots", "histogram", out_file, sep = "/")
 
-data <- read.delim(sym_event_f, na.strings="?")
+data = read.delim(sym_event_f, na.strings="?")
 
 ggplot(data, aes(x=midpoint.date)) +
 	geom_histogram(aes(y=(..count../nrow(data)), fill=event), binwidth = 250, boundary = 0) + 
@@ -26,7 +25,7 @@ ggplot(data, aes(x=midpoint.date)) +
                 "spe" = "#ff66de")) +
 	# 	values=c("#ffd166", "#06d6a0", "#118ab2", "#ff66de"),
 	#	name="Type of Event", 
-	#	labels=c("Duplication", "Horizontal Gene Transfer", "Loss", "Speciation")) + 
+	#	labels=c("Duplication", "Horizontal Gene Transfer", "Loss", "Speciation")) +
 	theme(
 		legend.position = "bottom", 
 		plot.title = element_text(size = rel(1.75), hjust = 0.5),

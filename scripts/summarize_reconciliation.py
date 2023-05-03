@@ -18,16 +18,21 @@ If you want to overwrite the old record of COG4100, do:
 ./summarize_reconciliation.py COG4100 rewrite
 '''
 
-summary_file = "COG_reconciliation_summary.csv" # with the following columns:
-# COG_name,num_ORFs_begin,num_ORFs_in_tree,raw_alignment_length,trimmed_alignment_length,average_ORF_length,num_events
-
 COG = sys.argv[1]
 rewrite = True if len(sys.argv) == 3 and sys.argv[2] == "rewrite" else False
 
-original_align = f"gene_alignments/{COG}.afa"
-trimmed_align = f"gene_alignments/trimv2_{COG}.afa"
-event_dates_f = f"ecceTERA_analysis/{COG}_symmetric.events_event_dates.txt"
-iqtree_log = f"iqtree_gene_trees/{COG}.log"
+if "alignment" not in os.environ.keys():
+    print("the environment is not set up yet, do these 2 commands:")
+    print("    source ./scripts/declare_file_location.sh")
+    print(f"    source ./scripts/declare_file_location.sh {COG}")
+    exit(1)
+
+original_align = os.environ["alignment"]
+trimmed_align = os.environ["trimv2"]
+event_dates_f = os.environ["sym_event_date_f"]
+iqtree_log = os.environ["iqtree_log"]
+summary_file = os.environ["COG_summary"] # with the following columns:
+# COG_name,num_ORFs_begin,num_ORFs_in_tree,raw_alignment_length,trimmed_alignment_length,average_ORF_length,num_events
 
 def record_exists(COG, summary):
     for l in summary:

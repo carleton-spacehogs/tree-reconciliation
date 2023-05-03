@@ -1,11 +1,10 @@
 library(ggplot2)
-args <- commandArgs(TRUE)
 
-COG=args[1]
-gene_tree_method=args[2]
-COG_calling_method=args[3]
+COG=Sys.getenv("gene_name")
+gene_tree_method=Sys.getenv("gene_tree_method")
+COG_calling_method=Sys.getenv("COG_calling_method")
+sym_event_f=Sys.getenv("sym_event_date_f")
 
-sym_event_f = paste("ecceTERA_analysis/", COG, "_symmetric.events_event_dates.txt", sep = "")
 out_file = paste(COG_calling_method, gene_tree_method, COG, "timeline.png", sep = "-")
 out_file = paste("R-plots", "timeline", out_file, sep = "/")
 
