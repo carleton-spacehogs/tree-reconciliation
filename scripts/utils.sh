@@ -39,35 +39,6 @@ validate_alignment() {
 	echo Jimmy building tree...
 }
 
-generate_gene_tree()
-{
-	method=$1 # raxml or iqtree
-	trimmed_alignment=$2
-	gene_name=$3
-	num_core=$4
-	gene_tree_f=$5
-
-	echo using \"$method\" to make Max likelihood tree for \"$gene_name\"
-	if [[ $method == "raxml" ]]; then
-		echo raxml_gene_trees/RAxML_bipartitions.$gene_name.tree > $gene_tree_f
-		# took it from baross: 
-		# I have to write "-w $(pwd)/gene_trees -n ${gene_name}.tree" instead of "gene_trees/${gene_name}.tree"
-		../raxmlHPC -f a -m PROTGAMMAAUTO -p 33 -x 33 -s $trimmed_alignment -w ../raxml_gene_trees -n $gene_name.tree -T $num_core -N 100 # num_bootstrap set to 100
-	elif [[ $method == "iqtree" ]]; then
-		which iqtree
-		if [ $? -ne 0 ]; then
-			echo iqtree is not usable in this environment.
-			echo do \"which iqtree\" and see the problem
-			exit 1
-		fi
-		# echo $iqtree_ufboot > $gene_tree_f
-		iqtree -s $trimmed_alignment --nmax 3000 -m MFP -bb 1000 -wbtl -ntmax 10 -nt AUTO -T $num_core --prefix $outfile_prefix -madd $additional_models -mrate $rate_models
-	else
-		echo "ERROR!! \$method can only be \"iqtree\" or \"raxml\""
-		exit 1
-	fi
-}
-
 run_ecceTERA()
 {
 	spcies_tree=$1
@@ -77,6 +48,7 @@ run_ecceTERA()
 		echo "$ecceTERA_sym exists, use the old symmetric reconciliation"
 	else
 		ecceTERA species.file=$spcies_tree gene.file=$gene_tree verbose=true print.reconciliations=1 recPhyloXML.reconciliation=true amalgamate=true
+		echo $?,$gene_tree >> eceeTERA-exit-code.tmp
 		if test -f $old_e_sym; then
 			mv $old_e_sym $ecceTERA_sym
 			mv $old_e_asym $ecceTERA_asym
@@ -101,6 +73,10 @@ inhouse_scripts_processing()
 	python3 scripts/recphyloxmlinterpreterspecV2.py $sym_event_f $chronogram_internal_nodes_f $ecceTERA_sym
 
 	python3 scripts/summarize_reconciliation.py $gene_name # output to COG_reconciliation_summary.csv
+	if [ $? -ne 0 ]; then
+		echo scripts/summarize_reconciliation.py failed. stop here
+		exit 1
+	fi
 }
 
 

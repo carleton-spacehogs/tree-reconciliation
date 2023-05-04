@@ -21,13 +21,13 @@ If you want to overwrite the old record of COG4100, do:
 COG = sys.argv[1]
 rewrite = True if len(sys.argv) == 3 and sys.argv[2] == "rewrite" else False
 
-if "alignment" not in os.environ.keys():
+if "pre_trim" not in os.environ.keys():
     print("the environment is not set up yet, do these 2 commands:")
     print("    source ./scripts/declare_file_location.sh")
     print(f"    source ./scripts/declare_file_location.sh {COG}")
     exit(1)
 
-original_align = os.environ["alignment"]
+original_align = os.environ["pre_trim"]
 trimmed_align = os.environ["trimv2"]
 event_dates_f = os.environ["sym_event_date_f"]
 iqtree_log = os.environ["iqtree_log"]

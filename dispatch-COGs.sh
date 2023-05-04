@@ -1,8 +1,5 @@
 #!/bin/bash
 
-free_memory_start_point=50
-free_memory_stop_point=25
-
 options=$(getopt -o if:c: --long help,flags:,COG_list: -- "$@")
 eval set -- "$options"
 
@@ -31,6 +28,7 @@ while true; do
 	esac
 done
 
+dispatch_example="./reconcile.sh --flags \"--COGs\" --COG_list \"COG2046 COG2059\""
 
 is_memory_ok() {
 	free_memory_lower_bound=$1
@@ -55,26 +53,30 @@ job_running() {
 
 if [ -z $(echo $COG_list | sed 's/ //g') ]; then
 	echo gimme a list of COGs, for example:
-	echo ./reconcile.sh --COGs \"COG2046 COG2059\"
+	echo $dispatch_example
 	exit 1
 fi
 
+source ./scripts/declare_file_location.sh # general environmental variables
 for COG in $COG_list; do
-	source ./scripts/declare_file_location.sh $COG
+	source ./scripts/declare_file_location.sh $COG # gene_name specific filenames/variables
 	if [[ "$flags" == *"--gene_tree"* ]]; then
 		input=$iqtree_ufboot
 	elif [[ "$flags" == *"--alignment"* ]]; then
 		input=$alignment
 	elif [[ "$flags" == *"--gene_sequence"* ]]; then
 		input=$gene_seq_file
-	else # "--COG" and "--gen_graph_only"
+	elif [ -z "$flags" ]; then
+		echo "you must give me --flags, for example:"
+		echo $dispatch_example
+	else # for "--COG" and "--gen_graph_only"
 		input=$COG
 	fi
 
 	command="./reconcile.sh $flags $input"
 	echo I am doing this command:
 		echo $command
-	eval $command >> run_${COG}_job.log
+	eval $command # >> run_${COG}_job.log
 done
 
 # COG_list=$(grep -E ",40$" diamond_COG_count.txt | awk -F ',' '{print $1}' | head -n 5)

@@ -17,9 +17,6 @@ if [ -z $gene_name ]; then
 	COG_summary="COG_reconciliation_summary.csv"
 	gene_tree_method=iqtree
 	COG_calling_method=diamond
-
-	additional_iqtree_models="C10,C20,C30,C40,C50,C60,EX2,EX3,EHO,UL2,UL3,EX_EHO,LG4M,LG4X,CF4,LG+C10,LG+C20,LG+C30,LG+C40,LG+C50,LG+C60"
-	rate_models="E,I,G,I+G,R" # List of rate heterogeneity among sites
 	
 	conda_env_base="/Accounts/zhongj2/miniconda3"
 	conda_sh=${conda_env_base}/etc/profile.d/conda.sh
@@ -28,8 +25,7 @@ else
 	echo declaring default gene_name specific filenames and variables
 	gene_seq_file=tmp/$gene_name.faa
 
-	alignment=gene_alignments/${gene_name}.afa
-
+	pre_trim=gene_alignments/${gene_name}.afa
 	trimv1=gene_alignments/trimv1_$gene_name.afa
 	trimv2=gene_alignments/trimv2_$gene_name.afa
 	# store_gene_tree_filename="tmp/${gene_name}_${gene_tree_method}_gene_tree_filename.txt"
@@ -54,4 +50,4 @@ else
 	R_plot="R-plots/histogram/${COG_calling_method}-${gene_tree_method}-${gene_name}-eventsHistogram.png"
 fi
 
-export gene_name alignment trimv2 sym_event_f sym_event_date_f iqtree_log COG_summary gene_tree_method COG_calling_method # for the python scripts
+export gene_name gene_seq_file all_seq_fasta pre_trim trimv2 sym_event_f sym_event_date_f iqtree_log COG_summary gene_tree_method COG_calling_method # for the python/R scripts

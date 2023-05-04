@@ -137,50 +137,52 @@ reconcile_and_analysis() {
 
 
 makeTree_and_reconcile() {
-	alignment=$1
-	# gene_name=$(parse_gene_name $alignment)
+	pre_trim=$1
 
-	echo trimming the original alignment $alignment
+	echo trimming the original alignment $pre_trim
 	# trim out positions with mostly gaps
-	~/miniconda3/bin/trimal -in $alignment -out $trimv1 -gt 0.15 # -automated1
+	~/miniconda3/bin/trimal -in $pre_trim -out $trimv1 -gt 0.15 # -automated1
 	
 	# we excluded genes with more than 20% gaps in the trimmed alignment
 	python3 scripts/keep_seq_geq_Xpercent.py $trimv1 $trimv2 80
 	rm $trimv1
 
 	validate_alignment $trimv2 $num_seq_min $alignment_len_min
-	
+
 	if [ "$stop_before_tree_building" = true ]; then
 		echo I see --stop_before_tree_building, so I stop
-		exit $?
+		exit 0
 	fi
-	
-	# we store the filename of the outputted gene tree here:
-	# store_gene_tree_filename="tmp/${gene_name}_${gene_tree_method}_gene_tree_filename.txt"
-	generate_gene_tree $gene_tree_method $trimv2 $gene_name $num_core $store_gene_tree_filename
+
+	which iqtree
+	if [ $? -ne 0 ]; then
+		echo can not use iqtree. Do \"which iqtree\" and see the problem.
+		exit 1
+	fi
+
+	iqtree -s $trimv2 --nmax 3000 -m MFP -bb 1000 -wbtl -ntmax 10 -nt AUTO -T $num_core --prefix $outfile_prefix -madd "C10,C20,C30,C40,C50,C60,EX2,EX3,EHO,UL2,UL3,EX_EHO,LG4M,LG4X,CF4,LG+C10,LG+C20,LG+C30,LG+C40,LG+C50,LG+C60" -mrate $rate_models "E,I,G,I+G,R" # List of 1. additional models 2. rate model for heterogeneity among sites
 
 	if [ "$stop_before_reconciliation" = true ]; then
 		echo I see --stop_before_reconciliation, so I stop
-		exit $?
+		exit 0
 	fi
 
-	gene_tree=$(cat $store_gene_tree_filename)
-	reconcile_and_analysis $gene_tree
+	reconcile_and_analysis $iqtree_ufboot
 }
 
 
 align_makeTree_and_reconcile() {
 	seq_file=$1 # gene_sequences
-	echo aligning this gene: $gene_name, and alignment output: $alignment
+	echo aligning this gene: $gene_name, and alignment output: $pre_trim
 	# muscle is localed in this folder, executable downloaded from https://github.com/rcedgar/muscle/releases/tag/5.1.0
-	./muscle5.1 -align $seq_file -output $alignment
+	./muscle5.1 -align $seq_file -output $pre_trim
 
 	if [ $? -ne 0 ]; then
 		echo alignment of $seq_file not successful, stop here
 		exit 1
 	fi
 
-	makeTree_and_reconcile $alignment
+	makeTree_and_reconcile $pre_trim
 }
 
 
@@ -193,16 +195,19 @@ extractSeq_align_makeTree_and_reconcile() {
 		exit 1
 	fi
 
-	echo $all_seq_fasta
-	python3 scripts/grep_seq_given_COG.py $COG $COG_calling_method $gene_seq_file $all_seq_fasta
-
-	if [ $? -ne 0 ]; then
-		echo grabbing the sequence for $COG not successful, stop here
-		rm $gene_seq_file
-		exit 1
+	if test -f $iqtree_ufboot; then
+		echo I found the gene_tree: skipping to the reconciliation.
+		reconcile_and_analysis $iqtree_ufboot
+	else
+		echo $all_seq_fasta
+		python3 scripts/grep_seq_given_COG.py $COG
+		if [ $? -ne 0 ]; then
+			echo grabbing the sequence for $COG not successful, stop here
+			rm $gene_seq_file
+			exit 1
+		fi
+		align_makeTree_and_reconcile $gene_seq_file
 	fi
-
-	align_makeTree_and_reconcile $gene_seq_file
 }
 
 am_I_done() {
