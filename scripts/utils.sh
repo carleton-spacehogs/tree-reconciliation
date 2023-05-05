@@ -20,8 +20,17 @@ less_20_warning() {
 	alignment_for_tree=$3
 	echo There are only $num_seq_exist ORFs exist in the alignment file $alignment_for_tree
 	echo Tree reconciliation requires at least $num_seq_min sequences for analysis
-	echo skipping
 	./scripts/summarize_reconciliation.py $gene_name 2
+}
+
+should_I_exit() {
+	do_not_exit=$1
+	if [ $do_not_exit -ne 1 ]; then
+		echo skipping
+		exit 1
+	else
+		echo 1
+	fi
 }
 
 validate_alignment() {
@@ -31,31 +40,22 @@ validate_alignment() {
 	do_not_exit=$4
 	if test -f $alignment_for_tree; then
 		num_seq_exist=$(grep -c ">" $alignment_for_tree)
+		first_alignment_length=$( head -n 20 $alignment_for_tree | tail -n +2 | grep --max-count 1  -b '>' | cut -f1 -d:)
 		if (( $num_seq_min > $num_seq_exist )); then
 			less_20_warning $num_seq_min $num_seq_exist $alignment_for_tree
-			if [ $do_not_exit -ne 1 ]; then
-				exit 0
-			fi
-		fi
-
-		first_alignment_length=$( head -n 20 $alignment_for_tree | tail -n +2 | grep --max-count 1  -b '>' | cut -f1 -d:)
-		if (( $alignment_len_min > $first_alignment_length - 1)); then
+			should_I_exit $do_not_exit
+		elif (( $alignment_len_min > $first_alignment_length - 1)); then
 			echo The length of the alignment --- $alignment_for_tree --- is only $first_alignment_length
 			echo We need the alignment length of at least $alignment_len_min amino acids
-			echo skipping
 			./scripts/summarize_reconciliation.py $gene_name 3
-			if [ $do_not_exit -ne 1 ]; then
-				exit 0
-			fi
+			should_I_exit $do_not_exit
+		else
+			echo $alignment_for_tree is validated
 		fi
 	else
 		less_20_warning $num_seq_min $num_seq_exist $alignment_for_tree
-		if [ $do_not_exit -ne 1 ]; then
-			exit 0
-		fi
+		should_I_exit $do_not_exit
 	fi
-
-	echo Alignment file --- $alignment_for_tree --- is validated
 }
 
 run_ecceTERA()

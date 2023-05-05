@@ -87,7 +87,9 @@ def get_earliest_event(event_dates_f):
         for event in events:
             if "?" not in event and "event" not in event: # "event" for the first line; "?" for null data
                 col = event.split('\t')
-                midpoint_date = float(col[5].strip())
+                midpoint_date = 0
+                if col[5].strip() != "NA":
+                    midpoint_date = float(col[5].strip())
                 if midpoint_date > curr_earliest_date:
                     curr_earliest_date = midpoint_date
                     earliest_date_line = col
