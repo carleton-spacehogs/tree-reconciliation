@@ -14,10 +14,10 @@ if [ -z $gene_name ]; then
 	old_internal_node_f=${chronogram}_internal_nodes.txt
 
 	all_seq_fasta=SingleLine_EnrichedGenomes.faa
-	COG_summary="COG_reconciliation_summary.csv"
+	COG_summary="COG_reconciliation_summary_v2.csv"
 	gene_tree_method=iqtree
 	COG_calling_method=diamond
-	
+
 	conda_env_base="/Accounts/zhongj2/miniconda3"
 	conda_sh=${conda_env_base}/etc/profile.d/conda.sh
 	conda_R_env=${conda_env_base}/envs/anvio-dev

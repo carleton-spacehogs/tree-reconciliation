@@ -19,6 +19,8 @@ If you want to overwrite the old record of COG4100, do:
 '''
 
 COG = sys.argv[1]
+error_status = sys.argv[2] # 0: sucessful; 1: ecceTERA memory fail; 2: 20 < ORFs after trimming
+
 rewrite = True if len(sys.argv) == 3 and sys.argv[2] == "rewrite" else False
 
 if "pre_trim" not in os.environ.keys():
@@ -40,10 +42,19 @@ def record_exists(COG, summary):
             return True
 
 def check_required_files():
-    for file in [original_align, trimmed_align, event_dates_f, iqtree_log]:
-        if not os.path.isfile:
-            print(f"I need this file: {file}, but it is not there")
-            exit(1)
+    def print_and_exit(file):
+        print(f"I need this file: {file}, but it is not there")
+        exit(1)
+    if not os.path.isfile(original_align):
+        print_and_exit(original_align)
+    if error_status == 0:
+        if not os.path.isfile(event_dates_f):
+            print_and_exit(event_dates_f)
+    elif error_status == 1:
+        for file in [trimmed_align, iqtree_log]:
+            if not os.path.isfile(file):
+                print_and_exit(file)
+    print("I think have all files I need")
 
 def get_alignment_length(alignment_dict):
     for val in alignment_dict.values():
@@ -55,7 +66,10 @@ def get_average_gene_len(alignment_dict):
         aa_sequence = str(val.seq).replace("-", "")
         aa_sequence = aa_sequence.replace("*", "")
         total_bp += len(aa_sequence)
-    return total_bp/len(alignment_dict)
+    if len(alignment_dict) == 0:
+        return 0
+    else:
+        return total_bp/len(alignment_dict)
 
 def count_events(event_dates_f):
     num_events = -1 # excluding the first line column names
@@ -87,6 +101,23 @@ def get_num_reconciliation(iqtree_log):
             if msg in l:
                 return int(l.replace(msg, ""))
 
+def basic_summary(original_align):
+    original_align_dict = SeqIO.to_dict(SeqIO.parse(original_align, "fasta"))
+    num_ORFs_begin = len(original_align_dict)
+    raw_alignment_length = get_alignment_length(original_align_dict)
+    average_ORF_length = get_average_gene_len(original_align_dict)
+    return [COG, num_ORFs_begin, average_ORF_length, raw_alignment_length]
+
+def enough_ORFs_summary(trimmed_align, iqtree_log):
+    trimmed_align_dict = SeqIO.to_dict(SeqIO.parse(trimmed_align, "fasta"))
+    num_ORFs_in_tree = len(trimmed_align_dict)
+    trimmed_alignment_length = get_alignment_length(trimmed_align_dict)
+    num_reconciliation = get_num_reconciliation(iqtree_log)
+    return [num_ORFs_in_tree, trimmed_alignment_length, num_reconciliation]
+
+def ecceTERA_summary(event_dates_f):
+    return [count_events(event_dates_f)] + get_earliest_event(event_dates_f)
+
 if __name__ == "__main__":
     summary = list(csv.reader(open(summary_file)))
     if (not rewrite) and record_exists(COG, summary):
@@ -95,20 +126,21 @@ if __name__ == "__main__":
 
     check_required_files()
 
-    original_align_dict = SeqIO.to_dict(SeqIO.parse(original_align, "fasta"))
-    trimmed_align_dict = SeqIO.to_dict(SeqIO.parse(trimmed_align, "fasta"))
+    row = []
+    if error_status == "0":
+        row = basic_summary(original_align) + enough_ORFs_summary(trimmed_align, iqtree_log) + ecceTERA_summary(event_dates_f) + ["everything_successful"]
+    elif error_status == "1":
+        row = basic_summary(original_align) + enough_ORFs_summary(trimmed_align, iqtree_log) + ["NA"] * 5 + ["ecceTERA_failed"]
+    elif error_status == "2":
+        row = basic_summary(original_align) + ["NA"] * 8 + ["less_than_20_ORFs"]
+    elif error_status == "3":
+        row = basic_summary(original_align) + ["NA"] * 8 + ["less_than_100_alignment_len"]
+    else:
+        print("I only accept 3 error status: 0, 1, 2, 3")
+        print("0: sucessful; 1: ecceTERA memory fail; 2: ORFs < 20 after trimming; 3: alignment length < 100 after trimming")
+        exit(1)
 
-    num_ORFs_begin = len(original_align_dict)
-    num_ORFs_in_tree = len(trimmed_align_dict)
-    raw_alignment_length = get_alignment_length(original_align_dict)
-    trimmed_alignment_length = get_alignment_length(trimmed_align_dict)
-    average_ORF_length = get_average_gene_len(original_align_dict)
-    num_events = count_events(event_dates_f)
-    num_reconciliation = get_num_reconciliation(iqtree_log)
-
-    row = [COG, num_ORFs_begin, num_ORFs_in_tree, average_ORF_length, raw_alignment_length, trimmed_alignment_length, 
-           num_events, num_reconciliation, datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S")]
-    row += get_earliest_event(event_dates_f)
+    row.append(datetime.datetime.now().strftime("%Y-%m-%d_%H:%M:%S"))
     row = [str(x) for x in row]
     print(row)
 
