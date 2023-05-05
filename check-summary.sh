@@ -12,12 +12,12 @@ running_COGs=$(ps aux | egrep -i "iqtree|ecceTERA" | grep -oP 'COG\d+' | uniq)
 
 for afa in $(ls gene_alignments/COG*.afa); do
 	COG=$(echo $afa | grep -oP 'COG\d+')
-	source scripts/declare_file_location.sh $COG > /dev/null
+	source scripts/declare_file_location.sh $COG
 	echo $running_COGs | grep $COG > /dev/null
 	if [ $? -ne 0 ]; then # it is not running
 		res=$(grep $COG $COG_summary)
 		if [ $? -ne 0 ]; then
-			echo "we don't have the record for $COG, but I think we ran it before"
+			echo "No record for $COG, but $afa exists"
 			scripts/declare_file_location.sh $COG
 			if test -f $ecceTERA_sym; then
 				echo "Recording for $COG as an ecceTERA success"
@@ -39,7 +39,7 @@ consider doing:
 				fi
 			fi
 		# else
-			# echo found: $res
+		# 	echo "found : $res"
 		fi
 	else
 		echo $COG is running, skip it
