@@ -1,0 +1,94 @@
+---
+title: "plotting evolutionary events related to genes of specific substrates"
+author: "Jimmy Zhong"
+date: "5/5/2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(cowplot)
+library(dplyr)
+library(stringr)
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path ))
+
+categories_COGs = read.csv("high-cor-COGs.txt", row.names=1, comment.char="#")
+COG_record = read.csv("../COG_reconciliation_summary_v2.csv")
+done_COGs = pull(COG_record, COG)
+good_COGs = filter(COG_record, exit_status == "everything_successful") %>% pull(COG)
+```
+
+```{r}
+get_COGs_of = function(key) {
+  COGs = str_split(categories_COGs[key,], " ")[[1]]
+  bad_COGs = setdiff(COGs, good_COGs)
+  print(paste("I don't have these COGs", paste(bad_COGs, collapse = " ")))
+  print("These COG failed:")
+  fail_COGs = intersect(bad_COGs, done_COGs)
+  print(COG_record %>% filter(COG %in% fail_COGs) %>% select(COG, exit_status) )
+  print(paste("I have not run to these COGs yet:", paste(setdiff(bad_COGs, done_COGs), collapse = " ")))
+  good_COGs = intersect(COGs, good_COGs)
+  print(paste("I have these good COGs for :", key))
+  print(paste(good_COGs, collapse = " "))
+  return(intersect(COGs, good_COGs))
+}
+
+read_events = function(file) {
+  all = read.delim(file, na.strings = "?")
+  all %>% filter(right.node != "UNSAMPLED") %>%
+    select(event, midpoint.date)
+}
+
+merge_events = function(COGs) {
+  file_list = paste0("../ecceTERA_analysis/", COGs, "_symmetric.events_event_dates.txt")
+  data_list = lapply(file_list, read_events)
+  merge_data = do.call(rbind, mapply(rbind, data_list, SIMPLIFY = FALSE))
+}
+
+shared_gen_graph = function(data) {
+  g = ggplot(data, aes(x=midpoint.date)) +
+    geom_histogram(aes(y=(..density..), fill=event), binwidth = 50, boundary = 0)
+  if (type == "density") {
+    g = ggplot(data, aes(x=midpoint.date)) +
+      geom_density(alpha=.2, aes(fill=event))
+  }
+  g + xlim(4000,0) +
+    ylab("Proportion of total events") +
+    theme(legend.position = "bottom", 
+  		plot.title = element_text(size = rel(1.75), hjust = 0.5),
+  		axis.line.y = element_line(linetype = 1)) + 
+  	geom_hline(yintercept = 0) +
+  	theme_classic()
+}
+
+gen_graph = function(events, plot_title = "merged events"){
+  top = shared_gen_graph(filter(events, event %in% c("dup", "spe"))) +
+    theme(axis.line.x = element_blank(),
+          axis.text.x = element_blank(),
+          axis.title.x = element_blank(),
+          axis.ticks.x = element_blank()) +
+    scale_fill_manual(values = c("dup" = "#ffd166", "spe" = "#ff66de"))
+  bottom = shared_gen_graph(filter(events, event %in% c("hgt", "los"))) + 
+    scale_y_continuous(trans = "reverse") + 
+    scale_fill_manual( values = c("hgt" = "#06d6a0", "los" = "#118ab2"))
+  plot_grid(top, bottom, ncol = 1, align = "v", axis = "tb")
+}
+
+whole_pipeline = function(feature, out_graph) {
+  COGs = get_COGs_of(feature)
+  events = merge_events(COGs)
+  gen_graph(events)
+  ggsave(out_graph, width = 10, height = 7)
+}
+```
+
+```{r}
+type="density"
+# type="histogram"
+
+whole_pipeline("sqrt_iron", sprintf("merge_events_iron_%s.png", type))
+whole_pipeline("log_NO2NO3", sprintf("merge_events_nitrogen_%s.png", type))
+whole_pipeline("log_PO4", sprintf("merge_events_phosphate_%s.png", type))
+whole_pipeline("inorganic_ion", sprintf("merge_events_inorganicIon_%s.png", type))
+whole_pipeline("Mean_Oxygen", sprintf("merge_events_oxygen_%s.png", type))
+```
