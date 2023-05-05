@@ -30,7 +30,7 @@ get_COGs_of = function(key) {
   good_COGs = intersect(COGs, good_COGs)
   print(paste("I have these good COGs for :", key))
   print(paste(good_COGs, collapse = " "))
-  return(intersect(COGs, good_COGs))
+  return(good_COGs)
 }
 
 read_events = function(file) {
@@ -54,8 +54,7 @@ shared_gen_graph = function(data) {
   }
   g + xlim(4000,0) +
     ylab("Proportion of total events") +
-    theme(legend.position = "bottom", 
-  		plot.title = element_text(size = rel(1.75), hjust = 0.5),
+    theme(legend.position = "bottom",
   		axis.line.y = element_line(linetype = 1)) + 
   	geom_hline(yintercept = 0) +
   	theme_classic()
@@ -63,32 +62,44 @@ shared_gen_graph = function(data) {
 
 gen_graph = function(events, plot_title = "merged events"){
   top = shared_gen_graph(filter(events, event %in% c("dup", "spe"))) +
-    theme(axis.line.x = element_blank(),
-          axis.text.x = element_blank(),
-          axis.title.x = element_blank(),
-          axis.ticks.x = element_blank()) +
-    scale_fill_manual(values = c("dup" = "#ffd166", "spe" = "#ff66de"))
+    theme(plot.title = element_text(size = rel(1.75), hjust = 0.5),
+      axis.line.x = element_blank(),
+      axis.text.x = element_blank(),
+      axis.title.x = element_blank(),
+      axis.ticks.x = element_blank()) +
+    labs(title=plot_title) + 
+    scale_fill_manual(values = c("dup" = "#06d6a0", "spe" = "#ff66de"))
   bottom = shared_gen_graph(filter(events, event %in% c("hgt", "los"))) + 
     scale_y_continuous(trans = "reverse") + 
-    scale_fill_manual( values = c("hgt" = "#06d6a0", "los" = "#118ab2"))
+    scale_fill_manual( values = c("hgt" = "#ffd166", "los" = "#118ab2"))
   plot_grid(top, bottom, ncol = 1, align = "v", axis = "tb")
 }
 
-whole_pipeline = function(feature, out_graph) {
+whole_pipeline = function(feature, out_graph, title_text) {
   COGs = get_COGs_of(feature)
   events = merge_events(COGs)
-  gen_graph(events)
-  ggsave(out_graph, width = 10, height = 7)
+  pt = sprintf("%s (n = %d)", title_text, length(COGs))
+  gen_graph(events, plot_title = pt)
+  ggsave(out_graph, width = 6, height = 5)
 }
 ```
 
 ```{r}
 type="density"
-# type="histogram"
+type="histogram"
 
-whole_pipeline("sqrt_iron", sprintf("merge_events_iron_%s.png", type))
-whole_pipeline("log_NO2NO3", sprintf("merge_events_nitrogen_%s.png", type))
-whole_pipeline("log_PO4", sprintf("merge_events_phosphate_%s.png", type))
-whole_pipeline("inorganic_ion", sprintf("merge_events_inorganicIon_%s.png", type))
-whole_pipeline("Mean_Oxygen", sprintf("merge_events_oxygen_%s.png", type))
+whole_pipeline("sqrt_iron", 
+               sprintf("merge_events_iron_%s.png", type),
+               "COGs high corr to iron")
+whole_pipeline("log_NO2NO3",
+               sprintf("merge_events_nitrogen_%s.png", type),
+               "COGs high corr to nitrogen")
+whole_pipeline("log_PO4",
+               sprintf("merge_events_phosphate_%s.png", type),
+               "COGs high corr to phosphate")
+whole_pipeline("inorganic_ion",
+               sprintf("merge_events_inorganic_ion_%s.png", type), 
+               "inorganic ion COGs")
+whole_pipeline("Mean_Oxygen", sprintf("merge_events_oxygen_%s.png", type), 
+               "COGs high corr to oxygen")
 ```
