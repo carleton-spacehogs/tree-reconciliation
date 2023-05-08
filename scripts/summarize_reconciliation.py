@@ -21,7 +21,7 @@ If you want to overwrite the old record of COG4100, do:
 COG = sys.argv[1]
 error_status = sys.argv[2] # 0: sucessful; 1: ecceTERA memory fail; 2: 20 < ORFs after trimming
 
-rewrite = True if len(sys.argv) == 3 and sys.argv[2] == "rewrite" else False
+rewrite = True if len(sys.argv) == 4 and sys.argv[3] == "rewrite" else False
 
 if "pre_trim" not in os.environ.keys():
     print("the environment is not set up yet, do these 2 commands:")
