@@ -1,0 +1,33 @@
+---
+title: "Identify the location where the gene event happened"
+author: "Jimmy Zhong"
+date: "5/19/2023"
+output: html_document
+---
+
+## Jimmy's ibaray set up
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path ))
+library(reshape2)
+library(stringr)
+
+location_prob = t(read.csv("node-location-probability.csv", header=FALSE))
+node_species = read.delim("node-species-mapping.txt", header = FALSE)
+
+location_prob = as.data.frame(head(location_prob , -2)) # last 2 rows are summary statistics
+colnames(location_prob) = c("node_state", "probability")
+location_prob$node_state = str_replace(location_prob$node_state, "Node", "")
+location_prob$node_state = str_replace(location_prob$node_state, "Root", "-1")
+
+location_prob = separate(location_prob, node_state, into = c("node", "location"), sep = "\\.P\\.")
+location_prob = location_prob %>% mutate(
+  node = as.numeric(node),
+  loc = ifelse(location == "A.", "host_associated",
+    ifelse(location == "B.", "marine_deep",
+    ifelse(location == "C.", "marine_shallow",
+    ifelse(location == "D.", "terrestrial", "ungrouped")))))
+
+# note: -1 is the root
+prob_matrix = dcast(location_prob, node ~ loc, value.var = "probability")
+```

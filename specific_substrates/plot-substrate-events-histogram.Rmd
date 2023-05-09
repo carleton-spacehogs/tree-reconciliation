@@ -35,8 +35,10 @@ get_COGs_of = function(key) {
 
 read_events = function(file) {
   all = read.delim(file, na.strings = "?")
+  COG = str_match(file, "COG\\d+")[1]
   all %>% filter(right.node != "UNSAMPLED") %>%
-    select(event, midpoint.date)
+    select(event, midpoint.date) %>%
+    mutate(COG = COG)
 }
 
 merge_events = function(COGs) {
@@ -75,31 +77,59 @@ gen_graph = function(events, plot_title = "merged events"){
   plot_grid(top, bottom, ncol = 1, align = "v", axis = "tb")
 }
 
-whole_pipeline = function(feature, out_graph, title_text) {
+get_events = function(feature, anno) {
   COGs = get_COGs_of(feature)
   events = merge_events(COGs)
-  pt = sprintf("%s (n = %d)", title_text, length(COGs))
+  events$substrate = anno
+  return(events)
+}
+
+make_graph = function(events, out_graph, title_text) {
+  num_COGs = length(unique(events$COG))
+  pt = sprintf("%s (n = %d)", title_text, num_COGs)
   gen_graph(events, plot_title = pt)
   ggsave(out_graph, width = 6, height = 5)
 }
 ```
 
 ```{r}
-type="density"
-type="histogram"
+iron = get_events("sqrt_iron", "iron")
+NO2NO3 = get_events("log_NO2NO3", "Nitrogen")
+PO4 = get_events("log_PO4", "PO4")
+oxygen = get_events("Mean_Oxygen", "Oxygen")
+inorganic_ion = get_events("inorganic_ion", "inorganic_ion")
 
-whole_pipeline("sqrt_iron", 
-               sprintf("merge_events_iron_%s.png", type),
-               "COGs high corr to iron")
-whole_pipeline("log_NO2NO3",
-               sprintf("merge_events_nitrogen_%s.png", type),
-               "COGs high corr to nitrogen")
-whole_pipeline("log_PO4",
-               sprintf("merge_events_phosphate_%s.png", type),
-               "COGs high corr to phosphate")
-whole_pipeline("inorganic_ion",
-               sprintf("merge_events_inorganic_ion_%s.png", type), 
-               "inorganic ion COGs")
-whole_pipeline("Mean_Oxygen", sprintf("merge_events_oxygen_%s.png", type), 
-               "COGs high corr to oxygen")
+type="density"
+# type="histogram"
+
+make_graph(iron, sprintf("merge_events_iron_%s.png", type), "COGs high corr to iron")
+make_graph(NO2NO3, sprintf("merge_events_nitrogen_%s.png", type), "COGs high corr to nitrogen")
+make_graph(PO4, sprintf("merge_events_phosphate_%s.png", type), "COGs high corr to phosphate")
+make_graph(oxygen, sprintf("merge_events_oxygen_%s.png", type),  "COGs high corr to oxygen")
+make_graph(inorganic_ion, sprintf("merge_events_inorganic_ion_%s.png", type),  "inorganic ion COGs")
+```
+
+## plotting everything together
+```{r}
+all_dfs = rbind(iron, NO2NO3, PO4, oxygen, inorganic_ion)
+# all_dfs = all_dfs %>% mutate(substrate = fct_relevel(substrate, c("")))
+
+ggplot(all_dfs, aes(x=midpoint.date, y=substrate, color = event, group = substrate)) +
+  geom_jitter(alpha = 0.3, height = 0.3) +
+    scale_x_reverse(limits = c(4000, 0),
+                    breaks = seq(0, 4000, by = 500)) +
+    scale_color_manual(values = c("dup" = "#06d6a0",
+                                  "hgt" = "#ffd166",
+                                  "los" = "#118ab2",
+                                  "spe" = "#ff66de")) +
+    labs(x = "Million years ago", y = "") +
+    # geom_hline(yintercept = 20.5) +
+    # geom_hline(yintercept = 19.5, color = "lightgray") +
+  annotate('rect', xmin=2500, xmax=2300, ymin=0, ymax=length(unique(all_dfs$substrate)) + 1, alpha=.3, fill='gray') +
+    theme(panel.background = element_blank(),
+          panel.grid.major = element_blank(), 
+          panel.grid.minor = element_blank(),
+          axis.line = element_line(colour = "black"))
+
+ggsave("all-substrate-jitter.png", width = 10, height = 5)
 ```
