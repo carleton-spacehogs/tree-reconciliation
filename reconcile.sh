@@ -215,6 +215,7 @@ am_I_done() {
 		echo I am over writing stuff
 	elif [ -f "$R_plot" ]; then
 		echo "$R_plot exists. I think I am done"
+		python3 scripts/summarize_reconciliation.py $gene_name 0 rewrite
 		exit 0
 	fi
 }

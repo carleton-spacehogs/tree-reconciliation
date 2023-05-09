@@ -93,7 +93,7 @@ inhouse_scripts_processing()
 
 	python3 scripts/recphyloxmlinterpreterspecV2.py $sym_event_f $chronogram_internal_nodes_f $ecceTERA_sym
 
-	python3 scripts/summarize_reconciliation.py $gene_name 0
+	python3 scripts/summarize_reconciliation.py $gene_name 0 rewrite
 	if [ $? -ne 0 ]; then
 		echo scripts/summarize_reconciliation.py failed. stop here
 		exit 1
