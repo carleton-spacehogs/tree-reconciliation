@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 #########################################
@@ -444,9 +444,16 @@ if __name__ == "__main__":
 #    RTL = parser.parse(fileName)
 #    print RTL.spTree
 
-    #fileName = "testFiles/lossSeparatedtestFile"
+    fileName = "../ecceTERA_output/COG2906_symmetric_reconciliation.recPhyloXML"
 
     RTL = parser.parse(fileName)
 
     for RT in RTL.recTrees:
+        print(RT.__dict__)
+        print(RT._children[0].__dict__)
+        print(RT._children[1].__dict__)
+        print(RT._children[0]._children[0].__dict__)
+        print(RT._children[0]._children[1].__dict__)
+        print(RT._children[1]._children[0].__dict__)
+        print(RT._children[1]._children[1].__dict__)
         print(RT)
