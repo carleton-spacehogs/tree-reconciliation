@@ -11,24 +11,112 @@ knitr::opts_chunk$set(echo = TRUE)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path ))
 library(reshape2)
 library(stringr)
-library(dplyr)
+library(tidyverse)
 
 location_prob = t(read.csv("node-location-probability.csv", header=FALSE))
 node_species = read.delim("node-species-mapping.txt", header = FALSE)
+leaves_origin = read.delim("leaves_origin.txt", col.names = c("species", "origin"))
+
+ecceTERA_node_coding = read.csv("leaves_of_ecceTERA_interal_nodes.csv")
+bayesTraits_tree = read.delim("bayesTraits_species_tree_mapping.txt", header=FALSE,
+                              col.names = c("BT_node", "leaves_count", "leaves_below"))
 
 location_prob = as.data.frame(head(location_prob , -2)) # last 2 rows are summary statistics
 colnames(location_prob) = c("node_state", "probability")
 location_prob$node_state = str_replace(location_prob$node_state, "Node", "")
-location_prob$node_state = str_replace(location_prob$node_state, "Root", "-1")
 
-location_prob = separate(location_prob, node_state, into = c("node", "location"), sep = "\\.P\\.")
-location_prob = location_prob %>% mutate(
-  node = as.numeric(node),
+location_prob2 = separate(location_prob, node_state, sep = "\\.P\\.",
+                          into = c("BT_node", "location")) %>% # BT for Bayes Traits
+  filter(BT_node != "Root") # don't infer anything about the root
+
+location_prob2 = location_prob2 %>% mutate(
+  BT_node = as.numeric(BT_node),
   loc = ifelse(location == "A.", "host_associated",
-    ifelse(location == "B.", "marine_deep",
-    ifelse(location == "C.", "marine_shallow",
-    ifelse(location == "D.", "terrestrial", "ungrouped")))))
+        ifelse(location == "B.", "marine_deep",
+        ifelse(location == "C.", "marine_shallow",
+        ifelse(location == "D.", "terrestrial", "ungrouped")))))
 
 # note: -1 is the root
-prob_matrix = dcast(location_prob, node ~ loc, value.var = "probability")
+prob_matrix = dcast(location_prob2, BT_node ~ loc, value.var = "probability")
+```
+
+## find the leaves of each internal node
+```{r}
+sort_words = function(str) {
+  vec = strsplit(str,split = ' ')[[1]]
+  return(paste(sort(vec), collapse = " "))
+}
+
+bayesTraits_tree = bayesTraits_tree %>%
+  mutate(BT_node = str_replace(BT_node, "Node", ""),
+         leaves_below = lapply(leaves_below, sort_words))
+
+prob_matrix_leaves = merge(prob_matrix, bayesTraits_tree, by = "BT_node")
+```
+
+## Given an event date file, find the location (probability) in which the event happens.
+```{r}
+# event_date_file = "../ecceTERA_analysis/COG1348_symmetric.events_event_dates.txt"
+
+rest = c("left.date", "right.date", "midpoint.date")
+l_prob = paste0("left.", colnames(prob_matrix_leaves)[1:7])
+r_prob = paste0("right.", colnames(prob_matrix_leaves)[1:7])
+locations = c("host_associated", "marine_deep", "marine_shallow", "terrestrial", "ungrouped")
+
+merge_internal_nodes = function(df) {
+  df = merge(df, ecceTERA_node_coding, on = "ecceTERA_node")
+  df = merge(df, prob_matrix_leaves, on = "leaves_below")
+  df = subset(df, select = -c(leaves_below))
+  return(df)
+}
+
+merge_leaves = function(df) {
+  df = merge(df, leaves_origin, by.x = "ecceTERA_node", by.y = "species")
+  df = df %>% mutate(
+      BT_node = ecceTERA_node,
+      leaves_count = 0,
+      origin = ifelse(origin == "A", "1,0,0,0,0",
+               ifelse(origin == "B", "0,1,0,0,0",
+               ifelse(origin == "C", "0,0,1,0,0",
+               ifelse(origin == "D", "0,0,0,1,0", "0,0,0,0,1"))))) %>%
+    separate(origin, sep = ",", into = locations)
+  return(df)
+}
+
+get_event_location = function(event_date_file) {
+  COG = str_match(event_date_file, "COG\\d+")[1]
+  outfile = sprintf("location_merged_events/%s-events-location.csv", COG)
+
+  tmp = read.delim(event_date_file, na.strings = "?") %>%
+    filter(right.node != "UNSAMPLED")
+  
+  print(sprintf("I should end up with -- %d -- events for %s", nrow(tmp), COG))
+  
+  # merging left.node
+  colnames(tmp) = c(c("event", "ecceTERA_node", "right.node"), rest)
+  tmp = merge_internal_nodes(tmp)
+  
+  # merging right.node
+  colnames(tmp) = c(c("left.node", "event", "ecceTERA_node"), rest, l_prob)
+  tmp_right_internal = suppressWarnings(filter(tmp, !is.na(as.numeric(ecceTERA_node))))
+  tmp_right_leaves = suppressWarnings(filter(tmp, is.na(as.numeric(ecceTERA_node))))
+  
+  tmp_right_internal = merge_internal_nodes(tmp_right_internal)
+  tmp_right_leaves = merge_leaves(tmp_right_leaves)[colnames(tmp_right_internal)]
+
+  event_date_location = rbind(tmp_right_internal, tmp_right_leaves)
+  colnames(event_date_location) = c(c("right.node", "left.node", "event"), rest, l_prob, r_prob)
+  
+  print(sprintf("In fact, now I have -- %d -- events", nrow(event_date_location)))
+  print(sprintf("Write file to: %s", outfile))
+  write.csv(event_date_location, file=outfile, row.names=FALSE)
+}
+
+# get_event_location(event_date_file)
+```
+
+## Running through all the event files
+```{r}
+all_event_files = list.files(path = "../ecceTERA_analysis", pattern = "*_symmetric.events_event_dates.txt")
+lapply(paste("../ecceTERA_analysis", all_event_files, sep = "/"), get_event_location)
 ```
