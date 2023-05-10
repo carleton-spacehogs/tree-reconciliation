@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path ))
 library(reshape2)
 library(stringr)
+library(dplyr)
 
 location_prob = t(read.csv("node-location-probability.csv", header=FALSE))
 node_species = read.delim("node-species-mapping.txt", header = FALSE)

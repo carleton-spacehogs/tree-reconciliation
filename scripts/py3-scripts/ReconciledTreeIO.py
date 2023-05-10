@@ -415,15 +415,20 @@ class recPhyloXML_parser:
             evt = RecEvent(evtCode , species, ts, additionnalInfo)
     
             events.append(evt)
-    
-    
         return events
-    
+
+def tree_label_printing(obj, append):
+    print(append, obj.name)
+    # print(obj._children)
+    if "GC" not in obj.name and obj.name != "LOST":
+        tree_label_printing(obj._children[0], append + "  ")
+        tree_label_printing(obj._children[1], append + "  ")
+
 
 if __name__ == "__main__":
 
     parser = recPhyloXML_parser()
-    
+
 #    fileName = '../testFiles/geneFamily0.phyloxml'
 #    print "Test 1: parses the file" , fileName , "and prints its structure to the screen"
 #
@@ -449,11 +454,12 @@ if __name__ == "__main__":
     RTL = parser.parse(fileName)
 
     for RT in RTL.recTrees:
-        print(RT.__dict__)
-        print(RT._children[0].__dict__)
-        print(RT._children[1].__dict__)
-        print(RT._children[0]._children[0].__dict__)
-        print(RT._children[0]._children[1].__dict__)
-        print(RT._children[1]._children[0].__dict__)
-        print(RT._children[1]._children[1].__dict__)
+        tree_label_printing(RT, "")
+        # print(RT.__dict__)
+        # print(RT._children[0].__dict__)
+        # print(RT._children[1].__dict__)
+        # print(RT._children[0]._children[0].__dict__)
+        # print(RT._children[0]._children[1].__dict__)
+        # print(RT._children[1]._children[0].__dict__)
+        # print(RT._children[1]._children[1].__dict__)
         print(RT)
