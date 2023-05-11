@@ -30,15 +30,19 @@ Other options:
 
 --stop_before_tree_building
 
---species_tree
-	provide path to your own species tree.
-	Default: ugam1_ChenParamsEarth_sample.chronogram
+--clock_model
+	select either ugam1, cir1, or ln3. If nothing is selected, ugam1 is used
+	the chronogram file is set to:
+		ugam1_ChenParamsEarth_sample.chronogram, or
+		cir1_ChenParamsEarth_sample.chronogram, or
+		ln3_ChenParamsEarth_sample.chronogram,
+	accordingly
 
 -h --help : to display this message
 "
 }
 
-options=$(getopt -o c:gg:gt:s:a:gs:h --long COG:,gen_graph_only:,gene_tree:,species_tree:,alignment:,gene_sequences:,stop_before_reconciliation,stop_before_tree_building,overwrite,help -- "$@")
+options=$(getopt -o c:gg:gt:s:a:gs:h --long COG:,gen_graph_only:,gene_tree:,clock_model:,alignment:,gene_sequences:,stop_before_reconciliation,stop_before_tree_building,overwrite,help -- "$@")
 eval set -- "$options"
 
 while true; do
@@ -59,8 +63,8 @@ while true; do
 			gene_tree="$2"
 			shift 2
 			;;
-		-s|--spcies_tree)
-			chronogram="$2"
+		-s|--clock_model)
+			clock_model="$2"
 			shift 2
 			;;
 		-a|--alignment)
@@ -220,7 +224,7 @@ am_I_done() {
 	fi
 }
 
-source scripts/declare_file_location.sh # declare hard-coded variables
+source scripts/declare_file_location.sh --clock_model $clock_model
 # gene specific variables declared in parseGeneName_and_declareFilenames
 validate_required_folders
 
@@ -245,7 +249,7 @@ elif [ ! -z "$gene_sequences" ]; then
 	align_makeTree_and_reconcile $gene_sequences
 	exit $?
 elif [ ! -z "$COG" ]; then
-	source ./scripts/declare_file_location.sh $COG
+	source ./scripts/declare_file_location.sh --clock_model $clock_model --gene_name $COG
 	am_I_done
 	extractSeq_align_makeTree_and_reconcile $COG
 	exit $?

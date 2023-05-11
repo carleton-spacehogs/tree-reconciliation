@@ -1,6 +1,6 @@
 #!/bin/bash
 
-options=$(getopt -o if:c: --long help,flags:,COG_list: -- "$@")
+options=$(getopt -o if:c:cm: --long help,flags:,COG_list:,clock_model: -- "$@")
 eval set -- "$options"
 
 while true; do
@@ -17,6 +17,10 @@ while true; do
 			COG_list="$2";
 			shift 2
 			;;
+		-cm|--clock_model)
+			clock_model="$2"
+			shift 2
+			;;
 		--)
 			shift
 			break
@@ -28,7 +32,7 @@ while true; do
 	esac
 done
 
-dispatch_example="./reconcile.sh --flags \"--COGs\" --COG_list \"COG2046 COG2059\""
+dispatch_example="./reconcile.sh --clock_model ugam1 --flags \" --COGs\" --COG_list \"COG2046 COG2059\""
 
 is_memory_ok() {
 	free_memory_lower_bound=$1
@@ -57,9 +61,8 @@ if [ -z $(echo $COG_list | sed 's/ //g') ]; then
 	exit 1
 fi
 
-source ./scripts/declare_file_location.sh # general environmental variables
 for COG in $COG_list; do
-	source ./scripts/declare_file_location.sh $COG # gene_name specific filenames/variables
+	source ./scripts/declare_file_location.sh --clock_model $clock_model --gene_name $COG
 	if [[ "$flags" == *"--gene_tree"* ]]; then
 		input=$iqtree_ufboot
 	elif [[ "$flags" == *"--alignment"* ]]; then
@@ -73,7 +76,7 @@ for COG in $COG_list; do
 		input=$COG
 	fi
 
-	command="./reconcile.sh $flags $input"
+	command="./reconcile.sh --clock_model $clock_model $flags $input"
 	echo I am doing this command:
 		echo $command
 	eval $command # >> run_${COG}_job.log

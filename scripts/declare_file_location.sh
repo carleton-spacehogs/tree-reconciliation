@@ -1,6 +1,28 @@
 #!/bin/bash
 
-gene_name=$1
+options=$(getopt -o g:c: --long gene_name:,clock_model: -- "$@")
+eval set -- "$options"
+
+while true; do
+	case "$1" in
+		-g|--gene_name) # COG2801
+			gene_name="$2"
+			shift 2
+			;;
+		-c|--clock_model) # "ugam1, cir1, or ln3"
+			clock_model_input="$2"
+			shift 2
+			;;
+		--)
+			shift
+			break
+			;;
+		*)
+			echo "Invalid option: $1" >&2
+			exit 1
+			;;
+	esac
+done
 
 # echo declaring the hard-coded variables.
 num_core=10
@@ -10,8 +32,16 @@ alignment_len_min=100
 gene_tree_method=iqtree
 COG_calling_method=diamond
 
-chronogram=ugam1_ChenParamsEarth_sample.chronogram
-clock_model="ugam1"
+if [ "$clock_model_input" = "ugam1" ] || [ "$clock_model_input" = "cir1" ] || [ "$clock_model_input" = "ln3" ]; then
+	echo selecting the clock $clock_model_input
+	clock_model=$clock_model_input
+else
+  echo "\"$clock_model_input\" is not a valid clock model. Options are ugam1, cir1, or ln3"
+  clock_model="ugam1" # default
+  echo "defaulting to $clock_model"
+fi
+
+chronogram="${clock_model}_ChenParamsEarth_sample.chronogram"
 e_output="${clock_model}_ecceTERA_output"
 e_analysis="${clock_model}_ecceTERA_analysis"
 
@@ -53,4 +83,4 @@ if [ ! -z $gene_name ]; then
 	R_plot="R-plots/histogram/${gene_name}-${clock_model}-eventsHistogram.png"
 fi
 
-export gene_name gene_seq_file all_seq_fasta pre_trim trimv2 sym_event_f sym_event_date_f iqtree_log COG_summary clock_model e_output e_analysis COG_calling_method gene_tree_method # for the python/R scripts
+export gene_name gene_seq_file all_seq_fasta pre_trim trimv2 sym_event_f sym_event_date_f iqtree_log COG_summary clock_model chronogram e_output e_analysis COG_calling_method gene_tree_method # for the python/R scripts

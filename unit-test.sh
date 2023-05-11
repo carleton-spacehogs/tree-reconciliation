@@ -48,14 +48,10 @@
 # COG3297,33
 # COG4549,33
 # COG4310,33
-# COG4756,33
-# COG3813,33
-# COG4215,33
-# COG3838,33
-# COG3701,33
-# COG5403,30
-gene1=COG3701
-gene2=COG3838
+gene1=COG4549
+gene2=COG4310
+
+clock_model="ln3"
 
 run_and_test() {
 	command="$1"
@@ -82,24 +78,25 @@ run_and_test() {
 	fi
 }
 
-source ./scripts/declare_file_location.sh $gene1
+source ./scripts/declare_file_location.sh --clock_model $clock_model --gene_name $gene1
 
-t1="./reconcile.sh --stop_before_tree_building --COG $gene1"
+t1="./reconcile.sh --stop_before_tree_building --COG $gene1 --clock_model $clock_model"
 run_and_test "$t1" $pre_trim
 
-t2="./reconcile.sh --stop_before_tree_building --gene_sequences tmp/$gene1.faa"
+t2="./reconcile.sh --stop_before_tree_building --gene_sequences tmp/$gene1.faa --clock_model $clock_model"
 run_and_test "$t2" $pre_trim
 
-t3="./reconcile.sh --stop_before_reconciliation --alignment $pre_trim"
+t3="./reconcile.sh --stop_before_reconciliation --alignment $pre_trim --clock_model $clock_model"
 run_and_test "$t3" $iqtree_ufboot
 
-t4="./reconcile.sh --gene_tree $iqtree_ufboot"
+t4="./reconcile.sh --gene_tree $iqtree_ufboot --clock_model $clock_model"
 run_and_test "$t4" $R_plot
 
 # # start over and do it again as a whole pipeline
 # # rm $trimv2 $iqtree_ufboot $store_gene_tree_filename $ecceTERA_sym $chronogram_internal_nodes_f $sym_event_f $sym_event_date_f $R_plot
 
 # Run the whole pipeline with another gene
-t5="./reconcile.sh --COG $gene2"
+source ./scripts/declare_file_location.sh --clock_model $clock_model --gene_name $gene2
+t5="./reconcile.sh --COG $gene2 --clock_model $clock_model"
 run_and_test "$t5" $R_plot
 

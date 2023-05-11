@@ -12,10 +12,10 @@ This script take a COG number, and record the summary statistics of this alignme
 It can only be ran after the reconciliation is finished.
 
 example (if record of COG4100 already exist the script does nothing):
-./summarize_reconciliation.py COG4100 
+./summarize_reconciliation.py COG4100 0
 
 If you want to overwrite the old record of COG4100, do:
-./summarize_reconciliation.py COG4100 rewrite
+./summarize_reconciliation.py COG4100 0 rewrite
 '''
 
 COG = sys.argv[1]
@@ -24,9 +24,8 @@ error_status = sys.argv[2] # 0: sucessful; 1: ecceTERA memory fail; 2: 20 < ORFs
 rewrite = True if len(sys.argv) == 4 and sys.argv[3] == "rewrite" else False
 
 if "pre_trim" not in os.environ.keys():
-    print("the environment is not set up yet, do these 2 commands:")
-    print("    source ./scripts/declare_file_location.sh")
-    print(f"    source ./scripts/declare_file_location.sh {COG}")
+    print("the environment is not set up yet, please run this:")
+    print(f"    source ./scripts/declare_file_location.sh --clock_model ln3 --gene_name {COG}")
     exit(1)
 
 original_align = os.environ["pre_trim"]
@@ -93,6 +92,8 @@ def get_earliest_event(event_dates_f):
                 if midpoint_date > curr_earliest_date:
                     curr_earliest_date = midpoint_date
                     earliest_date_line = col
+    if len(earliest_date_line) == 0: # all has "?"
+        return ["NA", "NA", "NA", "NA"]
     event_type, left_node, right_node, left_date, right_date, mid_date = earliest_date_line
     return [event_type, left_date, mid_date.strip(), right_date]
 
