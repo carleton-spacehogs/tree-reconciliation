@@ -1,12 +1,10 @@
 library(ggplot2)
 
 COG=Sys.getenv("gene_name")
-gene_tree_method=Sys.getenv("gene_tree_method")
-COG_calling_method=Sys.getenv("COG_calling_method")
+clock_model=Sys.getenv("clock_model")
 sym_event_f=Sys.getenv("sym_event_date_f")
 
-out_file = paste(COG_calling_method, gene_tree_method, COG, "timeline.png", sep = "-")
-out_file = paste("R-plots", "timeline", out_file, sep = "/")
+out_file = sprintf("R-plots/timeline/%s-%s-timeline.png", COG, clock_model)
 
 df = read.delim(sym_event_f, na.strings="?")
 df = df[order(df$midpoint.date),]

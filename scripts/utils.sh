@@ -68,16 +68,16 @@ run_ecceTERA()
 	else
 		ecceTERA species.file=$spcies_tree gene.file=$gene_tree verbose=true print.reconciliations=1 recPhyloXML.reconciliation=true amalgamate=true
 		ecceTERA_status=$?
-		echo $ecceTERA_status,$gene_tree >> eceeTERA-exit-code.tmp
-		if [ $ecceTERA_status -ne 0 ]; then
-			echo ecceTERA failed exit status $ecceTERA_status
-			echo skipping
-			./scirpts/summarize_reconciliation.py $gene_name 1
-			exit $ecceTERA_status
-		else 
+		if test -f $old_e_sym; then
 			mv $old_e_sym $ecceTERA_sym
 			mv $old_e_asym $ecceTERA_asym
 			mv $old_e_ran $ecceTERA_ran
+		else
+			echo ecceTERA failed? ecceTERA exit status is : $ecceTERA_status
+			echo $ecceTERA_status,$gene_tree >> eceeTERA-exit-code.tmp
+			echo skipping
+			./scirpts/summarize_reconciliation.py $gene_name 1
+			exit $ecceTERA_status
 		fi
 	fi
 }
