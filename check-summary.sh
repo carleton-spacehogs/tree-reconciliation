@@ -1,6 +1,8 @@
 #!/bin/bash
 
-if [ -z $1]; then
+clock_model=$1
+
+if [ -z $clock_model]; then
 	echo You must select one of the following clock model: ugam1, cir1, ln3
 	echo "For example:
 	./check-summary.sh ugam1
@@ -9,7 +11,7 @@ exiting
 	exit 1
 fi
 
-source scripts/declare_file_location.sh --clock_model $1
+source scripts/declare_file_location.sh --clock_model $clock_model
 source scripts/utils.sh
 
 echo $COG_summary
@@ -21,7 +23,7 @@ running_COGs=$(ps aux | egrep -i "iqtree|ecceTERA" | grep -oP 'COG\d+' | uniq)
 
 for afa in $(ls gene_alignments/COG*.afa); do
 	COG=$(echo $afa | grep -oP 'COG\d+')
-	source scripts/declare_file_location.sh --clock_model $1 --gene_name $COG
+	source scripts/declare_file_location.sh --clock_model $clock_model --gene_name $COG
 	echo $running_COGs | grep $COG > /dev/null
 	if [ $? -ne 0 ]; then # it is not running
 		res=$(grep $COG $COG_summary)
@@ -60,10 +62,10 @@ echo "Checkpoint 2: whether there are missing graphs with ecceTERA output"
 success_COGs=$(grep success $COG_summary | awk -F "," '{print $1}')
 
 for COG in $success_COGs; do
-	source scripts/declare_file_location.sh --clock_model $1 --gene_name $COG
+	source scripts/declare_file_location.sh --clock_model $clock_model --gene_name $COG
 	if [ ! -f $R_plot ]; then
 		echo I think we are missing $R_plot, remaking it
-		./reconcile.sh --gen_graph_only $COG --clock_model $1
+		./reconcile.sh --gen_graph_only $COG --clock_model $clock_model
 	fi
 done
 
