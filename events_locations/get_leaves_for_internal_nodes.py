@@ -1,6 +1,6 @@
 #/bin/python3
 from Bio import Phylo
-import json
+import csv
 tree = Phylo.read("ecceTERA_ugam1_ChenParamsEarth_species_tree.xml", "phyloxml")
 
 # tree.root.__dict__
@@ -24,12 +24,15 @@ def get_all_leaf(node, list):
 	else:
 		list.append(node.name)
 
-all_node_dict = {}
+all_node_dict = []
 for internal_node in internal_node_list:
 	print(internal_node.name)
 	leaf_list = []
 	get_all_leaf(internal_node, leaf_list)
-	all_node_dict[int(internal_node.name)] = leaf_list
+	leaf_list.sort()
+	all_node_dict.append([internal_node.name, ' '.join(leaf_list)])
 
-with open("leaves_of_ecceTERA_interal_nodes.json", "w") as outfile:
-	json.dump(all_node_dict, outfile)
+with open("leaves_of_ecceTERA_interal_nodes.csv", "w") as outfile:
+	writer = csv.writer(outfile)
+	writer.writerow(["ecceTERA_node","leaves_below"])
+	writer.writerows(all_node_dict)
