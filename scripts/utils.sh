@@ -76,7 +76,7 @@ run_ecceTERA()
 			echo ecceTERA failed? ecceTERA exit status is : $ecceTERA_status
 			echo $ecceTERA_status,$gene_tree >> eceeTERA-exit-code.tmp
 			echo skipping
-			./scirpts/summarize_reconciliation.py $gene_name 1
+			./scripts/summarize_reconciliation.py $gene_name 1
 			exit $ecceTERA_status
 		fi
 	fi
