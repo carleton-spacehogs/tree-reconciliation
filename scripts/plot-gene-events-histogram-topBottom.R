@@ -14,7 +14,7 @@ data = read.delim(sym_event_f, na.strings="?")
 
 shared_gen_graph = function(data) {
   g = ggplot(data, aes(x=midpoint.date)) +
-    geom_histogram(aes(y=(..density..), fill=event), binwidth = 250, boundary = 0)
+    geom_histogram(aes(y=after_stat(density), fill=event), binwidth = 250, boundary = 0)
   # if (type == "density") {
   #   g = ggplot(data, aes(x=midpoint.date)) +
   #    geom_density(alpha=.2, aes(fill=event))

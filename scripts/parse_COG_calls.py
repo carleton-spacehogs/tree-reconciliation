@@ -1,14 +1,18 @@
 #!/bin/python3
-import sys
 import os
 import csv
 
-deepnog_COG_call_file = "SingleLine_deepnog.csv"
-confidence_level = 0.7
+if "COG_calling_method" not in os.environ.keys():
+    print("the environment is not set up yet, do this commands:")
+    print("    source ./scripts/declare_file_location.sh --clock_model ln3")
+    exit(1)
 
-diamond_blast_output = "diamond-out.tsv"
-# COG databases are all here: /workspace/data/Space_Hogs_shared_workspace/databases/anvio_cogs_database/COG20/
-COG_ref = "/workspace/data/Space_Hogs_shared_workspace/databases/anvio_cogs_database/COG20/RAW_DATA_FROM_NCBI/cog-20.cog.csv"
+COG_calling_method = os.environ['COG_calling_method']
+confidence_level = 0.7
+deepnog_COG_call_file = os.environ['deepNOG_COG_match']
+diamond_blast_output = os.environ['diamond_COG_match']
+COG_ref = os.environ['COG_ref']
+
 requirements = "minimum 30% identity, maximum e-value of 10-5, minimum 70% subject and query alignment"
 
 '''
@@ -170,8 +174,7 @@ def open_diamond_COG_calls():
 	return out
 
 def main():
-	ORF_calling_method = sys.argv[1]
-	count_COGs_calls(ORF_calling_method)
+	count_COGs_calls(COG_calling_method)
 
 if __name__ == "__main__":
 	main()

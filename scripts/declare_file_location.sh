@@ -31,29 +31,43 @@ alignment_len_min=100
 
 gene_tree_method=iqtree
 COG_calling_method=diamond
+clock_model="ugam1" # default
 
 if [ "$clock_model_input" = "ugam1" ] || [ "$clock_model_input" = "cir1" ] || [ "$clock_model_input" = "ln3" ]; then
 	echo selecting the clock $clock_model_input
 	clock_model=$clock_model_input
 else
   echo "\"$clock_model_input\" is not a valid clock model. Options are ugam1, cir1, or ln3"
-  clock_model="ugam1" # default
   echo "defaulting to $clock_model"
 fi
 
 chronogram="${clock_model}_ChenParamsEarth_sample.chronogram"
+old_internal_node_f=${chronogram}_internal_nodes.txt
 e_output="${clock_model}_ecceTERA_output"
 e_analysis="${clock_model}_ecceTERA_analysis"
-
-require_folders="$e_analysis $e_output gene_alignments iqtree_gene_trees tmp R-plots R-plots/histogram R-plots/timeline R-plots/topBottom_histogram"
-old_internal_node_f=${chronogram}_internal_nodes.txt
-
-all_seq_fasta=SingleLine_EnrichedGenomes.faa
 COG_summary="COG_reconciliation_summary_${clock_model}.csv"
 
-conda_env_base="/Accounts/zhongj2/miniconda3"
-conda_sh=${conda_env_base}/etc/profile.d/conda.sh
-conda_R_env=${conda_env_base}/envs/anvio-dev
+conda_env=/workspace/data/Space_Hogs_shared_workspace/env_tree_reconciliation
+
+large_file_dir=${conda_env}/jimmy_files
+all_seq_fasta=${large_file_dir}/SingleLine_EnrichedGenomes.faa
+diamond_COG_match=${large_file_dir}/diamond-out.tsv
+deepNOG_COG_match=${large_file_dir}/SingleLine_deepnog.csv
+COG_ref=${large_file_dir}/cog-20.cog.csv
+
+for f in $chronogram $all_seq_fasta $diamond_COG_match $deepNOG_COG_match; do
+	if [ ! -f $f ]; then
+		echo I cannot find the file: $f, 
+		echo which is required for running this program, exiting
+		exit 1
+	fi
+done
+
+require_folders="$e_analysis $e_output gene_alignments iqtree_gene_trees tmp R-plots R-plots/histogram R-plots/timeline R-plots/topBottom_histogram"
+
+# conda_env_base="/Accounts/zhongj2/miniconda3"
+# conda_sh=${conda_env_base}/etc/profile.d/conda.sh
+# conda_R_env=${conda_env_base}/envs/anvio-dev
 
 if [ ! -z $gene_name ]; then
 	# echo declaring default filenames for : $gene_name
@@ -83,4 +97,4 @@ if [ ! -z $gene_name ]; then
 	R_plot="R-plots/histogram/${gene_name}-${clock_model}-eventsHistogram.png"
 fi
 
-export gene_name gene_seq_file all_seq_fasta pre_trim trimv2 sym_event_f sym_event_date_f iqtree_log COG_summary clock_model chronogram e_output e_analysis COG_calling_method gene_tree_method ecceTERA_sym # for the python/R scripts
+export gene_name gene_seq_file all_seq_fasta diamond_COG_match deepNOG_COG_match pre_trim trimv2 sym_event_f sym_event_date_f iqtree_log COG_summary clock_model chronogram e_output e_analysis COG_calling_method gene_tree_method ecceTERA_sym # for the python/R scripts
