@@ -57,8 +57,8 @@ while true; do
 			;;
 		-gg|--gen_graph_only) # followed by gene_name
 			gen_graph_only="$2"
-                        shift 2
-                        ;;
+			shift 2
+			;;
 		-gt|--gene_tree)
 			gene_tree="$2"
 			shift 2
@@ -107,16 +107,16 @@ parseGeneName_and_declareFilenames() {
 
 
 analysis() {
-	gene_name=$1
 	source $conda_sh
 	conda activate $conda_env_base
-	inhouse_scripts_processing $chronogram $gene_name
+	inhouse_scripts_processing
 	# inhouse_scripts_processing must executed in Jimmy's conda base environment
 	# XML has some version changes, only the version in my base environment worked...
 
 	# currently, R is broken in my base environment
 	conda activate $conda_R_env
 	Rscript --vanilla scripts/plot-gene-events-histogram.R
+	Rscript --vanilla scripts/plot-gene-events-histogram-topBottom.R
 	Rscript --vanilla scripts/plot-gene-timeline.R
 	conda deactivate
 }
@@ -230,8 +230,8 @@ validate_required_folders
 
 # if given both gene and species tree, just do the reconciliation
 if [ ! -z "$gen_graph_only" ]; then
-	source scripts/declare_file_location.sh $gen_graph_only
-	analysis $gen_graph_only
+	source scripts/declare_file_location.sh --gene_name $gen_graph_only --clock_model $clock_model
+	analysis
 	exit $?
 elif [ ! -z "$gene_tree" ]; then
 	parseGeneName_and_declareFilenames $gene_tree
