@@ -109,15 +109,16 @@ parseGeneName_and_declareFilenames() {
 analysis() {
 	gene_name=$1
 	source $conda_sh
-	conda activate $conda_env_base
-	inhouse_scripts_processing $chronogram $gene_name
+	# conda activate $conda_env_base
+	# inhouse_scripts_processing $chronogram $gene_name
 	# inhouse_scripts_processing must executed in Jimmy's conda base environment
 	# XML has some version changes, only the version in my base environment worked...
 
 	# currently, R is broken in my base environment
 	conda activate $conda_R_env
-	Rscript --vanilla scripts/plot-gene-events-histogram.R
-	Rscript --vanilla scripts/plot-gene-timeline.R
+	# Rscript --vanilla scripts/plot-gene-events-histogram.R
+	# Rscript --vanilla scripts/plot-gene-timeline.R
+	Rscript --vanilla scripts/plot-gene-events-histogram-topBottom.R
 	conda deactivate
 }
 
