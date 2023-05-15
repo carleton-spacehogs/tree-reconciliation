@@ -102,6 +102,10 @@ inhouse_scripts_processing()
 		echo scripts/summarize_reconciliation.py failed. stop here
 		exit 1
 	fi
+
+	Rscript --vanilla scripts/plot-gene-events-histogram.R
+	Rscript --vanilla scripts/plot-gene-events-histogram-topBottom.R
+	Rscript --vanilla scripts/plot-gene-timeline.R
 }
 
 

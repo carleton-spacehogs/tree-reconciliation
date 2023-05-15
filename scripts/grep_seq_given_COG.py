@@ -7,9 +7,8 @@ import os
 COG = sys.argv[1] # e.g. COG4766
 
 if "COG_calling_method" not in os.environ.keys():
-    print("the environment is not set up yet, do these 2 commands:")
-    print("    source ./scripts/declare_file_location.sh")
-    print(f"    source ./scripts/declare_file_location.sh {COG}")
+    print("the environment is not set up yet, do this:")
+    print(f"    source ./scripts/declare_file_location.sh  --clock_model ln3 --gene_name {COG}")
     exit(1)
 
 COG_calling_method = os.environ['COG_calling_method']
