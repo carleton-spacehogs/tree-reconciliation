@@ -45,7 +45,7 @@ chronogram="${clock_model}_ChenParamsEarth_sample.chronogram"
 e_output="${clock_model}_ecceTERA_output"
 e_analysis="${clock_model}_ecceTERA_analysis"
 
-require_folders="$e_analysis $e_output gene_alignments iqtree_gene_trees tmp R-plots R-plots/histogram R-plots/timeline"
+require_folders="$e_analysis $e_output gene_alignments iqtree_gene_trees tmp R-plots R-plots/histogram R-plots/timeline R-plots/topBottom_histogram"
 old_internal_node_f=${chronogram}_internal_nodes.txt
 
 all_seq_fasta=SingleLine_EnrichedGenomes.faa
