@@ -449,7 +449,7 @@ if __name__ == "__main__":
 #    RTL = parser.parse(fileName)
 #    print RTL.spTree
 
-    fileName = "../ecceTERA_output/COG2906_symmetric_reconciliation.recPhyloXML"
+    fileName = "../../ecceTERA_output/COG2906_symmetric_reconciliation.recPhyloXML"
 
     RTL = parser.parse(fileName)
 
