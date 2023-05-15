@@ -1,17 +1,20 @@
 library(ggplot2)
+library(cowplot)
+library(dplyr)
+library(stringr)
 
 COG=Sys.getenv("gene_name")
 clock_model=Sys.getenv("clock_model")
 sym_event_f=Sys.getenv("sym_event_date_f")
 
 plot_title = paste(COG, "Gene Events")
-out_file = sprintf("R-plots/histogram/%s-%s-eventsHistogram.png", COG, clock_model)
+out_file = sprintf("R-plots/topBottom_histogram/%s-%s-topBottom.png", COG, clock_model)
 
 data = read.delim(sym_event_f, na.strings="?")
 
 shared_gen_graph = function(data) {
   g = ggplot(data, aes(x=midpoint.date)) +
-    geom_histogram(aes(y=(..density..), fill=event), binwidth = 50, boundary = 0)
+    geom_histogram(aes(y=(..density..), fill=event), binwidth = 250, boundary = 0)
   # if (type == "density") {
   #   g = ggplot(data, aes(x=midpoint.date)) +
   #    geom_density(alpha=.2, aes(fill=event))
@@ -24,7 +27,7 @@ shared_gen_graph = function(data) {
     theme_classic()
 }
 
-gen_graph = function(events, plot_title = plot_title){
+gen_graph = function(events){
   top = shared_gen_graph(filter(events, event %in% c("dup", "spe"))) +
     theme(plot.title = element_text(size = rel(1.75), hjust = 0.5),
           axis.line.x = element_blank(),
@@ -41,6 +44,6 @@ gen_graph = function(events, plot_title = plot_title){
 
 gen_graph(data)
 
-ggsave(out_file, width = 7, height = 6)
+ggsave(out_file, width = 6, height = 6)
 
 print(paste("The ggplot histogram of", COG, "events has been saved to", out_file))

@@ -85,11 +85,15 @@ run_ecceTERA()
 
 inhouse_scripts_processing()
 {
-	python3 scripts/getInternalNodeDates.py $chronogram $ecceTERA_sym
-	mv $old_internal_node_f $chronogram_internal_nodes_f
+	if [ ! -f "$sym_event_f" ]; then
+		python3 scripts/getInternalNodeDates.py $chronogram $ecceTERA_sym
+		mv $old_internal_node_f $chronogram_internal_nodes_f
 
-	python3 scripts/py3-scripts/recPhyloXMLEventSummary.py -i $ecceTERA_sym -o $sym_event_f --include.transfer.departure
-	sed -r -i "s|\s+|\t|g" $sym_event_f
+		python3 scripts/py3-scripts/recPhyloXMLEventSummary.py -i $ecceTERA_sym -o $sym_event_f --include.transfer.departure
+		sed -r -i "s|\s+|\t|g" $sym_event_f
+	else
+		echo I already have $sym_event_f, not doing it again.
+	fi
 
 	python3 scripts/recphyloxmlinterpreterspecV2.py $sym_event_f $chronogram_internal_nodes_f $ecceTERA_sym
 
