@@ -83,4 +83,4 @@ if [ ! -z $gene_name ]; then
 	R_plot="R-plots/histogram/${gene_name}-${clock_model}-eventsHistogram.png"
 fi
 
-export gene_name gene_seq_file all_seq_fasta pre_trim trimv2 sym_event_f sym_event_date_f iqtree_log COG_summary clock_model chronogram e_output e_analysis COG_calling_method gene_tree_method # for the python/R scripts
+export gene_name gene_seq_file all_seq_fasta pre_trim trimv2 sym_event_f sym_event_date_f iqtree_log COG_summary clock_model chronogram e_output e_analysis COG_calling_method gene_tree_method ecceTERA_sym # for the python/R scripts
