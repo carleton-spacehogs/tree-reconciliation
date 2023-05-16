@@ -177,13 +177,14 @@ makeTree_and_reconcile() {
 
 
 align_makeTree_and_reconcile() {
-	seq_file=$1 # gene_sequences
-	echo aligning this gene: $gene_name, and alignment output: $pre_trim
-	# muscle is localed in this folder, executable downloaded from https://github.com/rcedgar/muscle/releases/tag/5.1.0
-	./muscle5.1 -align $seq_file -output $pre_trim
+	if [ ! -f $trimv2 ]; then
+		echo aligning this gene: $gene_name, and alignment output: $pre_trim
+		# muscle executable downloaded from https://github.com/rcedgar/muscle/releases/tag/5.1.0
+		./muscle5.1 -align $gene_seq_file -output $pre_trim
+	fi
 
 	if [ $? -ne 0 ]; then
-		echo alignment of $seq_file not successful, stop here
+		echo alignment of $gene_seq_file not successful, stop here
 		exit 1
 	fi
 
@@ -201,8 +202,10 @@ extractSeq_align_makeTree_and_reconcile() {
 	fi
 
 	if test -f $iqtree_ufboot; then
-		echo I found the gene_tree: skipping to the reconciliation.
-		reconcile_and_analysis $iqtree_ufboot
+		if [ "$stop_before_reconciliation" = false ]; then
+			echo I found the gene_tree: skipping to the reconciliation.
+			reconcile_and_analysis $iqtree_ufboot
+		fi
 	else
 		echo $all_seq_fasta
 		python3 scripts/grep_seq_given_COG.py $COG
@@ -211,7 +214,7 @@ extractSeq_align_makeTree_and_reconcile() {
 			rm $gene_seq_file
 			exit 1
 		fi
-		align_makeTree_and_reconcile $gene_seq_file
+		align_makeTree_and_reconcile
 	fi
 }
 
@@ -247,7 +250,7 @@ elif [ ! -z "$alignment" ]; then
 elif [ ! -z "$gene_sequences" ]; then
 	parseGeneName_and_declareFilenames $gene_sequences
 	am_I_done
-	align_makeTree_and_reconcile $gene_sequences
+	align_makeTree_and_reconcile
 	exit $?
 elif [ ! -z "$COG" ]; then
 	source ./scripts/declare_file_location.sh --clock_model $clock_model --gene_name $COG
