@@ -114,11 +114,13 @@ inorganic_ion = get_events("inorganic_ion", "inorganic_ion")
 # type="density"
 type="histogram"
 
-make_graph(iron, sprintf("right_merge_events_iron_%s_%s.png", clock_model, type), "COGs high corr to iron")
-make_graph(NO2NO3, sprintf("right_merge_events_nitrogen_%s_%s.png", clock_model, type), "COGs high corr to nitrogen")
-make_graph(PO4, sprintf("right_merge_events_phosphate_%s_%s.png", clock_model, type), "COGs high corr to phosphate")
-make_graph(oxygen, sprintf("right_merge_events_oxygen_%s_%s.png", clock_model, type),  "COGs high corr to oxygen")
-make_graph(inorganic_ion, sprintf("right_merge_events_inorganic_ion_%s_%s.png", clock_model, type),  "inorganic ion COGs")
+gen_name = function(key_word) return(sprintf("%s-plots/right_merge_events_%s_%s_%s.png", clock_model, key_word, clock_model, type))
+
+make_graph(iron, gen_name("iron"), "COGs high corr to iron")
+make_graph(NO2NO3, gen_name("nitrogen"), "COGs high corr to nitrogen")
+make_graph(PO4, gen_name("phosphate"), "COGs high corr to phosphate")
+make_graph(oxygen, gen_name("oxygen"), "COGs high corr to oxygen")
+make_graph(inorganic_ion, gen_name("inorganic_ion"), "inorganic ion COGs")
 ```
 
 ## plotting everything together
