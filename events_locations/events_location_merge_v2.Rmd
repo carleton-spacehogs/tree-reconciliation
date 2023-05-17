@@ -84,12 +84,8 @@ get_event_location = function(event_date_file) {
     right.origin = str_replace_all(right.origin, state_map))
 
   print(sprintf("In fact, now I have -- %d -- events", nrow(event_date_location)))
-  if (nrow(event_date_location) == 0) {
-    print("event_data_location dataframe is empty, not writing anything")
-  } else {
-    print(sprintf("Write file to: %s", outfile))
-    write.table(event_date_location, file=outfile, sep = "\t", row.names=FALSE)
-  }
+  print(sprintf("Write file to: %s", outfile))
+  write.table(event_date_location, file=outfile, sep = "\t", row.names=FALSE)
   return(outfile)
 }
 
@@ -101,28 +97,4 @@ outfile = get_event_location(event_date_file)
 all_event_files = list.files(path = src_ecceTERA, pattern = "*_symmetric.events_event_dates.txt")
 merged_files = lapply(paste(src_ecceTERA, all_event_files, sep = "/"), get_event_location)
 out_vec = unlist(merged_files)
-```
-
-## analyze the event location output matched to genes
-```{r}
-merged_f = read.csv(out_vec[1])
-
-get_location_state = function(df, target_cols, threshold = 0.6) {
-  res_list = apply(df[target_cols],  1, function (row) {
-    bool = row[target_cols] > threshold
-    if (sum(bool) == 0) {
-      return("multi-origin")
-    } else {
-      return(names(row)[bool])
-    }
-  })
-  return(str_replace_all(unlist(res_list), "right.|left.", ""))
-}
-
-merged_f$left_loc = get_location_state(merged_f, l_prob[2:(length(l_prob) - 1)])
-merged_f$right_loc = get_location_state(merged_f, r_prob[2:(length(r_prob) - 1)])
-
-defined_origins = merged_f %>%
-  filter(! (left_loc == "multi-origin" | right_loc == "multi-origin"))
-
 ```
