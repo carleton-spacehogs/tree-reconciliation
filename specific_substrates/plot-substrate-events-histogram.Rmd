@@ -12,11 +12,19 @@ library(dplyr)
 library(stringr)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path ))
 
+clock_model = "ugam1"
 categories_COGs = read.csv("high-cor-COGs.txt", row.names=1, comment.char="#")
-COG_record = read.csv("../COG_reconciliation_summary_v2.csv")
+COG_record = read.csv(sprintf("../COG_reconciliation_summary_%s.csv", clock_model))
 done_COGs = pull(COG_record, COG)
 good_COGs = filter(COG_record, exit_status == "everything_successful") %>% pull(COG)
 ```
+
+## exploration
+Switched between use left.date, midpoint.date, and right.date.
+
+Right.date is bad: everything got squished to the right.
+Left.date gives a large spike around 1500 million years ago. Looks like bioinformatics artifacts.
+Midpoint.date: move duplication, horizontal gene transfer, and gene lost events to the right, but speciation events stays the same place. Resulting in the unique shape we see -- the speciation events are more dated back!
 
 ```{r}
 get_COGs_of = function(key) {
@@ -37,21 +45,22 @@ read_events = function(file) {
   all = read.delim(file, na.strings = "?")
   COG = str_match(file, "COG\\d+")[1]
   all %>% filter(right.node != "UNSAMPLED") %>%
-    select(event, midpoint.date) %>%
+    select(event, left.date, midpoint.date, right.date) %>%
     mutate(COG = COG)
 }
 
 merge_events = function(COGs) {
-  file_list = paste0("../ecceTERA_analysis/", COGs, "_symmetric.events_event_dates.txt")
+  file_list = paste0(sprintf("../%s_ecceTERA_analysis/", clock_model),
+                     COGs, "_symmetric.events_event_dates.txt")
   data_list = lapply(file_list, read_events)
   merge_data = do.call(rbind, mapply(rbind, data_list, SIMPLIFY = FALSE))
 }
 
 shared_gen_graph = function(data) {
-  g = ggplot(data, aes(x=midpoint.date)) +
+  g = ggplot(data, aes(x=right.date)) + # midpoint.date
     geom_histogram(aes(y=(..density..), fill=event), binwidth = 50, boundary = 0)
   if (type == "density") {
-    g = ggplot(data, aes(x=midpoint.date)) +
+    g = ggplot(data, aes(x=left.date)) + # midpoint.date
       geom_density(alpha=.2, aes(fill=event))
   }
   g + xlim(4000,0) +
@@ -94,27 +103,30 @@ make_graph = function(events, out_graph, title_text) {
 
 ```{r}
 iron = get_events("sqrt_iron", "iron")
+Fe2_iron = get_events("Fe2+_text_search", "Fe2_textSearch")
+Fe3_iron = get_events("Fe3+_text_search", "Fe3_textSearch")
+
 NO2NO3 = get_events("log_NO2NO3", "Nitrogen")
 PO4 = get_events("log_PO4", "PO4")
 oxygen = get_events("Mean_Oxygen", "Oxygen")
 inorganic_ion = get_events("inorganic_ion", "inorganic_ion")
 
-type="density"
-# type="histogram"
+# type="density"
+type="histogram"
 
-make_graph(iron, sprintf("merge_events_iron_%s.png", type), "COGs high corr to iron")
-make_graph(NO2NO3, sprintf("merge_events_nitrogen_%s.png", type), "COGs high corr to nitrogen")
-make_graph(PO4, sprintf("merge_events_phosphate_%s.png", type), "COGs high corr to phosphate")
-make_graph(oxygen, sprintf("merge_events_oxygen_%s.png", type),  "COGs high corr to oxygen")
-make_graph(inorganic_ion, sprintf("merge_events_inorganic_ion_%s.png", type),  "inorganic ion COGs")
+make_graph(iron, sprintf("right_merge_events_iron_%s_%s.png", clock_model, type), "COGs high corr to iron")
+make_graph(NO2NO3, sprintf("right_merge_events_nitrogen_%s_%s.png", clock_model, type), "COGs high corr to nitrogen")
+make_graph(PO4, sprintf("right_merge_events_phosphate_%s_%s.png", clock_model, type), "COGs high corr to phosphate")
+make_graph(oxygen, sprintf("right_merge_events_oxygen_%s_%s.png", clock_model, type),  "COGs high corr to oxygen")
+make_graph(inorganic_ion, sprintf("right_merge_events_inorganic_ion_%s_%s.png", clock_model, type),  "inorganic ion COGs")
 ```
 
 ## plotting everything together
 ```{r}
-all_dfs = rbind(iron, NO2NO3, PO4, oxygen, inorganic_ion)
+all_dfs = rbind(iron, Fe2_iron, Fe3_iron, NO2NO3, PO4, oxygen, inorganic_ion)
 # all_dfs = all_dfs %>% mutate(substrate = fct_relevel(substrate, c("")))
 
-ggplot(all_dfs, aes(x=midpoint.date, y=substrate, color = event, group = substrate)) +
+ggplot(all_dfs, aes(x=midpoint.date, y=substrate, color = event, group = substrate)) + # midpoint.date
   geom_jitter(alpha = 0.3, height = 0.3) +
     scale_x_reverse(limits = c(4000, 0),
                     breaks = seq(0, 4000, by = 500)) +
