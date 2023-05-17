@@ -42,32 +42,27 @@ get_COGs_of = function(key) {
 }
 
 read_events = function(file, location = FALSE) {
-  all = read.delim(file, na.strings = "?")
-  COG = str_match(file, "COG\\d+")[1]
-  all %>% filter(right.node != "UNSAMPLED") %>% mutate(COG = COG)
-}
-
-out_cols = c("event", "left.date", "midpoint.date", "right.date")
-
-read_location_events = function(file) {
-  all = read.delim(file, na.strings = "?")
-  COG = str_match(file, "COG\\d+")[1]
-  all %>% filter(right.node != "UNSAMPLED") %>%
-    select(event, left.date, midpoint.date, right.date) %>%
-    mutate(COG = COG)
-  return(all[out_cols]) # out_cols can be modified in merge_events() 
-}
-
-merge_events = function(COGs) {
-  file_list = paste0(sprintf("../events_locations/%s_location_merged_events/", clock_model),
-                     COGs, "_symmetric.events_event_dates.txt")
+  out_cols = c("event", "left.date", "midpoint.date", "right.date", "COG")
   if (location) {
     out_cols = c(out_cols, "left.origin", "right.origin")
-    file_list = paste0(sprintf("../%s_ecceTERA_analysis/", clock_model), COGs, "-events-location.tsv")
   }
-  
-  data_list = lapply(file_list, read_events)
-  merge_data = do.call(rbind, mapply(rbind, data_list, SIMPLIFY = FALSE))
+  all = read.delim(file, na.strings = "?")
+  if (nrow(all) == 0) {
+    return()
+  }
+  COG = str_match(file, "COG\\d+")[1]
+  all = all %>% filter(right.node != "UNSAMPLED") %>% mutate(COG = COG)
+  return(all[out_cols])
+}
+
+merge_events = function(COGs, location = FALSE) {
+  file_list = paste0(sprintf("../%s_ecceTERA_analysis/", clock_model), COGs, "_symmetric.events_event_dates.txt")
+  if (location) {
+    file_list = paste0(sprintf("../events_locations/%s_location_merged_events/", clock_model), COGs, "-events-location.tsv")
+  }
+  data_list = lapply(file_list, read_events, location = location)
+  merge_data = bind_rows(data_list)
+  return(merge_data)
 }
 
 shared_gen_graph = function(data) {
@@ -100,9 +95,9 @@ gen_graph = function(events, plot_title = "merged events"){
   plot_grid(top, bottom, ncol = 1, align = "v", axis = "tb")
 }
 
-get_events = function(feature, anno) {
+get_events = function(feature, anno, location = FALSE) {
   COGs = get_COGs_of(feature)
-  events = merge_events(COGs)
+  events = merge_events(COGs, location)
   events$substrate = anno
   return(events)
 }
@@ -159,5 +154,39 @@ ggplot(all_dfs, aes(x=midpoint.date, y=substrate, color = event, group = substra
           panel.grid.minor = element_blank(),
           axis.line = element_line(colour = "black"))
 
-ggsave("all-substrate-jitter.png", width = 10, height = 5)
+ggsave(sprintf("%s-plots/all-substrate-jitter.png",clock_model), width = 10, height = 5)
+```
+
+
+## plotting the location where the events happened!!!!
+```{r}
+all_location_dfs = rbind(get_events("sqrt_iron", "iron", location = TRUE),
+                get_events("Fe2+_text_search", "Fe2_textSearch", location = TRUE),
+                get_events("Fe3+_text_search", "Fe3_textSearch", location = TRUE),
+                get_events("log_NO2NO3", "Nitrogen", location = TRUE),
+                get_events("log_PO4", "PO4", location = TRUE),
+                get_events("Mean_Oxygen", "Oxygen", location = TRUE),
+                get_events("inorganic_ion", "inorganic_ion", location = TRUE))
+
+ggplot(all_location_dfs, aes(x=left.date, y=substrate, color = left.origin, group = substrate)) + # midpoint.date
+  geom_jitter(alpha = 0.3, height = 0.3) +
+    scale_x_reverse(limits = c(4000, 0),
+                    breaks = seq(0, 4000, by = 500)) +
+    scale_color_manual(values = c("marine_deep" = "blue",
+                                  "marine_deep.marine_shallow" = "steel blue",
+                                  "marine_deep.terrestrial" = "yellow",
+                                  "marine_shallow" = "light blue",
+                                  "marine_shallow.terrestrial" = "orange",
+                                  "not_sure" = "white",
+                                  "terrestrial" = "red")) +
+    labs(x = "Million years ago", y = "") +
+    # geom_hline(yintercept = 20.5) +
+    # geom_hline(yintercept = 19.5, color = "lightgray") +
+  annotate('rect', xmin=2500, xmax=2300, ymin=0, ymax=length(unique(all_dfs$substrate)) + 1, alpha=.3, fill='gray') +
+    theme(panel.background = element_blank(),
+          panel.grid.major = element_blank(), 
+          panel.grid.minor = element_blank(),
+          axis.line = element_line(colour = "black"))
+
+ggsave("all-substrate-location.png", width = 10, height = 5)
 ```
