@@ -57,7 +57,7 @@ merge_leaves = function(df) {
 
 get_event_location = function(event_date_file) {
   COG = str_match(event_date_file, "COG\\d+")[1]
-  outfile = sprintf("%s_location_merged_events/%s-events-location.csv", clock_model, COG)
+  outfile = sprintf("%s_location_merged_events/%s-events-location.tsv", clock_model, COG)
 
   tmp = read.delim(event_date_file, na.strings = "?") %>%
     filter(right.node != "UNSAMPLED")
@@ -88,7 +88,7 @@ get_event_location = function(event_date_file) {
     print("event_data_location dataframe is empty, not writing anything")
   } else {
     print(sprintf("Write file to: %s", outfile))
-    write.csv(event_date_location, file=outfile, row.names=FALSE)
+    write.table(event_date_location, file=outfile, sep = "\t", row.names=FALSE)
   }
   return(outfile)
 }
