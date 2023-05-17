@@ -1,0 +1,112 @@
+---
+title: "Identify the location where the gene event happened, and give a confidence interval"
+author: "Jimmy Zhong"
+date: "5/16/2023"
+output: html_document
+---
+
+## Do this first
+```{bash}
+shell script
+grep -nP "0.333333\t0.333333\t0.333333\t0.333333\t0.333333\t0.333333\t0.333333\t0.333333" 3-location-log.txt | tail -1
+cd /workspace/data/zhongj/BT_JsNewToL
+only_matrix=/workspace/data/zhongj/tree-reconciliation/events_locations/3-loc_only_matrix.txt
+grep "Node0 P(B)" 3-location-log.txt -m 1 > $only_matrix
+tail -n 500 3-location-log.txt >> $only_matrix
+# cut -f13-103 $only_matrix > short_df.txt
+```
+
+## Jimmy's ibaray set up
+```{r setup, include=FALSE}
+library(dplyr)
+library(coda)
+library(tidyr)
+library(stringr)
+
+MCMC_matrix = "3-loc_only_matrix.txt"
+MCMC_summary = "3-loc_confidence.csv"
+BT_node_origin = "BT_node_origin.csv"
+num_states = 3
+stationary_p = 0.05
+```
+
+## Doing this will take a long time
+
+check whether MCMC_summary is already done
+```{r}
+# df = read.delim("C:/Users/Admin Juntao/Desktop/short_df.txt")
+df = read.delim(MCMC_matrix)
+df = df[, -c(1:13)]
+df = df[grepl("Node*P*", colnames(df))]
+df = df[complete.cases(df), ]
+
+count = 0
+
+stats = apply(df, 2, function(x) {
+  count <<- count + 1
+  print(paste(count, length(x)))
+  obj=heidel.diag(mcmc(x), pvalue = 0)
+  as.numeric(obj)
+})
+
+df.stats = as.data.frame(t(stats))
+colnames(df.stats) = c("stationarity", "start_iteration", "stationarity_pval", "Halfwidth_test", "mean", "halfwidth")
+
+out = df.stats %>% 
+  mutate(Halfwidth_test = ifelse(Halfwidth_test == 1, "passed", "failed")) %>%
+  select(c("stationarity_pval","Halfwidth_test","mean","halfwidth"))
+
+write.csv(out, MCMC_summary, row.names=TRUE)
+```
+
+## To get the origin of each internal node
+```{r}
+node_CI = read.csv(MCMC_summary)
+node_CI = node_CI %>% mutate(
+  min_prob = mean - halfwidth,
+  max_prob = mean + halfwidth,
+  adj_stationarity_pval = p.adjust(stationarity_pval, method = "BH")
+  ) %>% separate(X, sep = ".P.", into = c("BT_node", "origin"))
+
+get_node_state = function(rows_for_a_node){
+  if (length(unique(rows_for_a_node$BT_node)) != 1) {
+    print("ERROR!!! I should get rows for a single node, but I get this")
+    print(rows_for_a_node)
+    return("error!!!!!!")
+  }
+
+  g_rows = rows_for_a_node %>% # good rows
+    # filter(Halfwidth_test == "passed") %>%
+    filter(adj_stationarity_pval > stationary_p)
+  
+  if (nrow(g_rows) == 0) {
+    return("not_sure")
+  }
+
+  greater_than_40 = g_rows$mean > 0.4
+  if (sum(greater_than_40) == 2){
+    origins = g_rows[greater_than_40, ]$origin
+    return(paste0(origins, collapse = ""))
+  } else if ( sum(greater_than_40 == 1) & max(g_rows$min_prob) > 0.7 ) {
+    return(g_rows[greater_than_40, "origin"])
+  } else {
+    return("not_sure")
+  }
+}
+
+node_origins = c()
+for (i in 1:(nrow(node_CI)/num_states)) {
+  node_rows = (i*num_states-(num_states-1)):(i*num_states)
+  origin = get_node_state(node_CI[node_rows, ])
+  node_origins = c(node_origins, origin)
+}
+
+clean_origins = gsub("\\.$", "", node_origins)
+
+BT_node_origin_df = data.frame(
+  BT_node = gsub("Node", "", unique(node_CI$BT_node)),
+  origin = clean_origins)
+
+write.csv(BT_node_origin_df, BT_node_origin, row.names=FALSE)
+```
+

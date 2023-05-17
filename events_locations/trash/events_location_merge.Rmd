@@ -1,0 +1,126 @@
+---
+title: "Identify the location where the gene event happened"
+author: "Jimmy Zhong"
+date: "5/19/2023"
+output: html_document
+---
+## commands to get the documents required
+```{bash}
+# first get bayestraits log file: /researchdrive/SpaceHogs_shared/BT_JsNewToL/Trial22.Log.txt
+bayestraits_log="Trial22.Log.txt"
+
+grep $'\tNode' $bayestraits_log | head -n -1 > bayesTraits_species_tree_mapping.txt
+
+grep -m 1 Root $bayestraits_log > node-location-probability.txt
+tail -n 1 $bayestraits_log >> node-location-probability.txt
+```
+
+## Jimmy's ibaray set up
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path ))
+source("./events_location_utils.R")
+
+init_env()
+prob_matrix = get_prob_matrix()
+
+bayesTraits_node_coding = get_BT_coding()
+leaves_origin = read.delim("leaves_origin.txt", col.names = c("species", "origin")) %>%
+  filter(origin %in% state_vec_short)
+ecceTERA_node_coding = read.csv("leaves_of_ecceTERA_interal_nodes.csv")
+# node_species = read.delim("node-species-mapping.txt", header = FALSE)
+```
+
+## find the leaves of each internal node
+```{r}
+prob_matrix_leaves = merge(prob_matrix, bayesTraits_node_coding, by = "BT_node")
+```
+
+## Given an event date file, find the location (probability) in which the event happens.
+```{r}
+event_date_file = paste0(src_ecceTERA, "/COG1348_symmetric.events_event_dates.txt")
+
+rest = c("left.date", "right.date", "midpoint.date")
+l_prob = paste0("left.", colnames(prob_matrix_leaves)[1:(2+length(state_vec_long))])
+r_prob = paste0("right.", colnames(prob_matrix_leaves)[1:(2+length(state_vec_long))])
+
+merge_internal_nodes = function(df) {
+  df = merge(df, ecceTERA_node_coding, on = "ecceTERA_node")
+  df = merge(df, prob_matrix_leaves, on = "leaves_below")
+  df = subset(df, select = -c(leaves_below))
+  return(df)
+}
+
+merge_leaves = function(df) {
+  df = merge(df, leaves_origin, by.x = "ecceTERA_node", by.y = "species")
+  df = df %>% mutate(
+      BT_node = ecceTERA_node,
+      leaves_count = 0,
+      origin = str_replace_all(origin, state_map2)) %>%
+    separate(origin, sep = ",", into = state_vec_long) # state_vec_long from events_location_utils.R
+  return(df)
+}
+
+get_event_location = function(event_date_file) {
+  COG = str_match(event_date_file, "COG\\d+")[1]
+  outfile = sprintf("%s_location_merged_events/%s-events-location.csv", clock_model, COG)
+
+  tmp = read.delim(event_date_file, na.strings = "?") %>%
+    filter(right.node != "UNSAMPLED")
+  
+  print(sprintf("I should end up with -- %d -- events for %s", nrow(tmp), COG))
+  
+  # merging left.node
+  colnames(tmp) = c(c("event", "ecceTERA_node", "right.node"), rest)
+  tmp = merge_internal_nodes(tmp)
+  
+  # merging right.node
+  colnames(tmp) = c(c("left.node", "event", "ecceTERA_node"), rest, l_prob)
+  tmp_right_internal = suppressWarnings(filter(tmp, !is.na(as.numeric(ecceTERA_node))))
+  tmp_right_leaves = suppressWarnings(filter(tmp, is.na(as.numeric(ecceTERA_node))))
+  
+  tmp_right_internal = merge_internal_nodes(tmp_right_internal)
+  tmp_right_leaves = merge_leaves(tmp_right_leaves)[colnames(tmp_right_internal)]
+
+  event_date_location = rbind(tmp_right_internal, tmp_right_leaves)
+  colnames(event_date_location) = c(c("right.node", "left.node", "event"), rest, l_prob, r_prob)
+  
+  print(sprintf("In fact, now I have -- %d -- events", nrow(event_date_location)))
+  print(sprintf("Write file to: %s", outfile))
+  write.csv(event_date_location, file=outfile, row.names=FALSE)
+  return(outfile)
+}
+
+outfile = get_event_location(event_date_file)
+```
+
+## Running through all the event files
+```{r}
+all_event_files = list.files(path = src_ecceTERA, pattern = "*_symmetric.events_event_dates.txt")
+merged_files = lapply(paste(src_ecceTERA, all_event_files, sep = "/"), get_event_location)
+out_vec = unlist(merged_files)
+```
+
+## analyze the event location output matched to genes
+```{r}
+merged_f = read.csv(out_vec[1])
+
+get_location_state = function(df, target_cols, threshold = 0.6) {
+  res_list = apply(df[target_cols],  1, function (row) {
+    bool = row[target_cols] > threshold
+    if (sum(bool) == 0) {
+      return("multi-origin")
+    } else {
+      return(names(row)[bool])
+    }
+  })
+  return(str_replace_all(unlist(res_list), "right.|left.", ""))
+}
+
+merged_f$left_loc = get_location_state(merged_f, l_prob[2:(length(l_prob) - 1)])
+merged_f$right_loc = get_location_state(merged_f, r_prob[2:(length(r_prob) - 1)])
+
+defined_origins = merged_f %>%
+  filter(! (left_loc == "multi-origin" | right_loc == "multi-origin"))
+
+```
