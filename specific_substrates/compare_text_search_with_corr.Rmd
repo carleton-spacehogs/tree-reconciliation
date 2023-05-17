@@ -1,0 +1,35 @@
+---
+title: "plotting evolutionary events related to genes of specific substrates"
+author: "Jimmy Zhong"
+date: "5/5/2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(cowplot)
+library(dplyr)
+library(stringr)
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path ))
+# I need to see the repo: phosphorous-limitation
+src="../../phosphorus-limitation/Tara_MaAsLin_correlation"
+
+source(paste(src, ".init_tara.R", sep = "/"))
+MAASLIN_res = paste(src, "MaAsLin_out/logPO4_sqrtIron_logNO2NO3_Salinity_Oxygen_temp_logDepth_size", sep = "/")
+
+categories_COGs = read.csv("high-cor-COGs.txt", row.names=1, comment.char="#")
+```
+
+```{r}
+COG_lists = list(iron_corr = str_split(categories_COGs["sqrt_iron",], " ")[[1]],
+                 Fe2_text_search_COG = str_split(categories_COGs["Fe2+_text_search",], " ")[[1]],
+                 Fe3 = str_split(categories_COGs["Fe3+_text_search",], " ")[[1]])
+
+# grep phosphite shows nothing
+COG_lists = list(corr_COG = str_split(categories_COGs["log_PO4",], " ")[[1]],
+                 phosphate_text_search_COGs = str_split(categories_COGs["phosphate_text_search",], " ")[[1]])
+
+ggVennDiagram(COG_lists) + 
+  # scale_color_manual(values = four_gray) +
+  scale_fill_gradient(low = "#F4FAFE", high = "#4981BF")
+```
