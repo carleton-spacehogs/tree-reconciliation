@@ -41,17 +41,31 @@ get_COGs_of = function(key) {
   return(good_COGs)
 }
 
-read_events = function(file) {
+read_events = function(file, location = FALSE) {
+  all = read.delim(file, na.strings = "?")
+  COG = str_match(file, "COG\\d+")[1]
+  all %>% filter(right.node != "UNSAMPLED") %>% mutate(COG = COG)
+}
+
+out_cols = c("event", "left.date", "midpoint.date", "right.date")
+
+read_location_events = function(file) {
   all = read.delim(file, na.strings = "?")
   COG = str_match(file, "COG\\d+")[1]
   all %>% filter(right.node != "UNSAMPLED") %>%
     select(event, left.date, midpoint.date, right.date) %>%
     mutate(COG = COG)
+  return(all[out_cols]) # out_cols can be modified in merge_events() 
 }
 
 merge_events = function(COGs) {
-  file_list = paste0(sprintf("../%s_ecceTERA_analysis/", clock_model),
+  file_list = paste0(sprintf("../events_locations/%s_location_merged_events/", clock_model),
                      COGs, "_symmetric.events_event_dates.txt")
+  if (location) {
+    out_cols = c(out_cols, "left.origin", "right.origin")
+    file_list = paste0(sprintf("../%s_ecceTERA_analysis/", clock_model), COGs, "-events-location.tsv")
+  }
+  
   data_list = lapply(file_list, read_events)
   merge_data = do.call(rbind, mapply(rbind, data_list, SIMPLIFY = FALSE))
 }
