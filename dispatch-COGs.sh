@@ -18,7 +18,7 @@ while true; do
 			shift 2
 			;;
 		-cm|--clock_model)
-			clock_model="$2"
+			CM="$2"
 			shift 2
 			;;
 		--)
@@ -55,14 +55,10 @@ job_running() {
 	fi
 }
 
-if [ -z $(echo $COG_list | sed 's/ //g') ]; then
-	echo gimme a list of COGs, for example:
-	echo $dispatch_example
-	exit 1
-fi
-
-for COG in $COG_list; do
-	source ./scripts/declare_file_location.sh --clock_model $clock_model --gene_name $COG
+acknowledge_execute() {
+	flags=$1
+	clockModel=$2
+	source ./scripts/declare_file_location.sh --clock_model $clockModel --gene_name $COG
 	if [[ "$flags" == *"--gene_tree"* ]]; then
 		input=$iqtree_ufboot
 	elif [[ "$flags" == *"--alignment"* ]]; then
@@ -76,10 +72,27 @@ for COG in $COG_list; do
 		input=$COG
 	fi
 
-	command="./reconcile.sh --clock_model $clock_model $flags $input"
+	command="./reconcile.sh --clock_model $clockModel $flags $input"
 	echo I am doing this command:
 		echo $command
 	eval $command # >> run_${COG}_job.log
+}
+
+if [ -z $(echo $COG_list | sed 's/ //g') ]; then
+	echo gimme a list of COGs, for example:
+	echo $dispatch_example
+	exit 1
+fi
+
+for COG in $COG_list; do
+	if [ "$CM" = "all" ] && [[ "$flags" == *"--stop_before"* ]] ; then
+		echo You told me to run all clock models, so I am doing it:
+		acknowledge_execute $flags ugam1
+		acknowledge_execute $flags cir1 & # should just be doing ecceTERA
+		acknowledge_execute $flags ln3 & # so it we can do it concurrently
+	else
+		acknowledge_execute $flags $CM
+	fi
 done
 
 # COG_list=$(grep -E ",40$" diamond_COG_count.txt | awk -F ',' '{print $1}' | head -n 5)
