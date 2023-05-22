@@ -5,15 +5,15 @@ date: "5/16/2023"
 output: html_document
 ---
 
-## Do this first
+## Do this first in shell (command line)
 ```{bash}
-shell script
-grep -nP "0.333333\t0.333333\t0.333333\t0.333333\t0.333333\t0.333333\t0.333333\t0.333333" 3-location-log.txt | tail -1
-cd /workspace/data/zhongj/BT_JsNewToL
+# change this!!!
+BayesTraits_log=/workspace/data/zhongj/BT_JsNewToL/3-location-log.txt
 only_matrix=/workspace/data/zhongj/tree-reconciliation/events_locations/3-loc_only_matrix.txt
-grep "Node0 P(B)" 3-location-log.txt -m 1 > $only_matrix
-tail -n 500 3-location-log.txt >> $only_matrix
-# cut -f13-103 $only_matrix > short_df.txt
+# finish change
+
+grep "Node0 P(B)" $BayesTraits_log -m 1 > $only_matrix
+tail -n 500 $BayesTraits_log >> $only_matrix
 ```
 
 ## Jimmy's ibaray set up
@@ -23,9 +23,9 @@ library(coda)
 library(tidyr)
 library(stringr)
 
-MCMC_matrix = "3-loc_only_matrix.txt"
-MCMC_summary = "3-loc_confidence.csv"
-BT_node_origin = "BT_node_origin.csv"
+MCMC_matrix = "3-loc_only_matrix.txt" # input matrix (from command line, variable "only_matrix")
+MCMC_summary = "3-loc_confidence.csv" # outfile
+BT_node_origin = "BT_node_origin.csv" # outfile
 num_states = 3
 stationary_p = 0.05
 ```
