@@ -43,8 +43,8 @@
 # COG3069,33
 # COG5029,33
 
-gene1=COG3037
-gene2=COG3297
+gene1=COG3069
+gene2=COG5029
 
 clock_model="ln3"
 

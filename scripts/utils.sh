@@ -27,6 +27,7 @@ should_I_exit() {
 	do_not_exit=$1
 	if [ $do_not_exit -ne 1 ]; then
 		echo skipping
+		conda deactivate
 		exit 1
 	else
 		echo 1
@@ -83,7 +84,7 @@ run_ecceTERA()
 }
 
 
-inhouse_scripts_processing()
+analysis()
 {
 	if [ ! -f "$sym_event_f" ]; then
 		python3 scripts/getInternalNodeDates.py $chronogram $ecceTERA_sym

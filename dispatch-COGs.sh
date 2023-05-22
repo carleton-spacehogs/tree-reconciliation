@@ -85,7 +85,7 @@ if [ -z $(echo $COG_list | sed 's/ //g') ]; then
 fi
 
 for COG in $COG_list; do
-	if [ "$CM" = "all" ] && [[ "$flags" == *"--stop_before"* ]] ; then
+	if [ "$CM" = "all" ] && [[ "$flags" != *"--stop_before"* ]] ; then
 		echo You told me to run all clock models, so I am doing it:
 		acknowledge_execute $flags ugam1
 		acknowledge_execute $flags cir1 & # should just be doing ecceTERA
