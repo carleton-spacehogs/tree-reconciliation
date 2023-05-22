@@ -11,13 +11,22 @@ library(cowplot)
 library(dplyr)
 library(stringr)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path ))
+source("plot-substrate-utils.R")
+```
 
-mixed_states = c("marine_deep", "marine_deep.marine_shallow", "marine_deep.terrestrial", "marine_shallow", "marine_shallow.terrestrial", "terrestrial")
-mixed_colors = c("blue","steel blue","yellow","light blue","orange","red")
-
-mixed_color_scale = setNames(mixed_colors, mixed_states)
-
+## set important parameters!!!
+```{r}
 clock_model = "ugam1"
+remove_leaf_events = TRUE
+plot_node = "midpoint"
+# plot_node = "left"
+# plot_node = "right"
+
+# type="density"
+type="histogram"
+```
+
+```{r}
 categories_COGs = read.csv("high-cor-COGs.txt", row.names=1, comment.char="#")
 COG_record = read.csv(sprintf("../COG_reconciliation_summary_%s.csv", clock_model))
 done_COGs = pull(COG_record, COG)
@@ -32,124 +41,6 @@ Left.date gives a large spike around 1500 million years ago. Looks like bioinfor
 Midpoint.date: move duplication, horizontal gene transfer, and gene lost events to the right, but speciation events stays the same place. Resulting in the unique shape we see -- the speciation events are more dated back!
 
 ```{r}
-get_COGs_of = function(key) {
-  COGs = str_split(categories_COGs[key,], " ")[[1]]
-  bad_COGs = setdiff(COGs, good_COGs)
-  print(paste("I don't have these COGs", paste(bad_COGs, collapse = " ")))
-  print("These COG failed:")
-  fail_COGs = intersect(bad_COGs, done_COGs)
-  print(COG_record %>% filter(COG %in% fail_COGs) %>% select(COG, exit_status) )
-  print(paste("I have not run to these COGs yet:", paste(setdiff(bad_COGs, done_COGs), collapse = " ")))
-  good_COGs = intersect(COGs, good_COGs)
-  print(paste("I have these good COGs for :", key))
-  print(paste(good_COGs, collapse = " "))
-  return(good_COGs)
-}
-
-read_events = function(file, location = FALSE) {
-  out_cols = c("event", "left.date", "midpoint.date", "right.date", "COG")
-  if (location) {
-    out_cols = c(out_cols, "left.origin", "right.origin")
-  }
-  all = read.delim(file, na.strings = "?")
-  if (nrow(all) == 0) {
-    return()
-  }
-  COG = str_match(file, "COG\\d+")[1]
-  all = all %>% filter(right.node != "UNSAMPLED") %>% mutate(COG = COG)
-  return(all[out_cols])
-}
-
-merge_events = function(COGs, location = FALSE) {
-  file_list = paste0(sprintf("../%s_ecceTERA_analysis/", clock_model), COGs, "_symmetric.events_event_dates.txt")
-  if (location) {
-    file_list = paste0(sprintf("../events_locations/%s_location_merged_events/", clock_model), COGs, "-events-location.tsv")
-  }
-  data_list = lapply(file_list, read_events, location = location)
-  merge_data = bind_rows(data_list)
-  return(merge_data)
-}
-
-shared_gen_graph = function(data) {
-  g = ggplot(data, aes(x=right.date)) + # midpoint.date
-    geom_histogram(aes(y=(..density..), fill=event), binwidth = 50, boundary = 0)
-  if (type == "density") {
-    g = ggplot(data, aes(x=left.date)) + # midpoint.date
-      geom_density(alpha=.2, aes(fill=event))
-  }
-  g + xlim(4000,0) +
-    ylab("Proportion of total events") +
-    theme(legend.position = "bottom",
-  		axis.line.y = element_line(linetype = 1)) + 
-  	geom_hline(yintercept = 0) +
-  	theme_classic()
-}
-
-gen_graph = function(events, plot_title = "merged events"){
-  top = shared_gen_graph(filter(events, event %in% c("dup", "spe"))) +
-    theme(plot.title = element_text(size = rel(1.75), hjust = 0.5),
-      axis.line.x = element_blank(),
-      axis.text.x = element_blank(),
-      axis.title.x = element_blank(),
-      axis.ticks.x = element_blank()) +
-    labs(title=plot_title) + 
-    scale_fill_manual(values = c("dup" = "#06d6a0", "spe" = "#ff66de"))
-  bottom = shared_gen_graph(filter(events, event %in% c("hgt", "los"))) + 
-    scale_y_continuous(trans = "reverse") + 
-    scale_fill_manual( values = c("hgt" = "#ffd166", "los" = "#118ab2"))
-  plot_grid(top, bottom, ncol = 1, align = "v", axis = "tb")
-}
-
-shared_gen_loc_graph = function(data) {
-  g = ggplot(data, aes(x=left.date)) + # midpoint.date
-    geom_histogram(aes(y=(..density..), fill=left.origin), binwidth = 50, boundary = 0)
-  if (type == "density") {
-    g = ggplot(data, aes(x=left.date)) + # midpoint.date
-      geom_density(alpha=.2, aes(fill=left.origin))
-  }
-  g + xlim(4000,0) +
-    ylab("Proportion of total events") +
-    theme(legend.position = "bottom",
-  		axis.line.y = element_line(linetype = 1)) + 
-  	geom_hline(yintercept = 0) +
-  	theme_classic()
-}
-
-gen_loc_graph = function(events, plot_title = "merged events"){
-  top = shared_gen_loc_graph(filter(events, left.origin %in% mixed_states[1:3] )) +
-    theme(plot.title = element_text(size = rel(1.75), hjust = 0.5),
-      axis.line.x = element_blank(),
-      axis.text.x = element_blank(),
-      axis.title.x = element_blank(),
-      axis.ticks.x = element_blank()) +
-    labs(title=plot_title) + 
-    scale_fill_manual(values = mixed_color_scale[1:3])
-  bottom = shared_gen_loc_graph(filter(events, left.origin %in% mixed_states[4:6])) + 
-    scale_y_continuous(trans = "reverse") + 
-    scale_fill_manual( values = mixed_color_scale[4:6])
-  plot_grid(top, bottom, ncol = 1, align = "v", axis = "tb")
-}
-
-get_events = function(feature, anno, location = FALSE) {
-  COGs = get_COGs_of(feature)
-  events = merge_events(COGs, location)
-  events$substrate = anno
-  return(events)
-}
-
-make_graph = function(events, out_graph, title_text, location = FALSE) {
-  num_COGs = length(unique(events$COG))
-  pt = sprintf("%s (n = %d)", title_text, num_COGs)
-  if (location) {
-    gen_loc_graph(events, plot_title = pt)
-  } else {
-    gen_graph(events, plot_title = pt)
-  }
-  ggsave(out_graph, width = 6, height = 5)
-}
-```
-
-```{r}
 iron = get_events("sqrt_iron", "iron")
 Fe2_iron = get_events("Fe2+_text_search", "Fe2_textSearch")
 Fe3_iron = get_events("Fe3+_text_search", "Fe3_textSearch")
@@ -159,10 +50,9 @@ PO4 = get_events("log_PO4", "PO4")
 oxygen = get_events("Mean_Oxygen", "Oxygen")
 inorganic_ion = get_events("inorganic_ion", "inorganic_ion")
 
-# type="density"
-type="histogram"
+# gen_name = function(k) return(sprintf("%s-plots/right_merge_events_%s_%s_%s.png", clock_model, k, clock_model, type))
 
-gen_name = function(key_word) return(sprintf("%s-plots/right_merge_events_%s_%s_%s.png", clock_model, key_word, clock_model, type))
+gen_name = function(k) return(sprintf("internal-events-%snode-%s-plots/internal_%s_%s_%s.png", plot_node, clock_model, plot_node, k, type))
 
 make_graph(iron, gen_name("iron"), "COGs high corr to iron")
 make_graph(NO2NO3, gen_name("nitrogen"), "COGs high corr to nitrogen")
@@ -176,40 +66,37 @@ make_graph(inorganic_ion, gen_name("inorganic_ion"), "inorganic ion COGs")
 all_dfs = rbind(iron, Fe2_iron, Fe3_iron, NO2NO3, PO4, oxygen, inorganic_ion)
 # all_dfs = all_dfs %>% mutate(substrate = fct_relevel(substrate, c("")))
 
-ggplot(all_dfs, aes(x=midpoint.date, y=substrate, color = event, group = substrate)) + # midpoint.date
-  geom_jitter(alpha = 0.3, height = 0.3) +
-    scale_x_reverse(limits = c(4000, 0),
-                    breaks = seq(0, 4000, by = 500)) +
+g1 = ggplot(all_dfs, aes(x=midpoint.date, y=substrate, color = event, group = substrate)) +
     scale_color_manual(values = c("dup" = "#06d6a0",
                                   "hgt" = "#ffd166",
                                   "los" = "#118ab2",
-                                  "spe" = "#ff66de")) +
-    labs(x = "Million years ago", y = "") +
-    # geom_hline(yintercept = 20.5) +
-    # geom_hline(yintercept = 19.5, color = "lightgray") +
-  annotate('rect', xmin=2500, xmax=2300, ymin=0, ymax=length(unique(all_dfs$substrate)) + 1, alpha=.3, fill='gray') +
-    theme(panel.background = element_blank(),
-          panel.grid.major = element_blank(), 
-          panel.grid.minor = element_blank(),
-          axis.line = element_line(colour = "black"))
+                                  "spe" = "#ff66de"))
+jitter_plot_shared(g1, ytop = length(unique(all_dfs$substrate)))
 
-ggsave(sprintf("%s-plots/all-substrate-jitter.png",clock_model), width = 10, height = 5)
+ggsave(sprintf("%s-plots/all-substrate-jitter.png", clock_model), width = 10, height = 5)
 ```
 
 ## making histograms for locations 
 ```{r}
+# can only choose left or right origin
+plot_node = "left"
+# plot_node = "right"
+
 loc_iron = get_events("sqrt_iron", "iron", location = TRUE)
 loc_NO2NO3 = get_events("log_NO2NO3", "Nitrogen", location = TRUE)
 loc_PO4 = get_events("log_PO4", "PO4", location = TRUE)
 loc_oxygen = get_events("Mean_Oxygen", "Oxygen", location = TRUE)
 loc_inorganic_ion = get_events("inorganic_ion", "inorganic_ion", location = TRUE)
 
-type="density"
-type="histogram"
+loc_dfs = rbind(loc_iron, loc_NO2NO3, loc_PO4, loc_oxygen, loc_inorganic_ion, get_events("Fe2+_text_search", "Fe2_textSearch", location = TRUE), get_events("Fe3+_text_search", "Fe3_textSearch", location = TRUE))
 
-gen_loc_name = function(key_word) return(sprintf("location-%s-%s-%s.png", clock_model, key_word, type))
+loc_dfs = loc_dfs[loc_dfs[, paste0(plot_node, ".origin")] %in% mixed_states, ]
+```
 
-make_graph(loc_iron, gen_loc_name("iron"), "COGs high corr to iron", location = TRUE)
+```{r}
+gen_loc_name = function(k) return(sprintf("internal-location-%snode-%s-plots/internal_%s_%s_%s.png", plot_node, clock_model, plot_node, k, type))
+
+make_graph(loc_iron, out_graph = gen_loc_name("iron"), title_text = "COGs high corr to iron", location = TRUE)
 make_graph(loc_NO2NO3, gen_loc_name("nitrogen"), "COGs high corr to NO2NO3", location = TRUE)
 make_graph(loc_PO4, gen_loc_name("phosphate"), "COGs high corr to phosphate", location = TRUE)
 make_graph(loc_oxygen, gen_loc_name("oxygen"), "COGs high corr to oxygen", location = TRUE)
@@ -218,19 +105,44 @@ make_graph(loc_inorganic_ion, gen_loc_name("inorganic_ion"), "inorganic ion COGs
 
 ## plotting the location where the events happened!!!!
 ```{r}
-all_location_dfs = rbind(loc_iron, loc_NO2NO3, loc_PO4, loc_oxygen, loc_inorganic_ion, get_events("Fe2+_text_search", "Fe2_textSearch", location = TRUE), get_events("Fe3+_text_search", "Fe3_textSearch", location = TRUE))
+g2 = ggplot(loc_dfs, aes_string(x = paste0(plot_node, ".date"), color = paste0(plot_node, ".origin"), y = "substrate", group = "substrate")) + scale_color_manual(values = mixed_color_scale)
 
-ggplot(all_location_dfs, aes(x=left.date, y=substrate, color = left.origin, group = substrate)) + # midpoint.date
-  geom_jitter(alpha = 0.5, height = 0.3) +
-    scale_x_reverse(limits = c(4000, 0),
-                    breaks = seq(0, 4000, by = 500)) +
-    scale_color_manual(values = mixed_color_scale) +
-    labs(x = "Million years ago", y = "") +
-  annotate('rect', xmin=2500, xmax=2300, ymin=0, ymax=length(unique(all_dfs$substrate)) + 1, alpha=.3, fill='gray') +
-    theme(panel.background = element_blank(),
-          panel.grid.major = element_blank(), 
-          panel.grid.minor = element_blank(),
-          axis.line = element_line(colour = "black"))
+jitter_plot_shared(g2, ytop = length(unique(all_location_dfs$substrate)))
 
-ggsave("all-substrate-location.png", width = 10, height = 5)
+if (remove_leaf_events) {
+  ggsave(sprintf("all-substrate-%s-removeLeaf.png", plot_node), width = 10, height = 5)
+} else {
+  ggsave(sprintf("all-substrate-%s-location.png", plot_node), width = 10, height = 5)
+}
+```
+
+## What if we spearate the COGs with positive and negative correlations to the substrates
+```{r}
+# can only choose left or right origin
+plot_node = "left"
+# plot_node = "right"
+loc_pos_oxygen = get_events("positive_correlation_oxygen", "positive_correlation_oxygen", location = TRUE)
+loc_neg_oxygen = get_events("negative_correlation_oxygen", "negative_correlation_oxygen", location = TRUE)
+loc_pos_NO2NO3 = get_events("positive_correlation_NO2NO3", "positive_correlation_NO2NO3", location = TRUE)
+loc_neg_NO2NO3 = get_events("negative_correlation_NO2NO3", "negative_correlation_NO2NO3", location = TRUE)
+loc_pos_iron = get_events("positive_correlation_iron", "positive_correlation_iron", location = TRUE)
+loc_neg_iron = get_events("negative_correlation_iron", "negative_correlation_iron", location = TRUE)
+loc_pos_phosphate = get_events("positive_correlation_phosphate", "positive_correlation_phosphate", location = TRUE)
+loc_neg_phosphate = get_events("negative_correlation_phosphate", "negative_correlation_phosphate", location = TRUE)
+# no correlation stuff for the inorganic ion
+
+gen_name3 = function(key_word) return(sprintf("posNeg-location-%s-plots/location-%s-%s.png", clock_model, key_word, type))
+
+if (remove_leaf_events) {
+  gen_name3 = function(key_word) return(sprintf("internal-posNeg-location-%s-plots/internal-location-%s-%s.png", clock_model, key_word, type))
+}
+
+make_graph(loc_pos_oxygen, gen_name3("oxygen-pos"), "COGs positive corr to oxygen", location = TRUE)
+make_graph(loc_neg_oxygen, gen_name3("oxygen-neg"), "COGs negative corr to oxygen", location = TRUE)
+make_graph(loc_pos_NO2NO3, gen_name3("NO2NO3-pos"), "COGs positive corr to NO2NO3", location = TRUE)
+make_graph(loc_neg_NO2NO3, gen_name3("NO2NO3-neg"), "COGs negative corr to NO2NO3", location = TRUE)
+make_graph(loc_pos_iron, gen_name3("iron-pos"), "COGs positive corr to iron", location = TRUE)
+make_graph(loc_neg_iron, gen_name3("iron-neg"), "COGs negative corr to iron", location = TRUE)
+make_graph(loc_pos_phosphate, gen_name3("phosphate-pos"), "COGs positive corr to phosphate", location = TRUE)
+make_graph(loc_neg_phosphate, gen_name3("phosphate-neg"), "COGs negative corr to phosphate", location = TRUE)
 ```
