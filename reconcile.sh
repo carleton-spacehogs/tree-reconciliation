@@ -40,6 +40,8 @@ Other options:
 
 -h --help : to display this message
 "
+
+exit_msg_errorCode "You have to gimme an option to work with. Need help???" 0
 }
 
 options=$(getopt -o c:gg:gt:s:a:gs:h --long COG:,gen_graph_only:,gene_tree:,clock_model:,alignment:,gene_sequences:,stop_before_reconciliation,stop_before_tree_building,overwrite,help -- "$@")
@@ -105,23 +107,11 @@ parseGeneName_and_declareFilenames() {
 	echo $gene_name
 }
 
-
-analysis() {
-	eval "$(conda shell.bash hook)"
-	conda init
-	conda activate $conda_env
-	inhouse_scripts_processing
-	# inhouse_scripts_processing must executed in Jimmy's conda base environment
-	# XML has some version changes, only the version in my base environment worked...
-
-	# currently, R is broken in my base environment
-	# conda activate $conda_R_env
-	# Rscript --vanilla scripts/plot-gene-events-histogram.R
-	# Rscript --vanilla scripts/plot-gene-events-histogram-topBottom.R
-	# Rscript --vanilla scripts/plot-gene-timeline.R
+exit_msg_errorCode () {
 	conda deactivate
+	echo $1
+	echo exit $2
 }
-
 
 reconcile_and_analysis() {
 	gene_tree=$1
@@ -133,11 +123,10 @@ reconcile_and_analysis() {
 	run_ecceTERA $chronogram $gene_tree
 
 	if [ $? -ne 0 ]; then
-		echo ecceTERA failed... Stop here
-		exit 1
+		exit_msg_errorCode "ecceTERA failed... Stop here" 1
 	fi
 
-	analysis $gene_name
+	analysis $gene_name # analysis is in scripts/utils.sh
 }
 
 
@@ -152,24 +141,21 @@ makeTree_and_reconcile() {
 	python3 scripts/keep_seq_geq_Xpercent.py $trimv1 $trimv2 80
 	rm $trimv1
 
-	validate_alignment $trimv2 $num_seq_min $alignment_len_min
+	validate_alignment $trimv2 $num_seq_min $alignment_len_min 0 # 0: exit when there is a problem
 
 	if [ "$stop_before_tree_building" = true ]; then
-		echo I see --stop_before_tree_building, so I stop
-		exit 0
+		exit_msg_errorCode "I see --stop_before_tree_building, so I stop" 0
 	fi
 
 	which iqtree
 	if [ $? -ne 0 ]; then
-		echo can not use iqtree. Do \"which iqtree\" and see the problem.
-		exit 1
+		exit_msg_errorCode "can not use iqtree. Do \"which iqtree\" and see the problem." 1
 	fi
 
 	iqtree -s $trimv2 --nmax 3000 -m MFP -bb 1000 -wbtl -ntmax 10 -nt AUTO -T $num_core --prefix $outfile_prefix -madd "C10,C20,C30,C40,C50,C60,EX2,EX3,EHO,UL2,UL3,EX_EHO,LG4M,LG4X,CF4,LG+C10,LG+C20,LG+C30,LG+C40,LG+C50,LG+C60" -mrate $rate_models "E,I,G,I+G,R" # List of 1. additional models 2. rate model for heterogeneity among sites
 
 	if [ "$stop_before_reconciliation" = true ]; then
-		echo I see --stop_before_reconciliation, so I stop
-		exit 0
+		exit_msg_errorCode "I see --stop_before_reconciliation, so I stop" 0
 	fi
 
 	reconcile_and_analysis $iqtree_ufboot
@@ -184,8 +170,7 @@ align_makeTree_and_reconcile() {
 	fi
 
 	if [ $? -ne 0 ]; then
-		echo alignment of $gene_seq_file not successful, stop here
-		exit 1
+		exit_msg_errorCode "alignment of $gene_seq_file not successful, stop here" 1
 	fi
 
 	makeTree_and_reconcile $pre_trim
@@ -197,8 +182,7 @@ extractSeq_align_makeTree_and_reconcile() {
 	# sanity check
 	echo $COG | grep COG
 	if [[ $? != 0 ]]; then
-		echo The COG number $COG must be in the format of "COGXXXX"
-		exit 1
+		exit_msg_errorCode "The COG number $COG must be in the format of \"COGXXXX\"" 1
 	fi
 
 	if test -f $iqtree_ufboot; then
@@ -210,9 +194,7 @@ extractSeq_align_makeTree_and_reconcile() {
 		echo $all_seq_fasta
 		python3 scripts/grep_seq_given_COG.py $COG
 		if [ $? -ne 0 ]; then
-			echo grabbing the sequence for $COG not successful, stop here
-			rm $gene_seq_file
-			exit 1
+			exit_msg_errorCode "grabbing the sequence for $COG not successful, stop here" 1
 		fi
 		align_makeTree_and_reconcile
 	fi
@@ -222,44 +204,47 @@ am_I_done() {
 	if [ "$overwrite" = true ]; then
 		echo I am over writing stuff
 	elif [ -f "$R_plot" ]; then
-		echo "$R_plot exists. I think I am done"
 		python3 scripts/summarize_reconciliation.py $gene_name 0 rewrite
-		exit 0
+		exit_msg_errorCode "$R_plot exists. I think I am done" 0
 	fi
+	
+	# enter work environment and start working!
+	eval "$(conda shell.bash hook)" > /dev/null
+	conda init > /dev/null
+	echo activating conda environment $conda_env
+	conda activate $conda_env
 }
 
+
 source scripts/declare_file_location.sh --clock_model $clock_model
-# gene specific variables declared in parseGeneName_and_declareFilenames
 validate_required_folders
 
 # if given both gene and species tree, just do the reconciliation
 if [ ! -z "$gen_graph_only" ]; then
 	source scripts/declare_file_location.sh --gene_name $gen_graph_only --clock_model $clock_model
 	analysis
-	exit $?
+	exit_msg_errorCode "Done" $?
 elif [ ! -z "$gene_tree" ]; then
 	parseGeneName_and_declareFilenames $gene_tree
 	am_I_done
 	reconcile_and_analysis $gene_tree
-	exit $?
+	exit_msg_errorCode "Done" $?
 elif [ ! -z "$alignment" ]; then
 	parseGeneName_and_declareFilenames $alignment
 	am_I_done
 	makeTree_and_reconcile $alignment
-	exit $?
+	exit_msg_errorCode "Done" $?
 elif [ ! -z "$gene_sequences" ]; then
 	parseGeneName_and_declareFilenames $gene_sequences
 	am_I_done
 	align_makeTree_and_reconcile
-	exit $?
+	exit_msg_errorCode "Done" $?
 elif [ ! -z "$COG" ]; then
 	source ./scripts/declare_file_location.sh --clock_model $clock_model --gene_name $COG
 	am_I_done
 	extractSeq_align_makeTree_and_reconcile $COG
-	exit $?
+	exit_msg_errorCode "Done" $?
 else
-	echo You have to gimme an option to work with. Need help???
-	echo
 	Help
 fi
 
