@@ -33,8 +33,9 @@ for afa in $(ls gene_alignments/COG*.afa); do
 				echo "Recording for $COG as an ecceTERA success"
 				scripts/summarize_reconciliation.py $COG 0
 			elif test -f $iqtree_ufboot; then
-				echo "Recording for $COG as an ecceTERA fail"
-				scripts/summarize_reconciliation.py $COG 1
+				# echo "Recording for $COG as an ecceTERA fail"
+				# scripts/summarize_reconciliation.py $COG 1
+				./reconcile.sh --gene_tree $iqtree_ufboot --clock_model $clock_model
 			else
 				validate_res=$(validate_alignment $trimv2 $num_seq_min $alignment_len_min 1)
 				echo $validate_res
