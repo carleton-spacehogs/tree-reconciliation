@@ -17,9 +17,9 @@ source("plot-substrate-utils.R")
 ## set important parameters!!!
 ```{r}
 clock_model = "ugam1"
-remove_leaf_events = TRUE
-plot_node = "midpoint"
-# plot_node = "left"
+remove_leaf_events = FALSE
+# plot_node = "midpoint"
+plot_node = "left"
 # plot_node = "right"
 
 # type="density"
@@ -117,6 +117,38 @@ if (remove_leaf_events) {
 ```
 
 ## What if we spearate the COGs with positive and negative correlations to the substrates
+
+First, the event type
+```{r}
+# can only choose left or right origin
+plot_node = "left"
+pos_oxygen = get_events("positive_correlation_oxygen", "positive_correlation_oxygen")
+neg_oxygen = get_events("negative_correlation_oxygen", "negative_correlation_oxygen")
+pos_NO2NO3 = get_events("positive_correlation_NO2NO3", "positive_correlation_NO2NO3")
+neg_NO2NO3 = get_events("negative_correlation_NO2NO3", "negative_correlation_NO2NO3")
+pos_iron = get_events("positive_correlation_iron", "positive_correlation_iron")
+neg_iron = get_events("negative_correlation_iron", "negative_correlation_iron")
+pos_phosphate = get_events("positive_correlation_phosphate", "positive_correlation_phosphate")
+neg_phosphate = get_events("negative_correlation_phosphate", "negative_correlation_phosphate")
+# no correlation stuff for the inorganic ion
+
+gen_name2 = function(key_word) return(sprintf("posNeg-%snode-%s-plots/location-%s-%s.png", plot_node, clock_model, key_word, type))
+
+if (remove_leaf_events) {
+  gen_name2 = function(key_word) return(sprintf("internal-posNeg-%snode-%s-plots/internal-location-%s-%s.png", plot_node, clock_model, key_word, type))
+}
+
+make_graph(pos_oxygen, gen_name2("oxygen-pos"), "COGs positive corr to oxygen")
+make_graph(neg_oxygen, gen_name2("oxygen-neg"), "COGs negative corr to oxygen")
+make_graph(pos_NO2NO3, gen_name2("NO2NO3-pos"), "COGs positive corr to NO2NO3")
+make_graph(neg_NO2NO3, gen_name2("NO2NO3-neg"), "COGs negative corr to NO2NO3")
+make_graph(pos_iron, gen_name2("iron-pos"), "COGs positive corr to iron")
+make_graph(neg_iron, gen_name2("iron-neg"), "COGs negative corr to iron")
+make_graph(pos_phosphate, gen_name2("phosphate-pos"), "COGs positive corr to phosphate")
+make_graph(neg_phosphate, gen_name2("phosphate-neg"), "COGs negative corr to phosphate")
+```
+
+Then, the event location
 ```{r}
 # can only choose left or right origin
 plot_node = "left"
@@ -131,10 +163,10 @@ loc_pos_phosphate = get_events("positive_correlation_phosphate", "positive_corre
 loc_neg_phosphate = get_events("negative_correlation_phosphate", "negative_correlation_phosphate", location = TRUE)
 # no correlation stuff for the inorganic ion
 
-gen_name3 = function(key_word) return(sprintf("posNeg-location-%s-plots/location-%s-%s.png", clock_model, key_word, type))
+gen_name3 = function(key_word) return(sprintf("posNeg-location-%snode-%s-plots/location-%s-%s.png", plot_node, clock_model, key_word, type))
 
 if (remove_leaf_events) {
-  gen_name3 = function(key_word) return(sprintf("internal-posNeg-location-%s-plots/internal-location-%s-%s.png", clock_model, key_word, type))
+  gen_name3 = function(key_word) return(sprintf("internal-posNeg-location-%snode-%s-plots/internal-location-%s-%s.png", plot_node, clock_model, key_word, type))
 }
 
 make_graph(loc_pos_oxygen, gen_name3("oxygen-pos"), "COGs positive corr to oxygen", location = TRUE)
