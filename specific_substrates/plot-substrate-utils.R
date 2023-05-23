@@ -106,6 +106,7 @@ get_events = function(feature, anno, location = FALSE) {
 
 make_graph = function(events, out_graph, title_text, location = FALSE) {
   num_COGs = length(unique(events$COG))
+  print(num_COGs)
   pt = sprintf("%s (n = %d)", title_text, num_COGs)
   gen_graph(events, plot_title = pt, location)
   ggsave(out_graph, width = 6, height = 5)
