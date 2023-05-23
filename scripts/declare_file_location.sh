@@ -29,16 +29,20 @@ num_core=10
 num_seq_min=20
 alignment_len_min=100
 
+# minimum 30% identity, maximum e-value of 10-5, minimum 70% subject and query alignment
+min_seq_identity=30
+min_percent_alignment=70
+
 gene_tree_method=iqtree
 COG_calling_method=diamond
 clock_model="ugam1" # default
 
 if [ "$clock_model_input" = "ugam1" ] || [ "$clock_model_input" = "cir1" ] || [ "$clock_model_input" = "ln3" ]; then
-	echo selecting the clock $clock_model_input
+	# echo selecting the clock $clock_model_input
 	clock_model=$clock_model_input
 else
-  echo "\"$clock_model_input\" is not a valid clock model. Options are ugam1, cir1, or ln3"
-  echo "defaulting to $clock_model"
+	echo "\"$clock_model_input\" is not a valid clock model. Options are ugam1, cir1, or ln3"
+	echo "defaulting to $clock_model"
 fi
 
 chronogram="${clock_model}_ChenParamsEarth_sample.chronogram"
@@ -97,4 +101,4 @@ if [ ! -z $gene_name ]; then
 	R_plot="R-plots/histogram/${gene_name}-${clock_model}-eventsHistogram.png"
 fi
 
-export gene_name gene_seq_file all_seq_fasta diamond_COG_match deepNOG_COG_match COG_ref pre_trim trimv2 sym_event_f sym_event_date_f iqtree_log COG_summary clock_model chronogram e_output e_analysis COG_calling_method gene_tree_method ecceTERA_sym # for the python/R scripts
+export min_seq_identity min_percent_alignment gene_name gene_seq_file all_seq_fasta diamond_COG_match deepNOG_COG_match COG_ref pre_trim trimv2 sym_event_f sym_event_date_f iqtree_log COG_summary clock_model chronogram e_output e_analysis COG_calling_method gene_tree_method ecceTERA_sym # for the python/R scripts

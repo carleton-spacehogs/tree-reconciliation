@@ -12,8 +12,10 @@ confidence_level = 0.7
 deepnog_COG_call_file = os.environ['deepNOG_COG_match']
 diamond_blast_output = os.environ['diamond_COG_match']
 COG_ref = os.environ['COG_ref']
+min_seq_identity = os.environ['min_seq_identity']
+min_percent_alignment = os.environ['min_percent_alignment']
 
-requirements = "minimum 30% identity, maximum e-value of 10-5, minimum 70% subject and query alignment"
+requirements = f"minimum {min_seq_identity}% identity, maximum e-value of 10-5, minimum {min_percent_alignment}% subject and query alignment"
 
 '''
 return: a list of ORF names of a specific COG
@@ -128,9 +130,9 @@ def filter_diamond_output(BLAST_output):
 			print("The number of columns in diamond blast output is not what I expected")
 			exit(1)
 		qseqid,sseqid,pident,length,mismatch,gapopen,qstart,qend,sstart,send,evalue,bitscore = r
-		query_percent_alignment = (int(qend) - int(qstart))/int(length)
-		target_percent_alignment = (int(send) - int(sstart))/int(length)
-		if float(pident) > 30 and query_percent_alignment > 0.3 and target_percent_alignment > 0.3:
+		query_percent_alignment = (int(qend) - int(qstart))/int(length) * 100
+		target_percent_alignment = (int(send) - int(sstart))/int(length) * 100
+		if float(pident) > min_seq_identity and query_percent_alignment > min_percent_alignment and target_percent_alignment > min_percent_alignment:
 			if qseqid not in ORF_seen:
 				ORF_seen[qseqid] = r
 			else:
