@@ -1,6 +1,10 @@
-mixed_states = c("marine_deep", "marine_deep.marine_shallow", "marine_deep.terrestrial", "marine_shallow", "marine_shallow.terrestrial", "terrestrial")
-mixed_colors = c("blue","steel blue","yellow","light blue","orange","red")
+mixed_states = rev(c("marine_deep", "marine_deep.marine_shallow", "marine_deep.terrestrial", "marine_shallow", "marine_shallow.terrestrial", "terrestrial"))
+mixed_colors = rev(c("blue","steel blue","yellow","light blue","orange","red"))
 mixed_color_scale = setNames(mixed_colors, mixed_states)
+
+event_states = c("dup", "spe", "hgt", "los")
+event_colors = c("#06d6a0", "#ff66de","#ffd166","#118ab2")
+event_color_scale = setNames(event_colors, event_states)
 
 remove_leaf_events = FALSE
 
@@ -48,30 +52,39 @@ merge_events = function(COGs, location = FALSE) {
 }
 
 gen_graph = function(events, plot_title = "merged events", location = FALSE){
-  top = gen_g_helper(filter(events, event %in% c("dup", "spe")), location = FALSE) + 
-    scale_fill_manual(values = c("dup" = "#06d6a0", "spe" = "#ff66de"))
-  bottom = gen_g_helper(filter(events, event %in% c("hgt", "los"))) + 
-    scale_y_continuous(trans = "reverse") + 
-    scale_fill_manual( values = c("hgt" = "#ffd166", "los" = "#118ab2"))
+  top_df = filter(events, event %in% event_states[1:2])
+  low_df = filter(events, event %in% event_states[3:4])
   
   if (location) {
     sel_row1 = events[, paste0(plot_node, ".origin")] %in% mixed_states[1:3]
     sel_row2 = events[, paste0(plot_node, ".origin")] %in% mixed_states[4:6]
-    top = gen_g_helper(events[sel_row1, ], location = TRUE) +
-      scale_fill_manual(values = mixed_color_scale[1:3])
-    bottom = gen_g_helper(events[sel_row2, ], location = TRUE) + 
-      scale_y_continuous(trans = "reverse") + 
-      scale_fill_manual( values = mixed_color_scale[4:6])
+    top_df = events[sel_row1, ]
+    low_df = events[sel_row2, ]
   }
   
-  top = top + labs(title=plot_title) +
+  top = gen_g_helper(top_df, location = location)
+  low = gen_g_helper(low_df, location = location)
+  max_y = max(c(ggplot_build(top)$data[[1]]$y), c(ggplot_build(low)$data[[1]]$y))
+  
+  if (location) {
+    top = top + scale_fill_manual(values = mixed_color_scale[1:3])
+    low = low + scale_fill_manual(values = mixed_color_scale[4:6])
+  } else {
+    top = top + scale_fill_manual(values = event_color_scale[1:2])
+    low = low + scale_fill_manual(values = event_color_scale[3:4])
+  }
+  
+  top = top + scale_y_continuous(limits = c(0, max_y)) +
+    labs(title=plot_title) +
     theme(plot.title = element_text(size = rel(1.75), hjust = 0.5),
           axis.line.x = element_blank(),
           axis.text.x = element_blank(),
           axis.title.x = element_blank(),
           axis.ticks.x = element_blank())
-    
-  plot_grid(top, bottom, ncol = 1, align = "v", axis = "tb")
+  
+  low = low + scale_y_continuous(limits = c(max_y, 0), trans = "reverse")
+  
+  plot_grid(top, low, ncol = 1, align = "v", axis = "tb")
 }
 
 gen_g_helper = function(data, location = FALSE) {
@@ -82,7 +95,7 @@ gen_g_helper = function(data, location = FALSE) {
   
   g = ggplot(data, aes_string(x=paste(plot_node, "date", sep = ".")))
   if (type == "histogram") {
-    g = g + geom_histogram(aes_string(y=("..density.."), fill=fill_with), binwidth = 50, boundary = 0)
+    g = g + geom_histogram(aes_string(y=("..count../nrow(data)"), fill=fill_with), binwidth = 50, boundary = 0)
   } else if (type == "density") {
     g = g + geom_density(alpha=.2, aes_string(fill=fill_with))
   } else {
