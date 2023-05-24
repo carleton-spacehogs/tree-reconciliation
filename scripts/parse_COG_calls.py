@@ -12,8 +12,8 @@ confidence_level = 0.7
 deepnog_COG_call_file = os.environ['deepNOG_COG_match']
 diamond_blast_output = os.environ['diamond_COG_match']
 COG_ref = os.environ['COG_ref']
-min_seq_identity = os.environ['min_seq_identity']
-min_percent_alignment = os.environ['min_percent_alignment']
+min_seq_identity = float(os.environ['min_seq_identity'])
+min_percent_alignment = float(os.environ['min_percent_alignment'])
 
 requirements = f"minimum {min_seq_identity}% identity, maximum e-value of 10-5, minimum {min_percent_alignment}% subject and query alignment"
 
@@ -107,7 +107,7 @@ And will write this 2D array into diamond-out-unique.tsv
 '''
 def filter_diamond_output(BLAST_output):
 	outfile = "tmp/diamond-out-unique.csv"
-
+	if not os.path.exists("tmp"): os.makedirs("tmp")
 	if os.path.isfile(outfile):
 		print(f"we already did the cleaning and writes to {outfile}. Just read the file and be done")
 		return list(csv.reader(open(outfile)))
