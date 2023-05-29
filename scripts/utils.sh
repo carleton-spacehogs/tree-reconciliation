@@ -14,6 +14,14 @@ validate_required_folders() {
 	fi
 }
 
+activate_conda_env() {
+	# enter work environment and start working!
+	eval "$(conda shell.bash hook)" > /dev/null
+	conda init > /dev/null
+	echo activating conda environment $conda_env
+	conda activate $conda_env
+}
+
 less_20_warning() {
 	num_seq_min=$1
 	num_seq_exist=$2
@@ -86,15 +94,11 @@ run_ecceTERA()
 
 analysis()
 {
-	if [ ! -f "$sym_event_f" ]; then
-		python3 scripts/getInternalNodeDates.py $chronogram $ecceTERA_sym
-		mv $old_internal_node_f $chronogram_internal_nodes_f
+	python3 scripts/getInternalNodeDates.py $chronogram $ecceTERA_sym
+	mv $old_internal_node_f $chronogram_internal_nodes_f
 
-		python3 scripts/py3-scripts/recPhyloXMLEventSummary.py -i $ecceTERA_sym -o $sym_event_f --include.transfer.departure
-		sed -r -i "s|\s+|\t|g" $sym_event_f
-	else
-		echo I already have $sym_event_f, not doing it again.
-	fi
+	python3 scripts/py3-scripts/recPhyloXMLEventSummary.py -i $ecceTERA_sym -o $sym_event_f --include.transfer.departure
+	sed -r -i "s|\s+|\t|g" $sym_event_f
 
 	python3 scripts/recphyloxmlinterpreterspecV2.py $sym_event_f $chronogram_internal_nodes_f $ecceTERA_sym
 

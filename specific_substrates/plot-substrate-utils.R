@@ -51,7 +51,7 @@ merge_events = function(COGs, location = FALSE) {
   return(merge_data)
 }
 
-gen_graph = function(events, plot_title = "merged events", location = FALSE){
+gen_graph = function(events, plot_title = "merged events", location = FALSE, binwidth = 50){
   top_df = filter(events, event %in% event_states[1:2])
   low_df = filter(events, event %in% event_states[3:4])
   
@@ -62,8 +62,8 @@ gen_graph = function(events, plot_title = "merged events", location = FALSE){
     low_df = events[sel_row2, ]
   }
   
-  top = gen_g_helper(top_df, location = location)
-  low = gen_g_helper(low_df, location = location)
+  top = gen_g_helper(top_df, location = location, binwidth = binwidth)
+  low = gen_g_helper(low_df, location = location, binwidth = binwidth)
   max_y = max(c(ggplot_build(top)$data[[1]]$y), c(ggplot_build(low)$data[[1]]$y))
   
   if (location) {
@@ -87,7 +87,7 @@ gen_graph = function(events, plot_title = "merged events", location = FALSE){
   plot_grid(top, low, ncol = 1, align = "v", axis = "tb")
 }
 
-gen_g_helper = function(data, location = FALSE) {
+gen_g_helper = function(data, location = FALSE, binwidth = 50) {
   fill_with = "event"
   if (location) {
     fill_with = paste(plot_node, "origin", sep = ".")
@@ -95,7 +95,7 @@ gen_g_helper = function(data, location = FALSE) {
   
   g = ggplot(data, aes_string(x=paste(plot_node, "date", sep = ".")))
   if (type == "histogram") {
-    g = g + geom_histogram(aes_string(y=("..count../nrow(data)"), fill=fill_with), binwidth = 50, boundary = 0)
+    g = g + geom_histogram(aes_string(y=("..count../nrow(data)"), fill=fill_with), binwidth = binwidth, boundary = 0)
   } else if (type == "density") {
     g = g + geom_density(alpha=.2, aes_string(fill=fill_with))
   } else {
