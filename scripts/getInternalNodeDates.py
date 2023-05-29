@@ -28,7 +28,7 @@ for line in xmlFile:
 if '<recGeneTree>' in xmlLines[lastLine - 1]:
 	xmlLines[lastLine - 1] = xmlLines[lastLine - 1].replace('<recGeneTree>', '')
 for i in range(firstLine - 1, lastLine):
-	print(xmlLines[i])
+	# print(xmlLines[i])
 	speciesXML.write(str(xmlLines[i]).encode('utf-8')) # .encode('utf-8')) to make str into bytes
 
 
