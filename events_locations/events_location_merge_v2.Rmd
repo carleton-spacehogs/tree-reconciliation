@@ -18,10 +18,12 @@ grep $'\tNode' $bayestraits_log | head -n -1 > bayesTraits_species_tree_mapping.
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path ))
+clock_model = "cir1" # "ugam1" # "cir1"
 source("./events_location_utils.R")
 
 init_env()
-BT_nodes_origin = read.csv("BT_node_origin.csv")
+# BT_nodes_origin = read.csv("BT_node_origin.csv")
+BT_nodes_origin = read.csv("T29_BT_node_origin.csv")
 
 bayesTraits_node_coding = get_BT_coding()
 leaves_origin = read.delim("leaves_origin.txt", col.names = c("species", "origin")) %>%
@@ -33,8 +35,6 @@ BT_nodes_origin_leaves = merge(BT_nodes_origin, bayesTraits_node_coding, by = "B
 
 ## Given an event date file, find the location (probability) in which the event happens.
 ```{r}
-event_date_file = paste0(src_ecceTERA, "/COG1348_symmetric.events_event_dates.txt")
-
 rest = c("left.date", "right.date", "midpoint.date")
 merged_cols = colnames(BT_nodes_origin_leaves)[1:(ncol(BT_nodes_origin_leaves)-1)]
 l_prob = paste0("left.", merged_cols)
@@ -57,7 +57,7 @@ merge_leaves = function(df) {
 
 get_event_location = function(event_date_file) {
   COG = str_match(event_date_file, "COG\\d+")[1]
-  outfile = sprintf("%s_location_merged_events/%s-events-location.tsv", clock_model, COG)
+  outfile = sprintf("T29_%s_location_merged_events/%s-events-location.tsv", clock_model, COG)
 
   tmp = read.delim(event_date_file, na.strings = "?") %>%
     filter(right.node != "UNSAMPLED")
@@ -88,8 +88,6 @@ get_event_location = function(event_date_file) {
   write.table(event_date_location, file=outfile, sep = "\t", row.names=FALSE)
   return(outfile)
 }
-
-outfile = get_event_location(event_date_file)
 ```
 
 ## Running through all the event files

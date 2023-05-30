@@ -1,5 +1,5 @@
-mixed_states = rev(c("marine_deep", "marine_deep.marine_shallow", "marine_deep.terrestrial", "marine_shallow", "marine_shallow.terrestrial", "terrestrial"))
-mixed_colors = rev(c("blue","steel blue","yellow","light blue","orange","red"))
+mixed_states = rev(c("not_sure", "marine_deep", "marine_deep.marine_shallow", "marine_deep.terrestrial", "marine_shallow", "marine_shallow.terrestrial", "terrestrial"))
+mixed_colors = rev(c("light grey", "blue","steel blue","yellow","light blue","orange","red"))
 mixed_color_scale = setNames(mixed_colors, mixed_states)
 
 event_states = c("dup", "spe", "hgt", "los")
@@ -27,6 +27,7 @@ read_events = function(file, location = FALSE) {
   if (location) {
     out_cols = c(out_cols, "left.origin", "right.origin")
   }
+  print(file)
   if (file.exists(file)) {
     all = read.delim(file, na.strings = "?")
     if (remove_leaf_events) {
@@ -44,7 +45,7 @@ read_events = function(file, location = FALSE) {
 merge_events = function(COGs, location = FALSE) {
   file_list = paste0(sprintf("../%s_ecceTERA_analysis/", clock_model), COGs, "_symmetric.events_event_dates.txt")
   if (location) {
-    file_list = paste0(sprintf("../events_locations/%s_location_merged_events/", clock_model), COGs, "-events-location.tsv")
+    file_list = paste0(sprintf("../events_locations/T29_%s_location_merged_events/", clock_model), COGs, "-events-location.tsv")
   }
   data_list = lapply(file_list, read_events, location = location)
   merge_data = bind_rows(data_list)
@@ -57,7 +58,7 @@ gen_graph = function(events, plot_title = "merged events", location = FALSE){
   
   if (location) {
     sel_row1 = events[, paste0(plot_node, ".origin")] %in% mixed_states[1:3]
-    sel_row2 = events[, paste0(plot_node, ".origin")] %in% mixed_states[4:6]
+    sel_row2 = events[, paste0(plot_node, ".origin")] %in% mixed_states[4:length(mixed_states)]
     top_df = events[sel_row1, ]
     low_df = events[sel_row2, ]
   }
@@ -68,7 +69,7 @@ gen_graph = function(events, plot_title = "merged events", location = FALSE){
   
   if (location) {
     top = top + scale_fill_manual(values = mixed_color_scale[1:3])
-    low = low + scale_fill_manual(values = mixed_color_scale[4:6])
+    low = low + scale_fill_manual(values = mixed_color_scale[4:length(mixed_states)])
   } else {
     top = top + scale_fill_manual(values = event_color_scale[1:2])
     low = low + scale_fill_manual(values = event_color_scale[3:4])

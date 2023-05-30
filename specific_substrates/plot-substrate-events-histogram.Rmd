@@ -17,14 +17,12 @@ source("plot-substrate-utils.R")
 ## set important parameters!!!
 ```{r}
 clock_model = "ugam1"
-remove_leaf_events = TRUE
+remove_leaf_events = FALSE
 plot_node = "left"
 
 # type="density"
 type="histogram"
-```
 
-```{r}
 categories_COGs = read.csv("high-cor-COGs.txt", row.names=1, comment.char="#")
 COG_record = read.csv(sprintf("../COG_reconciliation_summary_%s.csv", clock_model))
 done_COGs = pull(COG_record, COG)
@@ -83,7 +81,7 @@ if (remove_leaf_events) {
 ```{r}
 # can only choose left or right origin
 
-for (plot_node in c("left", "right")) {
+# for (plot_node in c("left", "right")) {
 loc_iron = get_events("sqrt_iron", "iron", location = TRUE)
 loc_NO2NO3 = get_events("log_NO2NO3", "Nitrogen", location = TRUE)
 loc_PO4 = get_events("log_PO4", "PO4", location = TRUE)
@@ -94,11 +92,13 @@ loc_dfs = rbind(loc_iron, loc_NO2NO3, loc_PO4, loc_oxygen, loc_inorganic_ion, ge
 
 loc_dfs = loc_dfs[loc_dfs[, paste0(plot_node, ".origin")] %in% mixed_states, ]
 
-gen_loc_name = function(k) return(sprintf("%s-plots/location-%snode/%s_%s_%s.png", clock_model, plot_node, plot_node, k, type))
+# gen_loc_name = function(k) return(sprintf("%s-plots/location-%snode/%s_%s_%s.png", clock_model, plot_node, plot_node, k, type))
 
-if (remove_leaf_events) {
-  gen_loc_name = function(k) return(sprintf("%s-plots/internal-location-%snode/internal_%s_%s_%s.png", clock_model, plot_node, plot_node, k, type))
-}
+gen_loc_name = function(k) return(sprintf("T29-allEvents-cir1/%s_%s_%s.png", plot_node, k, type))
+
+# if (remove_leaf_events) {
+#   gen_loc_name = function(k) return(sprintf("%s-plots/internal-location-%snode/internal_%s_%s_%s.png", clock_model, plot_node, plot_node, k, type))
+# }
 
 # plotting the location where the events happened!!!!
 
@@ -110,14 +110,20 @@ make_graph(loc_inorganic_ion, gen_loc_name("inorganic_ion"), "inorganic ion COGs
 
 g2 = ggplot(loc_dfs, aes_string(x = paste0(plot_node, ".date"), color = paste0(plot_node, ".origin"), y = "substrate", group = "substrate")) + scale_color_manual(values = mixed_color_scale)
 
-jitter_plot_shared(g2, ytop = length(unique(all_location_dfs$substrate)))
+jitter_plot_shared(g2, ytop = length(unique(loc_dfs$substrate)))
 
+# if (remove_leaf_events) {
+#   ggsave(sprintf("%s-plots/all-substrate/internal-location-%snode.png", clock_model, plot_node), width = 10, height = 5)
+# } else {
+#   ggsave(sprintf("%s-plots/all-substrate/location-%snode.png", clock_model, plot_node), width = 10, height = 5)
+# }
+# }
 if (remove_leaf_events) {
-  ggsave(sprintf("%s-plots/all-substrate/internal-location-%snode.png", clock_model, plot_node), width = 10, height = 5)
+  ggsave(sprintf("T29-allEvents-cir1/internal-location-%snode.png", plot_node), width = 10, height = 5)
 } else {
-  ggsave(sprintf("%s-plots/all-substrate/location-%snode.png", clock_model, plot_node), width = 10, height = 5)
+  ggsave(sprintf("T29-allEvents-cir1/location-%snode.png", plot_node), width = 10, height = 5)
 }
-}
+# }
 ```
 
 ## What if we spearate the COGs with positive and negative correlations to the substrates
