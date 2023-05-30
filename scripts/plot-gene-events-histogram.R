@@ -10,14 +10,13 @@ out_file = sprintf("R-plots/histogram/%s-%s-eventsHistogram.png", COG, clock_mod
 data = read.delim(sym_event_f, na.strings="?")
 
 ggplot(data, aes(x=midpoint.date)) +
-	geom_histogram(aes(y=after_stat(density), fill=event), binwidth = 250, boundary = 0) + 
+	geom_histogram(aes(y=after_stat(count)/nrow(data), fill=event), binwidth = 250, boundary = 0) + 
 	xlim(4000,0) + 
 	labs(x="Million years ago", 
 		y="Proportion of total events",
 		title=plot_title) + 
 	scale_fill_manual(
-		values = c("dup" = "#ffd166", "hgt" = "#06d6a0",
-               "los" = "#118ab2", "spe" = "#ff66de")) +
+		values = c("dup" = "#ffd166", "hgt" = "#06d6a0", "los" = "#118ab2", "spe" = "#ff66de")) +
 	theme(
 		legend.position = "bottom", 
 		plot.title = element_text(size = rel(1.75), hjust = 0.5),

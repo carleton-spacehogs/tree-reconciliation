@@ -207,14 +207,8 @@ am_I_done() {
 		python3 scripts/summarize_reconciliation.py $gene_name 0 rewrite
 		exit_msg_errorCode "$R_plot exists. I think I am done" 0
 	fi
-	
-	# enter work environment and start working!
-	eval "$(conda shell.bash hook)" > /dev/null
-	conda init > /dev/null
-	echo activating conda environment $conda_env
-	conda activate $conda_env
+	activate_conda_env
 }
-
 
 source scripts/declare_file_location.sh --clock_model $clock_model
 validate_required_folders
@@ -222,6 +216,7 @@ validate_required_folders
 # if given both gene and species tree, just do the reconciliation
 if [ ! -z "$gen_graph_only" ]; then
 	source scripts/declare_file_location.sh --gene_name $gen_graph_only --clock_model $clock_model
+	activate_conda_env
 	analysis
 	exit_msg_errorCode "Done" $?
 elif [ ! -z "$gene_tree" ]; then

@@ -69,10 +69,6 @@ done
 
 require_folders="$e_analysis $e_output gene_alignments iqtree_gene_trees tmp R-plots R-plots/histogram R-plots/timeline R-plots/topBottom_histogram"
 
-# conda_env_base="/Accounts/zhongj2/miniconda3"
-# conda_sh=${conda_env_base}/etc/profile.d/conda.sh
-# conda_R_env=${conda_env_base}/envs/anvio-dev
-
 if [ ! -z $gene_name ]; then
 	# echo declaring default filenames for : $gene_name
 	gene_seq_file=tmp/$gene_name.faa
@@ -101,4 +97,4 @@ if [ ! -z $gene_name ]; then
 	R_plot="R-plots/histogram/${gene_name}-${clock_model}-eventsHistogram.png"
 fi
 
-export min_seq_identity min_percent_alignment gene_name gene_seq_file all_seq_fasta diamond_COG_match deepNOG_COG_match COG_ref pre_trim trimv2 sym_event_f sym_event_date_f iqtree_log COG_summary clock_model chronogram e_output e_analysis COG_calling_method gene_tree_method ecceTERA_sym # for the python/R scripts
+export min_seq_identity min_percent_alignment gene_name conda_env gene_seq_file all_seq_fasta diamond_COG_match deepNOG_COG_match COG_ref pre_trim trimv2 sym_event_f sym_event_date_f iqtree_log COG_summary clock_model chronogram e_output e_analysis COG_calling_method gene_tree_method ecceTERA_sym # for the python/R scripts
