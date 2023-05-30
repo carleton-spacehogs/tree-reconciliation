@@ -1,7 +1,6 @@
 state_vec_short = c("B", "C", "D")
 state_vec_long = c("marine_deep","marine_shallow","terrestrial")
 state_map2 = c("B" = "1,0,0", "C" = "0,1,0", "D" = "0,0,1")
-clock_model = "ugam1"
 src_ecceTERA = sprintf("../%s_ecceTERA_analysis", clock_model)
 
 state_map = c("A" = "host_associated", "B" = "marine_deep", "C" = "marine_shallow", "D" = "terrestrial", "E" = "ungrouped")
