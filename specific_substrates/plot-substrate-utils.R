@@ -27,7 +27,7 @@ read_events = function(file, location = FALSE) {
   if (location) {
     out_cols = c(out_cols, "left.origin", "right.origin")
   }
-  print(file)
+  # print(file)
   if (file.exists(file)) {
     all = read.delim(file, na.strings = "?")
     if (remove_leaf_events) {

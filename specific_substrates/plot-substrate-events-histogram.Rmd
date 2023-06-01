@@ -18,7 +18,6 @@ source("plot-substrate-utils.R")
 ```{r}
 clock_model = "ugam1"
 remove_leaf_events = FALSE
-plot_node = "left"
 
 # type="density"
 type="histogram"
@@ -37,8 +36,10 @@ Left.date gives a large spike around 1500 million years ago. Looks like bioinfor
 Midpoint.date: move duplication, horizontal gene transfer, and gene lost events to the right, but speciation events stays the same place. Resulting in the unique shape we see -- the speciation events are more dated back!
 
 ```{r}
+for (clock_model in c("ugam1", "cir1", "ln3")){
+for (remove_leaf_events in c(TRUE, FALSE)){
 for (plot_node in c("left", "midpoint", "right")) {
-iron = get_events("sqrt_iron", "iron")
+iron = get_events("sqrt_iron", "iron", location = FALSE)
 Fe2_iron = get_events("Fe2+_text_search", "Fe2_textSearch")
 Fe3_iron = get_events("Fe3+_text_search", "Fe3_textSearch")
 
@@ -62,7 +63,7 @@ make_graph(PO4, gen_name("phosphate"), "COGs high corr to phosphate")
 make_graph(oxygen, gen_name("oxygen"), "COGs high corr to oxygen")
 make_graph(inorganic_ion, gen_name("inorganic_ion"), "inorganic ion COGs")
 
-g1 = ggplot(loc_dfs, aes_string(x = paste0(plot_node, ".date"), color = "event", y = "substrate", group = "substrate")) + scale_color_manual(values = event_color_scale)
+g1 = ggplot(all_dfs, aes_string(x = paste0(plot_node, ".date"), color = "event", y = "substrate", group = "substrate")) + scale_color_manual(values = event_color_scale)
 
 jitter_plot_shared(g1, ytop = length(unique(all_dfs$substrate)))
 
@@ -71,7 +72,7 @@ if (remove_leaf_events) {
 } else {
   ggsave(sprintf("%s-plots/all-substrate/event-%snode.png", clock_model, plot_node), width = 10, height = 5)
 }
-}
+}}}
 ```
 
 ## making histograms for locations
@@ -80,8 +81,9 @@ if (remove_leaf_events) {
 
 ```{r}
 # can only choose left or right origin
-
-# for (plot_node in c("left", "right")) {
+for (clock_model in c("ugam1", "cir1", "ln3")){
+for (plot_node in c("left", "right")) {
+for (remove_leaf_events in c(TRUE, FALSE)){
 loc_iron = get_events("sqrt_iron", "iron", location = TRUE)
 loc_NO2NO3 = get_events("log_NO2NO3", "Nitrogen", location = TRUE)
 loc_PO4 = get_events("log_PO4", "PO4", location = TRUE)
@@ -92,13 +94,9 @@ loc_dfs = rbind(loc_iron, loc_NO2NO3, loc_PO4, loc_oxygen, loc_inorganic_ion, ge
 
 loc_dfs = loc_dfs[loc_dfs[, paste0(plot_node, ".origin")] %in% mixed_states, ]
 
-# gen_loc_name = function(k) return(sprintf("%s-plots/location-%snode/%s_%s_%s.png", clock_model, plot_node, plot_node, k, type))
+gen_loc_name = function(k) return(sprintf("%s-plots/location-%snode/%s_%s_%s.png", clock_model, plot_node, plot_node, k, type))
 
-gen_loc_name = function(k) return(sprintf("T29-allEvents-cir1/%s_%s_%s.png", plot_node, k, type))
-
-# if (remove_leaf_events) {
-#   gen_loc_name = function(k) return(sprintf("%s-plots/internal-location-%snode/internal_%s_%s_%s.png", clock_model, plot_node, plot_node, k, type))
-# }
+if (remove_leaf_events) { gen_loc_name = function(k) return(sprintf("%s-plots/internal-location-%snode/internal_%s_%s_%s.png", clock_model, plot_node, plot_node, k, type)) }
 
 # plotting the location where the events happened!!!!
 
@@ -112,18 +110,9 @@ g2 = ggplot(loc_dfs, aes_string(x = paste0(plot_node, ".date"), color = paste0(p
 
 jitter_plot_shared(g2, ytop = length(unique(loc_dfs$substrate)))
 
-# if (remove_leaf_events) {
-#   ggsave(sprintf("%s-plots/all-substrate/internal-location-%snode.png", clock_model, plot_node), width = 10, height = 5)
-# } else {
-#   ggsave(sprintf("%s-plots/all-substrate/location-%snode.png", clock_model, plot_node), width = 10, height = 5)
-# }
-# }
-if (remove_leaf_events) {
-  ggsave(sprintf("T29-allEvents-cir1/internal-location-%snode.png", plot_node), width = 10, height = 5)
-} else {
-  ggsave(sprintf("T29-allEvents-cir1/location-%snode.png", plot_node), width = 10, height = 5)
-}
-# }
+if (remove_leaf_events) { ggsave(sprintf("%s-plots/all-substrate/internal-location-%snode.png", clock_model, plot_node), width = 10, height = 5)
+ } else { ggsave(sprintf("%s-plots/all-substrate/location-%snode.png", clock_model, plot_node), width = 10, height = 5)}
+}}}
 ```
 
 ## What if we spearate the COGs with positive and negative correlations to the substrates
@@ -131,7 +120,10 @@ if (remove_leaf_events) {
 First, the event type
 ```{r}
 # can only choose left or right origin
-plot_node = "left"
+for (clock_model in c("ugam1", "cir1", "ln3")){
+for (plot_node in c("left", "right")) {
+for (remove_leaf_events in c(TRUE, FALSE)){
+
 pos_oxygen = get_events("positive_correlation_oxygen", "positive_correlation_oxygen")
 neg_oxygen = get_events("negative_correlation_oxygen", "negative_correlation_oxygen")
 pos_NO2NO3 = get_events("positive_correlation_NO2NO3", "positive_correlation_NO2NO3")
@@ -156,13 +148,17 @@ make_graph(pos_iron, gen_name2("iron-pos"), "COGs positive corr to iron")
 make_graph(neg_iron, gen_name2("iron-neg"), "COGs negative corr to iron")
 make_graph(pos_phosphate, gen_name2("phosphate-pos"), "COGs positive corr to phosphate")
 make_graph(neg_phosphate, gen_name2("phosphate-neg"), "COGs negative corr to phosphate")
+
+}}}
 ```
 
 Then, the event location
 ```{r}
 # can only choose left or right origin
-plot_node = "left"
-# plot_node = "right"
+for (clock_model in c("ugam1", "cir1", "ln3")){
+for (plot_node in c("left", "right")) {
+for (remove_leaf_events in c(TRUE, FALSE)){
+
 loc_pos_oxygen = get_events("positive_correlation_oxygen", "positive_correlation_oxygen", location = TRUE)
 loc_neg_oxygen = get_events("negative_correlation_oxygen", "negative_correlation_oxygen", location = TRUE)
 loc_pos_NO2NO3 = get_events("positive_correlation_NO2NO3", "positive_correlation_NO2NO3", location = TRUE)
@@ -187,4 +183,5 @@ make_graph(loc_pos_iron, gen_name3("iron-pos"), "COGs positive corr to iron", lo
 make_graph(loc_neg_iron, gen_name3("iron-neg"), "COGs negative corr to iron", location = TRUE)
 make_graph(loc_pos_phosphate, gen_name3("phosphate-pos"), "COGs positive corr to phosphate", location = TRUE)
 make_graph(loc_neg_phosphate, gen_name3("phosphate-neg"), "COGs negative corr to phosphate", location = TRUE)
+}}}
 ```
