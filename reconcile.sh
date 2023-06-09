@@ -10,7 +10,7 @@ Help()
 	echo "Jimmy's effort to automate tree conciliation with ecceTERA
 working under Professor Rika Anderson in Carleton College, MN. Started March 2023
 
-choose only one of the entry point to start this program
+choose only one of the entry points to start this program
 
 --COG [COG_number]
 	e.g.: $(pwd)/reconcile.sh --COG COG0035
