@@ -1,4 +1,6 @@
 #!/bin/bash
+# Written by Jimmy under Prof Rika Anderson at Carleton College during 2023 spring
+
 source ./scripts/utils.sh
 
 Help()
