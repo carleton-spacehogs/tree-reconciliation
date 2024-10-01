@@ -1,0 +1,176 @@
+---
+title: "KL-Divergence"
+author: "Tony Ni"
+date: "2023-11-09"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(cowplot)
+library(dplyr)
+library(stringr)
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path ))
+source("plot-substrate-utils.R")
+
+
+trial_identifiers <- c("0.3", "0.6", "0.8999999999999999", "1.2", "1.5", "1.7999999999999998", 
+                       "2.1", "2.4", "2.6999999999999997", "3.0", "3.3", "3.5999999999999996", 
+                       "3.9", "4.2", "4.5", "4.8", "5.0", "5.3", "5.675", "6.14375", "6.7296875", 
+                       "7.462109375", "8.37763671875", "9.522045898437502", "10.95255737304688", 
+                       "12.7406967163086", "14.97587089538575", "17.76983861923219", "21.262298274040237", 
+                       "25.627872842550296", "31.08484105318787", "37.906051316484835", "46.43256414560604", 
+                       "57.09070518200754", "70.41338147750942", "87.06672684688677")
+
+
+for(trial_id in trial_identifiers) {
+
+trial <- paste0("_OKL-", trial_id)
+
+clock_model = "ugam1"
+remove_leaf_events = FALSE
+
+# type="density"
+type="histogram"
+
+
+
+categories_COGs = read.csv("all-cor-COGs.txt", row.names=1, comment.char="#")
+COG_record = read.csv(sprintf("../COG_reconciliation_summary_%s.csv", clock_model))
+done_COGs = pull(COG_record, COG)
+good_COGs = filter(COG_record, exit_status == "everything_successful") %>% pull(COG)
+
+
+
+
+
+
+for (clock_model in c("ugam1")) {
+  for (plot_node in c("right")) {
+    for (remove_leaf_events in c(TRUE)) {
+      for (correlation in c("all")) {
+        for (event_type in list(c("hgt", "dup", "spe","los"))) {
+          loc_iron = get_events("sqrt_iron", "iron", location = TRUE, event_type)
+          loc_NO2NO3 = get_events("log_NO2NO3", "Nitrogen", location = TRUE, event_type)
+          loc_PO4 = get_events("log_PO4", "PO4", location = TRUE, event_type)
+          loc_oxygen = get_events("Mean_Oxygen", "Oxygen", location = TRUE, event_type)
+          loc_inorganic_ion = get_events("inorganic_ion", "inorganic_ion", location = TRUE, event_type)
+          Fe2_iron = get_events("Fe2+_text_search", "Fe2_textSearch",location = TRUE, event_type)
+          Fe3_iron = get_events("Fe3+_text_search", "Fe3_textSearch",location = TRUE, event_type)
+          Sodium_Transport = get_events("Sodium_Transport", "Sodium_Transport",location = TRUE, event_type)
+          Osmolytes = get_events("Osmolytes", "Osmolytes",location = TRUE, event_type)
+
+          
+          loc_dfs = rbind(loc_iron, loc_NO2NO3, loc_PO4, loc_oxygen, loc_inorganic_ion, Fe2_iron, Fe3_iron, Sodium_Transport)
+          
+          
+          loc_dfs = loc_dfs[loc_dfs[, paste0(plot_node, ".origin")] %in% mixed_states, ]
+          
+          #assign the df to a dynamically generated variable
+          dfname = paste0("df", trial_id)
+          assign(dfname, loc_dfs, envir = .GlobalEnv)
+          }
+        }
+      }
+    }
+  }
+}
+
+```
+
+```{r}
+library(philentropy)
+
+normalize <- function(vec) {
+  vec / sum(vec)
+}
+
+calculate_kl_divergence <- function(df1, df2, num_bins) {
+  combined_range <- range(c(df1, df2), na.rm = TRUE)
+  breaks <- seq(combined_range[1], combined_range[2], length.out = num_bins + 1)
+  
+  df1_hist <- hist(df1, breaks = breaks, plot = FALSE)
+  df2_hist <- hist(df2, breaks = breaks, plot = FALSE)
+  
+  len_diff <- length(df1_hist$counts) - length(df2_hist$counts)
+  if (len_diff > 0) {
+    df2_hist$counts <- c(df2_hist$counts, rep(0, len_diff))
+  } else if (len_diff < 0) {
+    df1_hist$counts <- c(df1_hist$counts, rep(0, -len_diff))
+  }
+  
+  df1_probs <- normalize(df1_hist$counts)
+  df2_probs <- normalize(df2_hist$counts)
+  
+  combined_matrix <- rbind(df1_probs, df2_probs)
+  KL(combined_matrix)
+}
+
+calculate_kld_matrix <- function(data_frames, trial_identifiers, substrate, event, origins, num_bins) {
+  kld_matrix <- matrix(0, nrow = length(data_frames), ncol = length(data_frames))
+  colnames(kld_matrix) <- rownames(kld_matrix) <- trial_identifiers
+  
+  for (i in 1:(length(data_frames) - 1)) {
+    for (j in (i + 1):length(data_frames)) {
+      pairwise_kld <- c()
+      for (origin in origins) {
+        df1_sub <- subset(data_frames[[i]], substrate == substrate & event == event & right.origin == origin)
+        df2_sub <- subset(data_frames[[j]], substrate == substrate & event == event & right.origin == origin)
+        kld <- calculate_kl_divergence(df1_sub$right.date, df2_sub$right.date, num_bins)
+        pairwise_kld <- c(pairwise_kld, kld)
+      }
+      hierarchical_kld <- mean(pairwise_kld, na.rm = TRUE)
+      kld_matrix[i, j] <- hierarchical_kld
+      kld_matrix[j, i] <- hierarchical_kld
+    }
+  }
+  kld_matrix
+}
+
+data_frames <- list()
+for(trial_id in trial_identifiers) {
+  dfname <- paste0("df", trial_id)
+  data_frames[[length(data_frames) + 1]] <- get(dfname)
+}
+
+
+substrate <- c("iron","Nitrogen","PO4","Oxygen","inorganic_ion","Sodium_Transport")
+event <- c("hgt", "dup", "spe","los")
+origins <- c("terrestrial", "marine_shallow", "marine_deep")
+num_bins <- 10
+
+kld_matrix <- calculate_kld_matrix(data_frames, trial_identifiers, substrate, event, origins, num_bins)
+
+rownames(kld_matrix) <- substr(rownames(kld_matrix), 1, 5)
+colnames(kld_matrix) <- substr(colnames(kld_matrix), 1, 5)
+
+
+
+png(filename = "heatmap_allnodes.png", width = 2000, height = 2000, res = 300)
+heatmap(kld_matrix)
+
+
+dev.off()
+library(gplots)
+heatmap.2(kld_matrix, 
+          dendrogram = "none",
+          Rowv = FALSE, 
+          Colv = FALSE, 
+          trace = "none", 
+          cexCol = 0.7, 
+          cexRow = 0.7)
+
+
+
+file_path <- "kld_matrix.csv"
+write.csv(kld_matrix, file_path, row.names = TRUE)
+
+
+
+```
