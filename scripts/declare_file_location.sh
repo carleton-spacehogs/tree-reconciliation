@@ -26,7 +26,7 @@ done
 
 # echo declaring the hard-coded variables.
 num_core=10
-num_seq_min=20
+num_seq_min=15
 alignment_len_min=100
 
 # minimum 30% identity, maximum e-value of 10-5, minimum 70% subject and query alignment

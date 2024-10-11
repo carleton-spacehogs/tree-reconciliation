@@ -32,7 +32,7 @@ while true; do
 	esac
 done
 
-dispatch_example="./reconcile.sh --clock_model ugam1 --flags \" --COGs\" --COG_list \"COG2046 COG2059\""
+dispatch_example="./reconcile_TN.sh --clock_model ugam1 --flags \" --COGs\" --COG_list \"COG2046 COG2059\""
 
 is_memory_ok() {
 	free_memory_lower_bound=$1
@@ -72,8 +72,16 @@ acknowledge_execute() {
 		input=$COG
 	fi
 
-	command="./reconcile.sh --clock_model $clockModel $flags $input"
+	command="./reconcile_corrected.sh --clock_model $clockModel $flags $input"
 	echo I am doing this command:
+	echo " "
+    echo "  _____  ____   _____           "
+    echo " / ____ / __ \ / ____|          "
+    echo "| |    | |  | | |  __           "
+    echo "| |    | |  | | | |_ |          "
+    echo "| |____| |__| | |__| |          "
+    echo " \_____ \____/ \_____|          "
+    echo "                                "
 		echo $command
 	eval $command # >> run_${COG}_job.log
 }
@@ -85,11 +93,16 @@ if [ -z $(echo $COG_list | sed 's/ //g') ]; then
 fi
 
 for COG in $COG_list; do
+	echo "curCOG is $COG"
 	if [ "$CM" = "all" ] && [[ "$flags" != *"--stop_before"* ]] ; then
 		echo You told me to run all clock models, so I am doing it:
 		acknowledge_execute $flags ugam1
 		acknowledge_execute $flags cir1 & # should just be doing ecceTERA
 		acknowledge_execute $flags ln3 & # so it we can do it concurrently
+	elif [ "$CM" = "ugam1 cir1" ] && [[ "$flags" != *"--stop_before"* ]] ; then
+		echo You told me to run ugam1 cir1, so I am doing it:
+		acknowledge_execute $flags ugam1
+		acknowledge_execute $flags cir1 & # should just be doing ecceTERA
 	else
 		acknowledge_execute $flags $CM
 	fi

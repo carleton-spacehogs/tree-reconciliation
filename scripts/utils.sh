@@ -16,6 +16,7 @@ validate_required_folders() {
 
 activate_conda_env() {
 	# enter work environment and start working!
+	conda_env=/workspace/data/Space_Hogs_shared_workspace/env_tree_reconciliation
 	eval "$(conda shell.bash hook)" > /dev/null
 	conda init > /dev/null
 	echo activating conda environment $conda_env
