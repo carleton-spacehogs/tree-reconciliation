@@ -259,4 +259,3 @@ elif [ ! -z "$COG" ]; then
 else
 	Help
 fi
-
