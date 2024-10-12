@@ -178,9 +178,9 @@ align_makeTree_and_reconcile() {
 		# Check if the number of genes is greater than 1000
 		if [ "$num_genes" -gt 1000 ]; then
 		echo doingsuper5
-			./muscle5.1 -super5 $gene_seq_file -output $pre_trim -threads 30
+			./muscle5.1 -super5 $gene_seq_file -output $pre_trim -threads 20
 		else
-			./muscle5.1 -align $gene_seq_file -output $pre_trim -threads 30
+			./muscle5.1 -align $gene_seq_file -output $pre_trim -threads 20
 		fi
 	fi
 	
