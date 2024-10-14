@@ -11,6 +11,7 @@ exiting
 	exit 1
 fi
 
+
 source scripts/declare_file_location.sh --clock_model $clock_model
 source scripts/utils.sh
 
