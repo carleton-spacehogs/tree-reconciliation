@@ -1,0 +1,10 @@
+#!/bin/bash
+# screen -dmS ln_line1 bash -c './dispatch-COGs.sh --flags "--COG" --COG_list "COG2863 COG1478 COG0710 COG3072 COG3131 COG3907 COG3316 COG1556 COG3403 COG1403 COG5587 COG2131" --clock_model "ln3"; exec bash'
+# screen -dmS ln_line2 bash -c './dispatch-COGs.sh --flags "--COG" --COG_list "COG0531 COG1035 COG3126 COG2849 COG1739 COG0394 COG1014 COG1045 COG2914 COG3472 COG3576 COG3564" --clock_model "ln3"; exec bash'
+# screen -dmS ln_line3 bash -c './dispatch-COGs.sh --flags "--COG" --COG_list "COG5352 COG0413 COG1781 COG0711 COG5305 COG1479 COG0705 COG3734 COG1666 COG2110 COG3137 COG3293" --clock_model "ln3"; exec bash'
+# screen -dmS ln_line4 bash -c './dispatch-COGs.sh --flags "--COG" --COG_list "COG1013 COG3608 COG1527 COG3789 COG2135 COG1828 COG3267 COG1274 COG3635 COG3391 COG3877 COG0342" --clock_model "ln3"; exec bash'
+# screen -dmS ln_line5 bash -c './dispatch-COGs.sh --flags "--COG" --COG_list "COG0341 COG1586 COG3273 COG3031 COG2810 COG1321 COG5360 COG1716 COG1155 COG0627 COG0110 COG3077" --clock_model "ln3"; exec bash'
+screen -dmS ln_line6 bash -c './dispatch-COGs.sh --flags "--COG" --COG_list "COG1145 COG1148 COG1269 COG0653 COG5482 COG1533 COG1246 COG4993 COG1773 COG4225 COG4627 COG2976" --clock_model "ln3"; exec bash'
+screen -dmS ln_line7 bash -c './dispatch-COGs.sh --flags "--COG" --COG_list "COG4585 COG3909 COG1135 COG1698 COG3659 COG2262 COG2150 COG2225 COG3614 COG5319 COG1139 COG3090" --clock_model "ln3"; exec bash'
+screen -dmS ln_line8 bash -c './dispatch-COGs.sh --flags "--COG" --COG_list "COG0703 COG5276 COG0460 COG3045 COG1272 COG4257 COG1702 COG5385 COG0243 COG0666 COG5427 COG0440" --clock_model "ln3"; exec bash'
+screen -dmS ln_line9 bash -c './dispatch-COGs.sh --flags "--COG" --COG_list "COG0690 COG0057 COG3707 COG3787 COG2019" --clock_model "ln3"; exec bash'
