@@ -109,9 +109,9 @@ analysis()
 		exit 1
 	fi
 
-	Rscript --vanilla scripts/plot-gene-events-histogram.R
-	Rscript --vanilla scripts/plot-gene-events-histogram-topBottom.R
-	Rscript --vanilla scripts/plot-gene-timeline.R
+	#Rscript --vanilla scripts/plot-gene-events-histogram.R
+	#Rscript --vanilla scripts/plot-gene-events-histogram-topBottom.R
+	#Rscript --vanilla scripts/plot-gene-timeline.R
 }
 
 

@@ -107,3 +107,5 @@ for COG in $COG_list; do
 		acknowledge_execute $flags $CM
 	fi
 done
+
+echo "done"
