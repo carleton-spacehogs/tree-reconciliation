@@ -97,8 +97,8 @@ for COG in $COG_list; do
 	if [ "$CM" = "all" ] && [[ "$flags" != *"--stop_before"* ]] ; then
 		echo You told me to run all clock models, so I am doing it:
 		acknowledge_execute $flags ugam1
-		acknowledge_execute $flags cir1 & # should just be doing ecceTERA
-		acknowledge_execute $flags ln3 & # so it we can do it concurrently
+		acknowledge_execute $flags cir1  # add &: should just be doing ecceTERA
+		acknowledge_execute $flags ln3  # so it we can do it concurrently
 	elif [ "$CM" = "ugam1 cir1" ] && [[ "$flags" != *"--stop_before"* ]] ; then
 		echo You told me to run ugam1 cir1, so I am doing it:
 		acknowledge_execute $flags ugam1
