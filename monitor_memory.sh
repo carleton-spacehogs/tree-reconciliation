@@ -12,7 +12,7 @@ check_memory() {
     echo "$timestamp - Memory Usage: $usage_percent%" >> "$LOG_FILE"
     
     if [ "$usage_percent" -gt 90 ]; then
-        echo "$timestamp - Memory usage exceeds 95%. Killing all screen sessions..." >> "$LOG_FILE"
+        echo "$timestamp - Killing all...... >> "$LOG_FILE"
         pkill screen
     fi
 }
